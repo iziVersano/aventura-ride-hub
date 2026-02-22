@@ -1,4 +1,5 @@
 import heroImg from "@/assets/hero.jfif";
+import heroMobileImg from "@/assets/hero-mobile.png";
 import vanImg from "@/assets/van.jfif";
 import carImg from "@/assets/car.png";
 import surfTaxiImg from "@/assets/surf-taxi.jfif";
@@ -106,11 +107,16 @@ const Index = () => {
       <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-end pb-24 md:pb-20 pt-16">
         <div className="absolute inset-0">
           <img
+            src={heroMobileImg}
+            alt="Josh's surf taxi on the beach with surfboards"
+            className="w-full h-full object-cover object-center md:hidden"
+          />
+          <img
             src={heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
-            className="w-full h-full object-cover object-right"
+            className="w-full h-full object-cover object-right hidden md:block"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-black/20 to-transparent md:from-black/30 md:via-black/15 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:bg-gradient-to-r md:from-black/30 md:via-black/15 md:to-transparent" />
         </div>
         <div className="relative z-10 container mx-auto px-5 md:px-4">
           <div className="max-w-xl">
