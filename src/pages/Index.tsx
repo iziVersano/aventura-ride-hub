@@ -18,8 +18,8 @@ import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 
-const WHATSAPP_NUMBER = "50370001234";
-const PHONE_NUMBER = "+503 7000-1234";
+const WHATSAPP_NUMBER = "50375362408";
+const PHONE_NUMBER = "+503 7536-2408";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
