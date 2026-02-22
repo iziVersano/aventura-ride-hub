@@ -32,7 +32,7 @@ const Index = () => {
             href={whatsappLink("Hi Josh! I'd like to book a ride.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
+            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
           >
             <MessageCircle className="w-4 h-4" />
             <span className="hidden sm:inline">WhatsApp</span>
@@ -68,7 +68,7 @@ const Index = () => {
                 href={whatsappLink("Hi Josh! I'd like to book a ride from the airport.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
               >
                 <MessageCircle className="w-5 h-5" />
                 Book via WhatsApp
@@ -247,12 +247,12 @@ const Index = () => {
       </section>
 
       {/* ===== BOOKING CTA ===== */}
-      <section id="book" className="py-20 bg-primary text-primary-foreground">
+      <section id="book" className="py-20 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading font-extrabold text-3xl md:text-4xl mb-4">
             Ready to Explore El Salvador?
           </h2>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto mb-10">
+          <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto mb-10">
             Book your ride in seconds. Just send a WhatsApp message or give a
             quick call — Josh will take care of the rest.
           </p>
@@ -261,14 +261,14 @@ const Index = () => {
               href={whatsappLink("Hi Josh! I'd like to book a ride.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:opacity-90 transition-opacity"
+              className="bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:opacity-90 transition-opacity"
             >
               <MessageCircle className="w-6 h-6" />
               Book via WhatsApp
             </a>
             <a
               href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-              className="bg-primary-foreground/10 border-2 border-primary-foreground/30 text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:bg-primary-foreground/20 transition-colors"
+              className="bg-secondary-foreground/10 border-2 border-secondary-foreground/30 text-secondary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:bg-secondary-foreground/20 transition-colors"
             >
               <Phone className="w-6 h-6" />
               {PHONE_NUMBER}
