@@ -21,7 +21,7 @@ const Index = () => {
       {/* ===== NAVBAR ===== */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b-2 border-primary shadow-lg">
         <div className="container mx-auto flex items-center justify-between px-4 h-24">
-          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-20 w-auto" />
+          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-20 w-auto rounded-full" />
           <div className="hidden md:flex items-center gap-1 font-heading">
             {[
               { href: "#services", label: "Services" },
