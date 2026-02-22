@@ -86,19 +86,19 @@ const Index = () => {
           <img
             src={heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
-            className="w-full h-full object-cover object-right"
+            className="w-full h-full object-cover object-right md:object-right object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
         </div>
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-xl">
-            <p className="text-secondary font-heading font-bold text-sm tracking-widest uppercase mb-3">
+            <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-3">
               El Salvador's Trusted Surf Taxi
             </p>
-            <h1 className="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-tight mb-4">
+            <h1 className="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-primary leading-tight mb-4">
               Your Ride to Paradise Starts Here
             </h1>
-            <p className="text-primary-foreground/80 text-base md:text-lg mb-6 leading-relaxed">
+            <p className="text-secondary-foreground/90 text-base md:text-lg mb-6 leading-relaxed">
               Safe, reliable airport transfers, surf spot tours, and custom day
               trips across El Salvador — driven by a local who knows every wave
               and hidden gem.
@@ -108,14 +108,14 @@ const Index = () => {
                 href={whatsappLink("Hi Josh! I'd like to book a ride from the airport.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+                className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 Book via WhatsApp
               </a>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-                className="bg-primary-foreground/10 border border-primary-foreground/30 text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-base flex items-center justify-center gap-2 hover:bg-primary-foreground/20 transition-colors"
+                className="bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors shadow-lg border-2 border-primary"
               >
                 <Phone className="w-5 h-5" />
                 Call Now
