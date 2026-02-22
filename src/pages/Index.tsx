@@ -109,7 +109,8 @@ const Index = () => {
           <img
             src={heroMobileImg}
             alt="Josh's surf taxi on the beach with surfboards"
-            className="w-full h-full object-contain object-bottom md:hidden bg-black/20"
+            className="w-full h-full object-cover object-center md:hidden"
+            style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
           />
           <img
             src={heroImg}
