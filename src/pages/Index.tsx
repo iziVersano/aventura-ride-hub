@@ -244,7 +244,7 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <img
-                src={vanImg}
+                src={carImg}
                 alt="Josh's Toyota taxi van"
                 className="rounded-2xl shadow-lg w-full object-cover aspect-video"
               />
@@ -295,7 +295,7 @@ const Index = () => {
               { src: promoImg, alt: "Scenic El Salvador landscape" },
               { src: viewpointImg, alt: "Josh at scenic viewpoint with El Salvador flag" },
               { src: surfTaxiImg, alt: "Surf taxi adventure" },
-              { src: vanImg, alt: "Comfortable transport vehicle" },
+              { src: carImg, alt: "Josh's surf taxi on the beach with surfboards" },
             ].map((img, i) => (
               <div
                 key={i}
