@@ -6,8 +6,10 @@ import galleryPoolImg from "@/assets/gallery-pool.jfif";
 import promoImg from "@/assets/promo.jfif";
 import viewpointImg from "@/assets/viewpoint.png";
 import logoImg from "@/assets/logo.png";
-import { Phone, MessageCircle, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users } from "lucide-react";
+import { Phone, MessageCircle, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
 
 const WHATSAPP_NUMBER = "50370001234";
 const PHONE_NUMBER = "+503 7000-1234";
@@ -16,6 +18,16 @@ const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 const Index = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navLinks = [
+    { href: "#services", label: "Services" },
+    { href: "#why-us", label: "Why Us" },
+    { href: "#driver", label: "Meet Josh" },
+    { href: "#gallery", label: "Gallery" },
+    { href: "#book", label: "Book Now" },
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* ===== NAVBAR ===== */}
@@ -23,13 +35,7 @@ const Index = () => {
         <div className="container mx-auto flex items-center justify-between px-4 h-24">
           <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-20 w-auto rounded-full" />
           <div className="hidden md:flex items-center gap-1 font-heading">
-            {[
-              { href: "#services", label: "Services" },
-              { href: "#why-us", label: "Why Us" },
-              { href: "#driver", label: "Meet Josh" },
-              { href: "#gallery", label: "Gallery" },
-              { href: "#book", label: "Book Now" },
-            ].map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -39,15 +45,38 @@ const Index = () => {
               </a>
             ))}
           </div>
-          <a
-            href={whatsappLink("Hi Josh! I'd like to book a ride.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
-          >
-            <WhatsAppIcon className="w-4 h-4" />
-            <span className="hidden sm:inline">WhatsApp</span>
-          </a>
+          <div className="flex items-center gap-2">
+            <a
+              href={whatsappLink("Hi Josh! I'd like to book a ride.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
+              <span className="hidden sm:inline">WhatsApp</span>
+            </a>
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <button className="md:hidden p-2 rounded-lg text-secondary-foreground hover:bg-primary/20 transition-colors" aria-label="Open menu">
+                  <Menu className="w-6 h-6" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="bg-secondary border-primary/20 w-72">
+                <nav className="flex flex-col gap-2 mt-8 font-heading">
+                  {navLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-3 rounded-lg text-base font-bold text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 uppercase tracking-wider"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </nav>
 
