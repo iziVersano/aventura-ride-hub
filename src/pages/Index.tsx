@@ -1,5 +1,6 @@
 import heroImg from "@/assets/hero.jfif";
 import vanImg from "@/assets/van.jfif";
+import carImg from "@/assets/car.png";
 import surfTaxiImg from "@/assets/surf-taxi.jfif";
 import galleryBeachImg from "@/assets/gallery-beach.jfif";
 import galleryPoolImg from "@/assets/gallery-pool.jfif";
