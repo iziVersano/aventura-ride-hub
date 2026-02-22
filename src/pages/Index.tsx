@@ -6,6 +6,9 @@ import galleryPoolImg from "@/assets/gallery-pool.jfif";
 import promoImg from "@/assets/promo.jfif";
 import viewpointImg from "@/assets/viewpoint.png";
 import logoImg from "@/assets/logo.png";
+import serviceAirportImg from "@/assets/service-airport.jpg";
+import serviceSurfImg from "@/assets/service-surf.jpg";
+import serviceDaytripImg from "@/assets/service-daytrip.jpg";
 import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -196,27 +199,38 @@ const Index = () => {
                 icon: Car,
                 title: "Airport Transfers",
                 desc: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking included.",
+                img: serviceAirportImg,
               },
               {
                 icon: Compass,
                 title: "Surf Spot Tours",
                 desc: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.",
+                img: serviceSurfImg,
               },
               {
                 icon: Camera,
                 title: "Custom Day Trips",
                 desc: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.",
+                img: serviceDaytripImg,
               },
             ].map((service) => (
               <div
                 key={service.title}
-                className="bg-card rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow text-center"
+                className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-5">
-                  <service.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+                <img
+                  src={service.img}
+                  alt={service.title}
+                  className="w-full h-40 md:h-48 object-cover"
+                  loading="lazy"
+                />
+                <div className="p-5 md:p-6 text-center">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4">
+                    <service.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                  </div>
+                  <h3 className="font-heading font-bold text-lg md:text-xl mb-2">{service.title}</h3>
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{service.desc}</p>
                 </div>
-                <h3 className="font-heading font-bold text-lg md:text-xl mb-2 md:mb-3">{service.title}</h3>
-                <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{service.desc}</p>
               </div>
             ))}
           </div>
