@@ -20,7 +20,7 @@ const Index = () => {
       {/* ===== NAVBAR ===== */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="container mx-auto flex items-center justify-between py-4 px-4">
-          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-28 w-auto" />
+          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-40 w-auto" />
           <div className="hidden md:flex items-center gap-6 text-sm font-medium font-heading">
             <a href="#services" className="hover:text-primary transition-colors">Services</a>
             <a href="#why-us" className="hover:text-primary transition-colors">Why Us</a>
@@ -282,7 +282,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <img src={logoImg} alt="Josh's Surf Taxi" className="h-28 mb-4 brightness-0 invert" />
+              <img src={logoImg} alt="Josh's Surf Taxi" className="h-40 mb-4 brightness-0 invert" />
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Your trusted ride across El Salvador. Airport transfers, surf
                 tours, and custom adventures.
