@@ -11,27 +11,35 @@ import logoImg from "@/assets/logo.png";
 import serviceAirportImg from "@/assets/service-airport.jpg";
 import serviceSurfImg from "@/assets/service-surf.jpg";
 import serviceDaytripImg from "@/assets/service-daytrip.jpg";
-import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu } from "lucide-react";
+import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
+const EMAIL_ADDRESS = "ucoach15@gmail.com";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
+  const { toast } = useToast();
   const navLinks = [
     { href: "#driver", label: "Meet Josh" },
     { href: "#services", label: "Services" },
     { href: "#why-us", label: "Why Us" },
     { href: "#gallery", label: "Gallery" },
+    { href: "#contact", label: "Contact" },
     { href: "#book", label: "Book Now" },
   ];
 
@@ -351,6 +359,124 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ===== CONTACT FORM ===== */}
+      <section id="contact" className="py-14 md:py-20 bg-muted">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
+              Get in Touch
+            </p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Contact Me</h2>
+            <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-xl mx-auto">
+              Have a question or want to plan your trip? Drop me a message!
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const subject = encodeURIComponent(`Message from ${contactName}`);
+                const body = encodeURIComponent(`Name: ${contactName}\nEmail: ${contactEmail}\n\n${contactMessage}`);
+                window.open(`mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`, "_self");
+                toast({ title: "Opening your email client!", description: "Your message is ready to send." });
+                setContactName("");
+                setContactEmail("");
+                setContactMessage("");
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label htmlFor="contact-name" className="block text-sm font-heading font-bold mb-1.5">Name</label>
+                <Input
+                  id="contact-name"
+                  placeholder="Your name"
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                  required
+                  maxLength={100}
+                  className="bg-background"
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="block text-sm font-heading font-bold mb-1.5">Email</label>
+                <Input
+                  id="contact-email"
+                  type="email"
+                  placeholder="your@email.com"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  required
+                  maxLength={255}
+                  className="bg-background"
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-message" className="block text-sm font-heading font-bold mb-1.5">Message</label>
+                <Textarea
+                  id="contact-message"
+                  placeholder="Tell me about your trip plans..."
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
+                  required
+                  maxLength={1000}
+                  rows={4}
+                  className="bg-background"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors"
+              >
+                <Send className="w-4 h-4" />
+                Send Message
+              </button>
+            </form>
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-heading font-bold text-lg mb-3">Other Ways to Reach Me</h3>
+                <div className="space-y-3">
+                  <a
+                    href={`mailto:${EMAIL_ADDRESS}`}
+                    className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <div className="w-10 h-10 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="text-sm">{EMAIL_ADDRESS}</span>
+                  </a>
+                  <a
+                    href={whatsappLink("Hi Josh! I have a question.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <div className="w-10 h-10 bg-accent/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <WhatsAppIcon className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className="text-sm">{PHONE_NUMBER}</span>
+                  </a>
+                  <a
+                    href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+                    className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <div className="w-10 h-10 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="text-sm">{PHONE_NUMBER}</span>
+                  </a>
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <div className="w-10 h-10 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="text-sm">El Salvador, Central America</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== BOOKING CTA ===== */}
       <section id="book" className="py-14 md:py-20 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-5 md:px-4 text-center">
@@ -405,6 +531,13 @@ const Index = () => {
             <div>
               <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-primary">Contact</h4>
               <div className="space-y-3 text-sm">
+                <a
+                  href={`mailto:${EMAIL_ADDRESS}`}
+                  className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  {EMAIL_ADDRESS}
+                </a>
                 <a
                   href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
                   className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
