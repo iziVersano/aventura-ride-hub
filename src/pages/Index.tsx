@@ -102,7 +102,7 @@ const Index = () => {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center pt-16">
+      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-end pb-24 md:pb-20 pt-16">
         <div className="absolute inset-0">
           <img
             src={heroImg}
