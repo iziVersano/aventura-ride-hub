@@ -18,9 +18,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* ===== NAVBAR ===== */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between py-1 px-4">
-          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-16 w-auto" />
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border h-14">
+        <div className="container mx-auto flex items-center justify-between px-4 h-full">
+          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-full w-auto py-1" />
           <div className="hidden md:flex items-center gap-6 text-sm font-medium font-heading">
             <a href="#services" className="hover:text-primary transition-colors">Services</a>
             <a href="#why-us" className="hover:text-primary transition-colors">Why Us</a>
