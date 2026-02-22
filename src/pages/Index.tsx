@@ -104,13 +104,12 @@ const Index = () => {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-end pb-8 md:pb-20 pt-[60px] md:pt-16">
+      <section className="relative min-h-[55vh] md:min-h-[90vh] flex items-end pb-8 md:pb-20 pt-[60px] md:pt-16">
         <div className="absolute inset-0">
           <img
             src={heroMobileImg}
             alt="Josh's surf taxi on the beach with surfboards"
             className="w-full h-full object-cover object-center md:hidden"
-            style={{ objectFit: 'cover', objectPosition: 'center 60%' }}
           />
           <img
             src={heroImg}
