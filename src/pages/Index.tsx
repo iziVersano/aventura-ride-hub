@@ -109,7 +109,7 @@ const Index = () => {
             alt="Josh standing at scenic viewpoint with El Salvador flag"
             className="w-full h-full object-cover object-right"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/70 to-secondary/20 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-black/20 to-transparent md:from-black/30 md:via-black/15 md:to-transparent" />
         </div>
         <div className="relative z-10 container mx-auto px-5 md:px-4">
           <div className="max-w-xl">
