@@ -19,8 +19,8 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       {/* ===== NAVBAR ===== */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto flex items-center justify-between py-4 px-4">
-          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-40 w-auto" />
+        <div className="container mx-auto flex items-center justify-between py-1 px-4">
+          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-16 w-auto" />
           <div className="hidden md:flex items-center gap-6 text-sm font-medium font-heading">
             <a href="#services" className="hover:text-primary transition-colors">Services</a>
             <a href="#why-us" className="hover:text-primary transition-colors">Why Us</a>
@@ -55,10 +55,10 @@ const Index = () => {
             <p className="text-secondary font-heading font-bold text-sm tracking-widest uppercase mb-3">
               El Salvador's Trusted Surf Taxi
             </p>
-            <h1 className="font-heading font-extrabold text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6">
+            <h1 className="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-tight mb-4">
               Your Ride to Paradise Starts Here
             </h1>
-            <p className="text-primary-foreground/80 text-lg md:text-xl mb-8 leading-relaxed">
+            <p className="text-primary-foreground/80 text-base md:text-lg mb-6 leading-relaxed">
               Safe, reliable airport transfers, surf spot tours, and custom day
               trips across El Salvador — driven by a local who knows every wave
               and hidden gem.
