@@ -7,6 +7,7 @@ import promoImg from "@/assets/promo.jfif";
 import viewpointImg from "@/assets/viewpoint.png";
 import logoImg from "@/assets/logo.png";
 import { Phone, MessageCircle, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users } from "lucide-react";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 const WHATSAPP_NUMBER = "50370001234";
 const PHONE_NUMBER = "+503 7000-1234";
@@ -34,7 +35,7 @@ const Index = () => {
             rel="noopener noreferrer"
             className="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
           >
-            <MessageCircle className="w-4 h-4" />
+            <WhatsAppIcon className="w-4 h-4" />
             <span className="hidden sm:inline">WhatsApp</span>
           </a>
         </div>
@@ -70,7 +71,7 @@ const Index = () => {
                 rel="noopener noreferrer"
                 className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
               >
-                <MessageCircle className="w-5 h-5" />
+                <WhatsAppIcon className="w-5 h-5" />
                 Book via WhatsApp
               </a>
               <a
@@ -194,7 +195,7 @@ const Index = () => {
                   rel="noopener noreferrer"
                   className="bg-accent text-accent-foreground px-5 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4" />
                   Say Hello
                 </a>
               </div>
@@ -263,7 +264,7 @@ const Index = () => {
               rel="noopener noreferrer"
               className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:opacity-90 transition-opacity"
             >
-              <MessageCircle className="w-6 h-6" />
+              <WhatsAppIcon className="w-6 h-6" />
               Book via WhatsApp
             </a>
             <a
@@ -313,7 +314,7 @@ const Index = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4" />
                   WhatsApp
                 </a>
                 <div className="flex items-center gap-2 text-primary-foreground/70">
