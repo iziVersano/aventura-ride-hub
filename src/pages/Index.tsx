@@ -86,7 +86,7 @@ const Index = () => {
           <img
             src={heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
-            className="w-full h-full object-cover object-right md:object-right object-center"
+            className="w-full h-full object-cover object-right"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
         </div>
@@ -99,9 +99,7 @@ const Index = () => {
               Your Ride to Paradise Starts Here
             </h1>
             <p className="text-secondary-foreground/90 text-base md:text-lg mb-6 leading-relaxed">
-              Safe, reliable airport transfers, surf spot tours, and custom day
-              trips across El Salvador — driven by a local who knows every wave
-              and hidden gem.
+              Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
