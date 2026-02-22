@@ -19,15 +19,25 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* ===== NAVBAR ===== */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b-2 border-primary shadow-lg">
         <div className="container mx-auto flex items-center justify-between px-4 h-24">
           <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-20 w-auto" />
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium font-heading">
-            <a href="#services" className="hover:text-primary transition-colors">Services</a>
-            <a href="#why-us" className="hover:text-primary transition-colors">Why Us</a>
-            <a href="#driver" className="hover:text-primary transition-colors">Meet Josh</a>
-            <a href="#gallery" className="hover:text-primary transition-colors">Gallery</a>
-            <a href="#book" className="hover:text-primary transition-colors">Book Now</a>
+          <div className="hidden md:flex items-center gap-1 font-heading">
+            {[
+              { href: "#services", label: "Services" },
+              { href: "#why-us", label: "Why Us" },
+              { href: "#driver", label: "Meet Josh" },
+              { href: "#gallery", label: "Gallery" },
+              { href: "#book", label: "Book Now" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="px-4 py-2 rounded-lg text-sm font-bold text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 uppercase tracking-wider"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
           <a
             href={whatsappLink("Hi Josh! I'd like to book a ride.")}
