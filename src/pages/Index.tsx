@@ -123,87 +123,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ===== SERVICES ===== */}
-      <section id="services" className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">What We Offer</p>
-            <h2 className="font-heading font-extrabold text-3xl md:text-4xl">Our Services</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Car,
-                title: "Airport Transfers",
-                desc: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking included.",
-              },
-              {
-                icon: Compass,
-                title: "Surf Spot Tours",
-                desc: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.",
-              },
-              {
-                icon: Camera,
-                title: "Custom Day Trips",
-                desc: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.",
-              },
-            ].map((service) => (
-              <div
-                key={service.title}
-                className="bg-card rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow text-center"
-              >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                  <service.icon className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="font-heading font-bold text-xl mb-3">{service.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{service.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== WHY CHOOSE US ===== */}
-      <section id="why-us" className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <img
-                src={vanImg}
-                alt="Josh's Toyota taxi van"
-                className="rounded-2xl shadow-lg w-full object-cover aspect-[4/3]"
-              />
-            </div>
-            <div>
-              <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">
-                Why Choose Us
-              </p>
-              <h2 className="font-heading font-extrabold text-3xl md:text-4xl mb-8">
-                More Than Just a Ride
-              </h2>
-              <div className="space-y-6">
-                {[
-                  { icon: Shield, title: "Safe & Reliable", desc: "Licensed, insured, and always on time. Your safety is the top priority." },
-                  { icon: Star, title: "Local Expertise", desc: "Born and raised in El Salvador — Josh knows every shortcut, every wave, every hidden restaurant." },
-                  { icon: Clock, title: "24/7 Availability", desc: "Early flights? Late-night arrivals? No problem. Available around the clock." },
-                  { icon: Users, title: "Bilingual Service", desc: "Fluent in English and Spanish — no communication barriers." },
-                ].map((item) => (
-                  <div key={item.title} className="flex gap-4">
-                    <div className="w-11 h-11 bg-secondary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <item.icon className="w-5 h-5 text-secondary-foreground" />
-                    </div>
-                    <div>
-                      <h3 className="font-heading font-bold text-lg mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ===== MEET YOUR DRIVER ===== */}
       <section id="driver" className="py-20 bg-muted">
         <div className="container mx-auto px-4">
@@ -243,6 +162,87 @@ const Index = () => {
                 alt="Josh at scenic viewpoint with El Salvador flag"
                 className="rounded-2xl shadow-lg w-full object-cover aspect-square"
               />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== SERVICES ===== */}
+      <section id="services" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">What We Offer</p>
+            <h2 className="font-heading font-extrabold text-3xl md:text-4xl">Our Services</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Car,
+                title: "Airport Transfers",
+                desc: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking included.",
+              },
+              {
+                icon: Compass,
+                title: "Surf Spot Tours",
+                desc: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.",
+              },
+              {
+                icon: Camera,
+                title: "Custom Day Trips",
+                desc: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.",
+              },
+            ].map((service) => (
+              <div
+                key={service.title}
+                className="bg-card rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow text-center"
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
+                  <service.icon className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="font-heading font-bold text-xl mb-3">{service.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{service.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== WHY CHOOSE US ===== */}
+      <section id="why-us" className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <img
+                src={vanImg}
+                alt="Josh's Toyota taxi van"
+                className="rounded-2xl shadow-lg w-full object-cover aspect-[4/3]"
+              />
+            </div>
+            <div>
+              <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">
+                Why Choose Us
+              </p>
+              <h2 className="font-heading font-extrabold text-3xl md:text-4xl mb-8">
+                More Than Just a Ride
+              </h2>
+              <div className="space-y-6">
+                {[
+                  { icon: Shield, title: "Safe & Reliable", desc: "Licensed, insured, and always on time. Your safety is the top priority." },
+                  { icon: Star, title: "Local Expertise", desc: "Born and raised in El Salvador — Josh knows every shortcut, every wave, every hidden restaurant." },
+                  { icon: Clock, title: "24/7 Availability", desc: "Early flights? Late-night arrivals? No problem. Available around the clock." },
+                  { icon: Users, title: "Bilingual Service", desc: "Fluent in English and Spanish — no communication barriers." },
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4">
+                    <div className="w-11 h-11 bg-secondary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <item.icon className="w-5 h-5 text-secondary-foreground" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg mb-1">{item.title}</h3>
+                      <p className="text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
