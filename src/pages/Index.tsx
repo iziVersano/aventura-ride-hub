@@ -201,8 +201,8 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src={surfTaxiImg}
-                alt="Josh with his surf taxi"
+                src={viewpointImg}
+                alt="Josh at scenic viewpoint with El Salvador flag"
                 className="rounded-2xl shadow-lg w-full object-cover aspect-square"
               />
             </div>
