@@ -13,6 +13,8 @@ import serviceSurfImg from "@/assets/service-surf.jpg";
 import serviceDaytripImg from "@/assets/service-daytrip.jpg";
 import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import TikTokIcon from "@/components/TikTokIcon";
+import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 
@@ -39,6 +41,18 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b-2 border-primary shadow-lg">
         <div className="container mx-auto flex items-center justify-between px-4 h-[60px] md:h-20">
           <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-11 md:h-16 w-auto rounded-full" />
+          {/* Social icons - mobile & desktop */}
+          <div className="flex items-center gap-3">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-secondary-foreground/70 hover:text-primary transition-colors">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-secondary-foreground/70 hover:text-primary transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-secondary-foreground/70 hover:text-primary transition-colors">
+              <TikTokIcon className="w-5 h-5" />
+            </a>
+          </div>
           <div className="hidden md:flex items-center gap-1 font-heading">
             {navLinks.map((link) => (
               <a
