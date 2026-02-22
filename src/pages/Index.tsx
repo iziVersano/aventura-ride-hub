@@ -152,7 +152,7 @@ const Index = () => {
                   className="bg-accent text-accent-foreground px-5 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
                 >
                   <WhatsAppIcon className="w-4 h-4" />
-                  Say Hello
+                  Book Now
                 </a>
               </div>
             </div>
