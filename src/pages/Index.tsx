@@ -42,15 +42,15 @@ const Index = () => {
         <div className="container mx-auto flex items-center justify-between px-4 h-[60px] md:h-20">
           <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-11 md:h-16 w-auto rounded-full" />
           {/* Social icons - mobile & desktop */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-5">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-[#1877F2] hover:opacity-80 transition-opacity">
-              <Facebook className="w-5 h-5" />
+              <Facebook className="w-7 h-7" />
             </a>
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[#E4405F] hover:opacity-80 transition-opacity">
-              <Instagram className="w-5 h-5" />
+              <Instagram className="w-7 h-7" />
             </a>
             <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-80 transition-opacity">
-              <TikTokIcon className="w-5 h-5" />
+              <TikTokIcon className="w-7 h-7" />
             </a>
           </div>
           <div className="hidden md:flex items-center gap-1 font-heading">
