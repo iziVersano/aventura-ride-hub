@@ -6,7 +6,7 @@ import galleryPoolImg from "@/assets/gallery-pool.jfif";
 import promoImg from "@/assets/promo.jfif";
 import viewpointImg from "@/assets/viewpoint.png";
 import logoImg from "@/assets/logo.png";
-import { Phone, MessageCircle, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu } from "lucide-react";
+import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
@@ -21,19 +21,19 @@ const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
+    { href: "#driver", label: "Meet Josh" },
     { href: "#services", label: "Services" },
     { href: "#why-us", label: "Why Us" },
-    { href: "#driver", label: "Meet Josh" },
     { href: "#gallery", label: "Gallery" },
     { href: "#book", label: "Book Now" },
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground scroll-smooth">
       {/* ===== NAVBAR ===== */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b-2 border-primary shadow-lg">
-        <div className="container mx-auto flex items-center justify-between px-4 h-24">
-          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-20 w-auto rounded-full" />
+        <div className="container mx-auto flex items-center justify-between px-4 h-16 md:h-20">
+          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-12 md:h-16 w-auto rounded-full" />
           <div className="hidden md:flex items-center gap-1 font-heading">
             {navLinks.map((link) => (
               <a
@@ -50,7 +50,7 @@ const Index = () => {
               href={whatsappLink("Hi Josh! I'd like to book a ride.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
+              className="bg-accent text-accent-foreground px-3 py-2 rounded-lg text-sm font-semibold font-heading flex items-center gap-2 hover:opacity-90 transition-opacity"
             >
               <WhatsAppIcon className="w-4 h-4" />
               <span className="hidden sm:inline">WhatsApp</span>
@@ -62,7 +62,7 @@ const Index = () => {
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="bg-secondary border-primary/20 w-72">
-                <nav className="flex flex-col gap-2 mt-8 font-heading">
+                <nav className="flex flex-col gap-1 mt-8 font-heading">
                   {navLinks.map((link) => (
                     <a
                       key={link.href}
@@ -73,6 +73,24 @@ const Index = () => {
                       {link.label}
                     </a>
                   ))}
+                  <div className="border-t border-primary/20 mt-4 pt-4">
+                    <a
+                      href={whatsappLink("Hi Josh! I'd like to book a ride.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-accent text-accent-foreground px-4 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
+                    >
+                      <WhatsAppIcon className="w-4 h-4" />
+                      Book via WhatsApp
+                    </a>
+                    <a
+                      href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+                      className="mt-2 bg-primary text-primary-foreground px-4 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:bg-primary/80 transition-colors"
+                    >
+                      <Phone className="w-4 h-4" />
+                      {PHONE_NUMBER}
+                    </a>
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -81,39 +99,39 @@ const Index = () => {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[90vh] flex items-center pt-16">
+      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center pt-16">
         <div className="absolute inset-0">
           <img
             src={heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
             className="w-full h-full object-cover object-right"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/70 to-secondary/20 md:to-transparent" />
         </div>
-        <div className="relative z-10 container mx-auto px-4">
+        <div className="relative z-10 container mx-auto px-5 md:px-4">
           <div className="max-w-xl">
-            <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-3">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2 md:mb-3">
               El Salvador's Trusted Surf Taxi
             </p>
-            <h1 className="font-heading font-extrabold text-3xl md:text-4xl lg:text-5xl text-primary leading-tight mb-4">
+            <h1 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary leading-tight mb-3 md:mb-4">
               Your Ride to Paradise Starts Here
             </h1>
-            <p className="text-secondary-foreground/90 text-base md:text-lg mb-6 leading-relaxed">
+            <p className="text-secondary-foreground text-sm md:text-lg mb-5 md:mb-6 leading-relaxed max-w-md">
               Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href={whatsappLink("Hi Josh! I'd like to book a ride from the airport.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
+                className="bg-accent text-accent-foreground px-6 py-3.5 md:px-8 md:py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 Book via WhatsApp
               </a>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-                className="bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors shadow-lg border-2 border-primary"
+                className="bg-primary text-primary-foreground px-6 py-3.5 md:px-8 md:py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors shadow-lg"
               >
                 <Phone className="w-5 h-5" />
                 Call Now
@@ -124,43 +142,41 @@ const Index = () => {
       </section>
 
       {/* ===== MEET YOUR DRIVER ===== */}
-      <section id="driver" className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="driver" className="py-14 md:py-20 bg-muted">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="order-2 md:order-1">
-              <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">
+              <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
                 Meet Your Driver
               </p>
-              <h2 className="font-heading font-extrabold text-3xl md:text-4xl mb-6">
+              <h2 className="font-heading font-extrabold text-2xl md:text-4xl mb-4 md:mb-6">
                 Hey, I'm Josh! 🤙
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-3 md:mb-4">
                 I've been driving visitors around El Salvador for over 5 years.
                 Whether you're chasing waves at El Tunco, exploring Mayan ruins,
                 or just need a safe ride from the airport — I've got you covered.
               </p>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-5 md:mb-6">
                 My goal is simple: make your trip stress-free, safe, and
                 unforgettable. Every ride comes with local tips, good vibes, and
                 a clean, comfortable vehicle.
               </p>
-              <div className="flex items-center gap-4">
-                <a
-                  href={whatsappLink("Hey Josh! I'd love to learn more about your services.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-accent text-accent-foreground px-5 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
-                >
-                  <WhatsAppIcon className="w-4 h-4" />
-                  Book Now
-                </a>
-              </div>
+              <a
+                href={whatsappLink("Hey Josh! I'd love to book a ride.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+                Book Now
+              </a>
             </div>
             <div className="order-1 md:order-2">
               <img
                 src={viewpointImg}
                 alt="Josh at scenic viewpoint with El Salvador flag"
-                className="rounded-2xl shadow-lg w-full object-cover aspect-square"
+                className="rounded-2xl shadow-lg w-full object-cover aspect-[4/3] md:aspect-square"
               />
             </div>
           </div>
@@ -168,13 +184,13 @@ const Index = () => {
       </section>
 
       {/* ===== SERVICES ===== */}
-      <section id="services" className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">What We Offer</p>
-            <h2 className="font-heading font-extrabold text-3xl md:text-4xl">Our Services</h2>
+      <section id="services" className="py-14 md:py-20">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">What We Offer</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Our Services</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
             {[
               {
                 icon: Car,
@@ -194,13 +210,13 @@ const Index = () => {
             ].map((service) => (
               <div
                 key={service.title}
-                className="bg-card rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow text-center"
+                className="bg-card rounded-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow text-center"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                  <service.icon className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-5">
+                  <service.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
                 </div>
-                <h3 className="font-heading font-bold text-xl mb-3">{service.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{service.desc}</p>
+                <h3 className="font-heading font-bold text-lg md:text-xl mb-2 md:mb-3">{service.title}</h3>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{service.desc}</p>
               </div>
             ))}
           </div>
@@ -208,9 +224,9 @@ const Index = () => {
       </section>
 
       {/* ===== WHY CHOOSE US ===== */}
-      <section id="why-us" className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="why-us" className="py-14 md:py-20 bg-muted">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
               <img
                 src={vanImg}
@@ -219,13 +235,13 @@ const Index = () => {
               />
             </div>
             <div>
-              <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">
+              <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
                 Why Choose Us
               </p>
-              <h2 className="font-heading font-extrabold text-3xl md:text-4xl mb-8">
+              <h2 className="font-heading font-extrabold text-2xl md:text-4xl mb-6 md:mb-8">
                 More Than Just a Ride
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-5 md:space-y-6">
                 {[
                   { icon: Shield, title: "Safe & Reliable", desc: "Licensed, insured, and always on time. Your safety is the top priority." },
                   { icon: Star, title: "Local Expertise", desc: "Born and raised in El Salvador — Josh knows every shortcut, every wave, every hidden restaurant." },
@@ -233,12 +249,12 @@ const Index = () => {
                   { icon: Users, title: "Bilingual Service", desc: "Fluent in English and Spanish — no communication barriers." },
                 ].map((item) => (
                   <div key={item.title} className="flex gap-4">
-                    <div className="w-11 h-11 bg-secondary/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <item.icon className="w-5 h-5 text-secondary-foreground" />
+                    <div className="w-10 h-10 md:w-11 md:h-11 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <item.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-bold text-lg mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground">{item.desc}</p>
+                      <h3 className="font-heading font-bold text-base md:text-lg mb-1">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm md:text-base">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -249,15 +265,15 @@ const Index = () => {
       </section>
 
       {/* ===== GALLERY ===== */}
-      <section id="gallery" className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-2">
+      <section id="gallery" className="py-14 md:py-20">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
               El Salvador Awaits
             </p>
-            <h2 className="font-heading font-extrabold text-3xl md:text-4xl">Tourism Gallery</h2>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Tourism Gallery</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
             {[
               { src: galleryBeachImg, alt: "Beautiful beach in El Salvador" },
               { src: galleryPoolImg, alt: "Infinity pool with ocean view" },
@@ -269,7 +285,7 @@ const Index = () => {
               <div
                 key={i}
                 className={`overflow-hidden rounded-xl ${
-                  i === 0 ? "md:col-span-2 md:row-span-2" : ""
+                  i === 0 ? "col-span-2 row-span-2" : ""
                 }`}
               >
                 <img
@@ -285,30 +301,30 @@ const Index = () => {
       </section>
 
       {/* ===== BOOKING CTA ===== */}
-      <section id="book" className="py-20 bg-secondary text-secondary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading font-extrabold text-3xl md:text-4xl mb-4">
+      <section id="book" className="py-14 md:py-20 bg-secondary text-secondary-foreground">
+        <div className="container mx-auto px-5 md:px-4 text-center">
+          <h2 className="font-heading font-extrabold text-2xl md:text-4xl mb-3 md:mb-4">
             Ready to Explore El Salvador?
           </h2>
-          <p className="text-secondary-foreground/70 text-lg max-w-2xl mx-auto mb-10">
+          <p className="text-secondary-foreground/70 text-base md:text-lg max-w-2xl mx-auto mb-8 md:mb-10">
             Book your ride in seconds. Just send a WhatsApp message or give a
             quick call — Josh will take care of the rest.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
             <a
               href={whatsappLink("Hi Josh! I'd like to book a ride.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:opacity-90 transition-opacity"
+              className="w-full sm:w-auto bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-3 hover:opacity-90 transition-opacity"
             >
-              <WhatsAppIcon className="w-6 h-6" />
+              <WhatsAppIcon className="w-5 h-5 md:w-6 md:h-6" />
               Book via WhatsApp
             </a>
             <a
               href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-              className="bg-secondary-foreground/10 border-2 border-secondary-foreground/30 text-secondary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center gap-3 hover:bg-secondary-foreground/20 transition-colors"
+              className="w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-3 hover:bg-primary/80 transition-colors"
             >
-              <Phone className="w-6 h-6" />
+              <Phone className="w-5 h-5 md:w-6 md:h-6" />
               {PHONE_NUMBER}
             </a>
           </div>
@@ -316,18 +332,18 @@ const Index = () => {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="bg-foreground text-primary-foreground py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+      <footer className="bg-foreground text-primary-foreground py-10 md:py-12 pb-28 md:pb-12">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
-              <img src={logoImg} alt="Josh's Surf Taxi" className="h-10 mb-4 brightness-0 invert" />
+              <img src={logoImg} alt="Josh's Surf Taxi" className="h-10 mb-4 brightness-0 invert rounded-full" />
               <p className="text-primary-foreground/70 text-sm leading-relaxed">
                 Your trusted ride across El Salvador. Airport transfers, surf
                 tours, and custom adventures.
               </p>
             </div>
             <div>
-              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
+              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-primary">Quick Links</h4>
               <div className="space-y-2 text-sm">
                 <a href="#services" className="block text-primary-foreground/70 hover:text-primary-foreground transition-colors">Services</a>
                 <a href="#why-us" className="block text-primary-foreground/70 hover:text-primary-foreground transition-colors">Why Choose Us</a>
@@ -336,7 +352,7 @@ const Index = () => {
               </div>
             </div>
             <div>
-              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4">Contact</h4>
+              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-primary">Contact</h4>
               <div className="space-y-3 text-sm">
                 <a
                   href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
@@ -366,6 +382,26 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* ===== STICKY MOBILE CTA ===== */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-secondary/95 backdrop-blur-md border-t border-primary/30 px-4 py-3 flex gap-2">
+        <a
+          href={whatsappLink("Hi Josh! I'd like to book a ride.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 bg-accent text-accent-foreground py-3 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
+        >
+          <WhatsAppIcon className="w-4 h-4" />
+          WhatsApp
+        </a>
+        <a
+          href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+          className="flex-1 bg-primary text-primary-foreground py-3 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
+        >
+          <Phone className="w-4 h-4" />
+          Call Now
+        </a>
+      </div>
     </div>
   );
 };
