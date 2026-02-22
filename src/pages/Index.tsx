@@ -179,7 +179,7 @@ const Index = () => {
               <img
                 src={viewpointImg}
                 alt="Josh at scenic viewpoint with El Salvador flag"
-                className="rounded-2xl shadow-lg w-full object-cover aspect-[4/3] md:aspect-square"
+                className="rounded-2xl shadow-lg w-full object-cover aspect-video"
               />
             </div>
           </div>
@@ -221,7 +221,7 @@ const Index = () => {
                 <img
                   src={service.img}
                   alt={service.title}
-                  className="w-full h-40 md:h-48 object-cover"
+                  className="w-full aspect-video object-cover"
                   loading="lazy"
                 />
                 <div className="p-5 md:p-6 text-center">
@@ -245,7 +245,7 @@ const Index = () => {
               <img
                 src={vanImg}
                 alt="Josh's Toyota taxi van"
-                className="rounded-2xl shadow-lg w-full object-cover aspect-[4/3]"
+                className="rounded-2xl shadow-lg w-full object-cover aspect-video"
               />
             </div>
             <div>
@@ -305,7 +305,7 @@ const Index = () => {
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 aspect-square"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 aspect-[4/3]"
                   loading="lazy"
                 />
               </div>
