@@ -37,8 +37,8 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground scroll-smooth">
       {/* ===== NAVBAR ===== */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-secondary/95 backdrop-blur-md border-b-2 border-primary shadow-lg">
-        <div className="container mx-auto flex items-center justify-between px-4 h-16 md:h-20">
-          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-12 md:h-16 w-auto rounded-full" />
+        <div className="container mx-auto flex items-center justify-between px-4 h-[60px] md:h-20">
+          <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-11 md:h-16 w-auto rounded-full" />
           <div className="hidden md:flex items-center gap-1 font-heading">
             {navLinks.map((link) => (
               <a
@@ -104,44 +104,44 @@ const Index = () => {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-end pb-24 md:pb-20 pt-16">
+      <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-end pb-8 md:pb-20 pt-[60px] md:pt-16">
         <div className="absolute inset-0">
           <img
             src={heroMobileImg}
             alt="Josh's surf taxi on the beach with surfboards"
-            className="w-full h-full object-cover object-center md:hidden"
+            className="w-full h-full object-cover object-[center_40%] md:hidden"
           />
           <img
             src={heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
             className="w-full h-full object-cover object-right hidden md:block"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent md:bg-gradient-to-r md:from-black/30 md:via-black/15 md:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/40 md:bg-gradient-to-r md:from-black/30 md:via-black/15 md:to-transparent" />
         </div>
         <div className="relative z-10 container mx-auto px-5 md:px-4">
           <div className="max-w-xl">
-            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2 md:mb-3">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-3 md:mb-3 drop-shadow-sm">
               El Salvador's Trusted Surf Taxi
             </p>
-            <h1 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary leading-tight mb-3 md:mb-4">
+            <h1 className="font-heading font-extrabold text-[28px] leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl text-primary md:leading-tight mb-3 md:mb-4 max-w-[320px] sm:max-w-none drop-shadow-md">
               Your Ride to Paradise Starts Here
             </h1>
-            <p className="text-secondary-foreground text-sm md:text-lg mb-5 md:mb-6 leading-relaxed max-w-md">
+            <p className="text-white/90 text-sm md:text-lg mb-0 md:mb-6 leading-relaxed max-w-[300px] sm:max-w-md drop-shadow-sm">
               Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="hidden md:flex flex-col sm:flex-row gap-3">
               <a
                 href={whatsappLink("Hi Josh! I'd like to book a ride from the airport.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-accent text-accent-foreground px-6 py-3.5 md:px-8 md:py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
+                className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
               >
                 <WhatsAppIcon className="w-5 h-5" />
                 Book via WhatsApp
               </a>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-                className="bg-primary text-primary-foreground px-6 py-3.5 md:px-8 md:py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors shadow-lg"
+                className="bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors shadow-lg"
               >
                 <Phone className="w-5 h-5" />
                 Call Now
@@ -405,19 +405,19 @@ const Index = () => {
       </footer>
 
       {/* ===== STICKY MOBILE CTA ===== */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-secondary/95 backdrop-blur-md border-t border-primary/30 px-4 py-3 flex gap-2">
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-secondary/95 backdrop-blur-md border-t border-primary/30 px-4 py-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] flex gap-3">
         <a
           href={whatsappLink("Hi Josh! I'd like to book a ride.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 bg-accent text-accent-foreground py-3 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
+          className="flex-1 bg-accent text-accent-foreground py-2.5 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
         >
           <WhatsAppIcon className="w-4 h-4" />
           WhatsApp
         </a>
         <a
           href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-          className="flex-1 bg-primary text-primary-foreground py-3 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
+          className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
         >
           <Phone className="w-4 h-4" />
           Call Now
