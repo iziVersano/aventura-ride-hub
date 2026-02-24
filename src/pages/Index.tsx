@@ -633,60 +633,88 @@ const Index = () => {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="bg-foreground text-primary-foreground py-10 md:py-12 pb-28 md:pb-12">
-        <div className="container mx-auto px-5 md:px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-              <img src={logoImg} alt="Josh's Surf Taxi" className="h-10 mb-4 brightness-0 invert rounded-full" />
-              <p className="text-primary-foreground/70 text-sm leading-relaxed">
-                Your trusted ride across El Salvador. Airport transfers, surf
-                tours, and custom adventures.
+      <footer className="bg-secondary text-secondary-foreground pb-28 md:pb-0">
+        {/* Top accent bar */}
+        <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+
+        <div className="container mx-auto px-5 md:px-4 py-12 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+            {/* Brand column */}
+            <div className="md:col-span-5">
+              <div className="flex items-center gap-3 mb-5">
+                <img src={logoImg} alt="Josh's Surf Taxi" className="h-12 w-12 rounded-full" />
+                <span className="font-heading font-extrabold text-xl text-primary">Josh's Surf Taxi</span>
+              </div>
+              <p className="text-secondary-foreground/70 text-sm leading-relaxed max-w-sm mb-6">
+                Your trusted ride across El Salvador. Airport transfers, surf tours, and custom adventures — driven by a local who knows every hidden gem.
               </p>
-            </div>
-            <div>
-              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-primary">Quick Links</h4>
-              <div className="space-y-2 text-sm">
-                <a href="#services" className="block text-primary-foreground/70 hover:text-primary-foreground transition-colors">Services</a>
-                <a href="#why-us" className="block text-primary-foreground/70 hover:text-primary-foreground transition-colors">Why Choose Us</a>
-                <a href="#driver" className="block text-primary-foreground/70 hover:text-primary-foreground transition-colors">Meet Josh</a>
-                <a href="#gallery" className="block text-primary-foreground/70 hover:text-primary-foreground transition-colors">Gallery</a>
+              {/* Social icons */}
+              <div className="flex items-center gap-4">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
+                  <Facebook className="w-4 h-4" />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
+                  <TikTokIcon className="w-4 h-4" />
+                </a>
+                <a href={whatsappLink("Hi Josh!")} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all">
+                  <WhatsAppIcon className="w-4 h-4" />
+                </a>
               </div>
             </div>
-            <div>
-              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-4 text-primary">Contact</h4>
-              <div className="space-y-3 text-sm">
+
+            {/* Quick Links */}
+            <div className="md:col-span-3">
+              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-5 text-primary">Explore</h4>
+              <nav className="flex flex-col gap-3 text-sm">
+                {navLinks.map((link) => (
+                  <a key={link.href} href={link.href} className="text-secondary-foreground/70 hover:text-primary transition-colors hover:translate-x-1 transform duration-200">
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Contact */}
+            <div className="md:col-span-4">
+              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-5 text-primary">Get in Touch</h4>
+              <div className="space-y-4 text-sm">
                 <a
                   href={`mailto:${EMAIL_ADDRESS}`}
-                  className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                  className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors group"
                 >
-                  <Mail className="w-4 h-4" />
+                  <span className="w-9 h-9 rounded-lg bg-secondary-foreground/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all shrink-0">
+                    <Mail className="w-4 h-4" />
+                  </span>
                   {EMAIL_ADDRESS}
                 </a>
                 <a
                   href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
-                  className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                  className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors group"
                 >
-                  <Phone className="w-4 h-4" />
+                  <span className="w-9 h-9 rounded-lg bg-secondary-foreground/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all shrink-0">
+                    <Phone className="w-4 h-4" />
+                  </span>
                   {PHONE_NUMBER}
                 </a>
-                <a
-                  href={whatsappLink("Hi Josh!")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                >
-                  <WhatsAppIcon className="w-4 h-4" />
-                  WhatsApp
-                </a>
-                <div className="flex items-center gap-2 text-primary-foreground/70">
-                  <MapPin className="w-4 h-4" />
+                <div className="flex items-center gap-3 text-secondary-foreground/70">
+                  <span className="w-9 h-9 rounded-lg bg-secondary-foreground/10 flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4" />
+                  </span>
                   El Salvador, Central America
                 </div>
               </div>
             </div>
           </div>
-          <div className="border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/50">
-            © {new Date().getFullYear()} Josh's Surf Taxi. All rights reserved.
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-secondary-foreground/10">
+          <div className="container mx-auto px-5 md:px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-secondary-foreground/50">
+            <span>© {new Date().getFullYear()} Josh's Surf Taxi. All rights reserved.</span>
+            <span>Made with 🤙 in El Salvador</span>
           </div>
         </div>
       </footer>
