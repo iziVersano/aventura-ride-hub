@@ -323,6 +323,58 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ===== CLIENT REVIEWS ===== */}
+      <section className="py-14 md:py-20">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
+              Testimonials
+            </p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">What Our Clients Say</h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sarah M.",
+                location: "California, USA",
+                text: "Josh made our entire trip to El Salvador stress-free! He picked us up from the airport, took us surfing, and even recommended the best local restaurants. Highly recommend!",
+                stars: 5,
+              },
+              {
+                name: "Carlos R.",
+                location: "Toronto, Canada",
+                text: "Best taxi service in El Salvador, hands down. Josh is punctual, friendly, and knows every hidden gem in the country. We felt safe the entire time.",
+                stars: 5,
+              },
+              {
+                name: "Emily & Jake",
+                location: "London, UK",
+                text: "We booked Josh for a full day trip and it was the highlight of our vacation. His local knowledge is incredible and his van is super comfortable. 10/10!",
+                stars: 5,
+              },
+            ].map((review) => (
+              <div
+                key={review.name}
+                className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
+              >
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: review.stars }).map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-primary fill-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground text-sm md:text-base mb-6 flex-1 italic">
+                  "{review.text}"
+                </p>
+                <div>
+                  <p className="font-heading font-bold text-sm md:text-base">{review.name}</p>
+                  <p className="text-muted-foreground text-xs md:text-sm">{review.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== GALLERY ===== */}
       <section id="gallery" className="py-14 md:py-20">
         <div className="container mx-auto px-5 md:px-4">
