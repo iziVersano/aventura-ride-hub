@@ -11,6 +11,9 @@ import logoImg from "@/assets/logo.png";
 import serviceAirportImg from "@/assets/service-airport.jpg";
 import serviceSurfImg from "@/assets/service-surf.jpg";
 import serviceDaytripImg from "@/assets/service-daytrip.jpg";
+import reviewSarahImg from "@/assets/review-sarah.png";
+import reviewCarlosImg from "@/assets/review-carlos.png";
+import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
 import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
@@ -339,18 +342,21 @@ const Index = () => {
                 location: "California, USA",
                 text: "Josh made our entire trip to El Salvador stress-free! He picked us up from the airport, took us surfing, and even recommended the best local restaurants. Highly recommend!",
                 stars: 5,
+                avatar: reviewSarahImg,
               },
               {
                 name: "Carlos R.",
                 location: "Toronto, Canada",
                 text: "Best taxi service in El Salvador, hands down. Josh is punctual, friendly, and knows every hidden gem in the country. We felt safe the entire time.",
                 stars: 5,
+                avatar: reviewCarlosImg,
               },
               {
                 name: "Emily & Jake",
                 location: "London, UK",
                 text: "We booked Josh for a full day trip and it was the highlight of our vacation. His local knowledge is incredible and his van is super comfortable. 10/10!",
                 stars: 5,
+                avatar: reviewEmilyJakeImg,
               },
             ].map((review) => (
               <div
@@ -365,9 +371,12 @@ const Index = () => {
                 <p className="text-muted-foreground text-sm md:text-base mb-6 flex-1 italic">
                   "{review.text}"
                 </p>
-                <div>
-                  <p className="font-heading font-bold text-sm md:text-base">{review.name}</p>
-                  <p className="text-muted-foreground text-xs md:text-sm">{review.location}</p>
+                <div className="flex items-center gap-3">
+                  <img src={review.avatar} alt={review.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <p className="font-heading font-bold text-sm md:text-base">{review.name}</p>
+                    <p className="text-muted-foreground text-xs md:text-sm">{review.location}</p>
+                  </div>
                 </div>
               </div>
             ))}
