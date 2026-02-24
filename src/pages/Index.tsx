@@ -255,7 +255,7 @@ const Index = () => {
               {
                 name: "Tyler B.",
                 location: "San Diego, USA",
-                text: "Josh took us to the best surf spots in El Salvador — places we never would have found on our own. He waited with the boards while we surfed and even joined us for a few sets. Absolute legend!",
+                text: "Josh took us to El Zonte and Punta Roca — two must-visit surf spots we never would have found on our own. He waited with the boards while we surfed and even joined us for a few sets. Absolute legend!",
                 stars: 5,
                 avatar: reviewCarlosImg,
               },
