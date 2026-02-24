@@ -253,9 +253,9 @@ const Index = () => {
                 avatar: reviewSarahImg,
               },
               {
-                name: "Carlos R.",
-                location: "Toronto, Canada",
-                text: "Best taxi service in El Salvador, hands down. Josh is punctual, friendly, and knows every hidden gem in the country. We felt safe the entire time.",
+                name: "Tyler B.",
+                location: "San Diego, USA",
+                text: "Josh took us to the best surf spots in El Salvador — places we never would have found on our own. He waited with the boards while we surfed and even joined us for a few sets. Absolute legend!",
                 stars: 5,
                 avatar: reviewCarlosImg,
               },
