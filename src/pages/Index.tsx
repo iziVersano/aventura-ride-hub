@@ -14,15 +14,17 @@ import serviceDaytripImg from "@/assets/service-daytrip.jpg";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
-import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send } from "lucide-react";
+import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import ReviewModal from "@/components/ReviewModal";
 
 const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
@@ -31,11 +33,32 @@ const EMAIL_ADDRESS = "ucoach15@gmail.com";
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
+interface Testimonial {
+  id: string;
+  name: string;
+  rating: number;
+  message: string;
+  created_at: string;
+}
+
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
+  const [dbTestimonials, setDbTestimonials] = useState<Testimonial[]>([]);
+
+  const fetchTestimonials = useCallback(async () => {
+    const { data } = await supabase
+      .from("testimonials" as any)
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (data) setDbTestimonials(data as unknown as Testimonial[]);
+  }, []);
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, [fetchTestimonials]);
   const { toast } = useToast();
   const navLinks = [
     { href: "#driver", label: "Meet Josh" },
@@ -234,7 +257,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ===== CLIENT REVIEWS ===== */}
       <section className="py-14 md:py-20">
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-10 md:mb-14">
@@ -243,6 +265,8 @@ const Index = () => {
             </p>
             <h2 className="font-heading font-extrabold text-2xl md:text-4xl">What Our Clients Say</h2>
           </div>
+
+          {/* Featured reviews */}
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
@@ -288,6 +312,45 @@ const Index = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Dynamic testimonials from database */}
+          {dbTestimonials.length > 0 && (
+            <div className="grid md:grid-cols-3 gap-6 mt-6">
+              {dbTestimonials.map((t) => (
+                <div
+                  key={t.id}
+                  className="bg-primary/5 border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
+                >
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: t.rating }).map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-primary fill-primary" />
+                    ))}
+                  </div>
+                  <p className="text-muted-foreground text-sm md:text-base mb-6 flex-1 italic">
+                    "{t.message}"
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-primary font-heading font-bold text-lg">
+                      {t.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="font-heading font-bold text-sm md:text-base">{t.name}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Leave a Review button */}
+          <div className="text-center mt-10">
+            <ReviewModal onSubmitted={fetchTestimonials}>
+              <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:bg-primary/80 transition-colors">
+                <MessageSquarePlus className="w-4 h-4" />
+                Leave a Review
+              </button>
+            </ReviewModal>
           </div>
         </div>
       </section>
