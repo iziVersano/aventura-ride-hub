@@ -269,7 +269,7 @@ const Index = () => {
             ].map((review) => (
               <div
                 key={review.name}
-                className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
+                className="bg-primary/5 border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
               >
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: review.stars }).map((_, i) => (
