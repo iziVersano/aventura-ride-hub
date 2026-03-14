@@ -12,10 +12,14 @@ import serviceAirportImg from "@/assets/service-airport.jpg";
 import serviceSurfImg from "@/assets/service-surf.jpg";
 import serviceDaytripImg from "@/assets/service-daytrip.jpg";
 import serviceVolcanoImg from "@/assets/service-volcano.png";
+import spotElTuncoImg from "@/assets/spot-el-tunco.jpg";
+import spotElSunzalImg from "@/assets/spot-el-sunzal.jpg";
+import spotPuntaRocaImg from "@/assets/spot-punta-roca.jpg";
+import spotLaBocanaImg from "@/assets/spot-la-bocana.jpg";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
-import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus, Mountain } from "lucide-react";
+import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus, Mountain, Waves } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
@@ -64,6 +68,7 @@ const Index = () => {
   const navLinks = [
     { href: "#driver", label: "Meet Josh" },
     { href: "#services", label: "Services" },
+    { href: "#surf-spots", label: "Surf Spots" },
     { href: "#why-us", label: "Why Us" },
     { href: "#gallery", label: "Gallery" },
     { href: "#contact", label: "Contact" },
@@ -409,6 +414,84 @@ const Index = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== POPULAR SURF SPOTS ===== */}
+      <section id="surf-spots" className="py-14 md:py-20 bg-muted">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
+              La Libertad Coast
+            </p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Popular Surf Spots</h2>
+            <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-2xl mx-auto">
+              El Salvador's Pacific coast is home to world-class waves. Josh will take you to the best breaks along the La Libertad coastline.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+            {[
+              {
+                name: "El Tunco",
+                desc: "The most famous surf beach in El Salvador. Perfect for beginners and party lovers with consistent waves and vibrant nightlife.",
+                img: spotElTuncoImg,
+                level: "All Levels",
+              },
+              {
+                name: "El Sunzal",
+                desc: "A world-renowned right-hand point break with long, clean rides. A favorite for intermediate to advanced surfers.",
+                img: spotElSunzalImg,
+                level: "Intermediate",
+              },
+              {
+                name: "Punta Roca",
+                desc: "El Salvador's most iconic wave — a powerful right-hand point break over rocks. The spot that put the country on the surf map.",
+                img: spotPuntaRocaImg,
+                level: "Advanced",
+              },
+              {
+                name: "La Bocana",
+                desc: "A mellow river-mouth break ideal for longboarders and beginners. Uncrowded waves in a laid-back setting.",
+                img: spotLaBocanaImg,
+                level: "Beginner",
+              },
+            ].map((spot) => (
+              <div
+                key={spot.name}
+                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={spot.img}
+                    alt={`${spot.name} surf spot, El Salvador`}
+                    className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span className="absolute top-3 right-3 bg-secondary/90 text-secondary-foreground text-xs font-heading font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+                    {spot.level}
+                  </span>
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Waves className="w-4 h-4 text-primary" />
+                    <h3 className="font-heading font-bold text-lg">{spot.name}</h3>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{spot.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8 md:mt-10">
+            <a
+              href={whatsappLink("Hi Josh! I'd like to book a surf spot tour.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
+              Book a Surf Tour
+            </a>
           </div>
         </div>
       </section>
