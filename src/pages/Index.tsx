@@ -16,6 +16,9 @@ import spotElTuncoImg from "@/assets/spot-el-tunco.jpg";
 import spotElSunzalImg from "@/assets/spot-el-sunzal.jpg";
 import spotPuntaRocaImg from "@/assets/spot-punta-roca.jpg";
 import spotLaBocanaImg from "@/assets/spot-la-bocana.jpg";
+import gallerySunsetSurfImg from "@/assets/gallery-sunset-surf.jpg";
+import galleryPalmBeachImg from "@/assets/gallery-palm-beach.jpg";
+import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
@@ -546,20 +549,24 @@ const Index = () => {
             </p>
             <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Tourism Gallery</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
-              { src: galleryBeachImg, alt: "Beautiful beach in El Salvador" },
-              { src: galleryPoolImg, alt: "Infinity pool with ocean view" },
-              { src: promoImg, alt: "Scenic El Salvador landscape" },
-              { src: viewpointImg, alt: "Josh at scenic viewpoint with El Salvador flag" },
-              { src: surfTaxiImg, alt: "Surf taxi adventure" },
+              { src: galleryBeachImg, alt: "Beautiful beach in El Salvador", span: "col-span-2 row-span-2" },
+              { src: spotElTuncoImg, alt: "El Tunco beach at sunset with surfer and iconic rocks" },
+              { src: spotPuntaRocaImg, alt: "Punta Roca — WSL Surf City El Salvador Pro" },
               { src: heroImg, alt: "Josh's surf taxi on the beach with surfboards" },
+              { src: spotElSunzalImg, alt: "Surfer riding a wave at El Sunzal" },
+              { src: serviceVolcanoImg, alt: "Volcano tour with friends at Volcán Santa Ana", span: "col-span-2 row-span-2" },
+              { src: galleryPoolImg, alt: "Infinity pool with ocean view" },
+              { src: gallerySunsetSurfImg, alt: "Sunset on El Salvador's Pacific coast" },
+              { src: carImg, alt: "Airport pickup with surfboards and luggage" },
+              { src: galleryPalmBeachImg, alt: "Tropical palm beach paradise" },
+              { src: viewpointImg, alt: "Josh at scenic viewpoint with El Salvador flag" },
+              { src: galleryFlightImg, alt: "Flying into El Salvador — your adventure begins" },
             ].map((img, i) => (
               <div
                 key={i}
-                className={`overflow-hidden rounded-xl ${
-                  i === 0 ? "col-span-2 row-span-2" : ""
-                }`}
+                className={`overflow-hidden rounded-xl ${img.span || ""}`}
               >
                 <img
                   src={img.src}
