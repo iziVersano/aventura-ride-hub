@@ -1,7 +1,7 @@
 import heroImg from "@/assets/surf-car-beach.png";
 import heroMobileImg from "@/assets/surf-car-beach.png";
 import vanImg from "@/assets/van.jfif";
-import carImg from "@/assets/car.png";
+import carImg from "@/assets/airport-surfers.png";
 import surfTaxiImg from "@/assets/surf-taxi.jfif";
 import galleryBeachImg from "@/assets/gallery-beach.jfif";
 import galleryPoolImg from "@/assets/gallery-pool.jfif";
@@ -11,10 +11,11 @@ import logoImg from "@/assets/logo.png";
 import serviceAirportImg from "@/assets/service-airport.jpg";
 import serviceSurfImg from "@/assets/service-surf.jpg";
 import serviceDaytripImg from "@/assets/service-daytrip.jpg";
+import serviceVolcanoImg from "@/assets/service-volcano.png";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
-import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus } from "lucide-react";
+import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus, Mountain } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
@@ -362,7 +363,7 @@ const Index = () => {
             <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">What We Offer</p>
             <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Our Services</h2>
           </div>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
             {[
               {
                 icon: Car,
@@ -381,6 +382,12 @@ const Index = () => {
                 title: "Custom Day Trips",
                 desc: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.",
                 img: serviceDaytripImg,
+              },
+              {
+                icon: Mountain,
+                title: "Volcano & Nature Tours",
+                desc: "Hike Volcán Santa Ana, explore national parks, and discover El Salvador's stunning landscapes with a local guide by your side.",
+                img: serviceVolcanoImg,
               },
             ].map((service) => (
               <div
