@@ -380,7 +380,7 @@ const Index = () => {
                 icon: Compass,
                 title: "Surf Spot Tours",
                 desc: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.",
-                img: serviceSurfImg,
+                img: heroImg,
               },
               {
                 icon: Camera,
