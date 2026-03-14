@@ -1,5 +1,5 @@
-import heroImg from "@/assets/hero.jfif";
-import heroMobileImg from "@/assets/hero-mobile.png";
+import heroImg from "@/assets/surf-car-beach.png";
+import heroMobileImg from "@/assets/surf-car-beach.png";
 import vanImg from "@/assets/van.jfif";
 import carImg from "@/assets/car.png";
 import surfTaxiImg from "@/assets/surf-taxi.jfif";
@@ -463,7 +463,7 @@ const Index = () => {
               { src: promoImg, alt: "Scenic El Salvador landscape" },
               { src: viewpointImg, alt: "Josh at scenic viewpoint with El Salvador flag" },
               { src: surfTaxiImg, alt: "Surf taxi adventure" },
-              { src: carImg, alt: "Josh's surf taxi on the beach with surfboards" },
+              { src: heroImg, alt: "Josh's surf taxi on the beach with surfboards" },
             ].map((img, i) => (
               <div
                 key={i}
