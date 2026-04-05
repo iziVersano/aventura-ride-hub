@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(convert /home/dci-student/work/aventura-ride-hub/src/assets/logo.png -resize 256x256 /home/dci-student/work/aventura-ride-hub/public/favicon.ico)",
+      "Bash(wget -q -S '--header=Authorization: Bearer cms_4006e4a24c02967d5c887...' '--header=x-api-key: cms_4006e4a24c02967d5c887...' -O /dev/null http://localhost:3001__TRACKED_VAR__)",
+      "Bash(node -e ':*)",
+      "Read(//home/dci-student/work/my-cms/src/**)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\)\")",
+      "Read(//home/dci-student/work/my-cms/**)"
+    ],
+    "additionalDirectories": [
+      "/home/dci-student/work/aventura-ride-hub/src/assets",
+      "/home/dci-student/work/my-cms/src/app/api/pages"
+    ]
+  }
+}

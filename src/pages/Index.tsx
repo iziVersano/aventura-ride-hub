@@ -27,7 +27,8 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { getCMSProducts, getCMSMedia, getCMSPosts, getCMSPages, getCMSPage, type CMSProduct, type CMSMedia, type CMSPost, type CMSPage, type CMSSection } from "@/lib/cms";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
@@ -67,6 +68,32 @@ const Index = () => {
   useEffect(() => {
     fetchTestimonials();
   }, [fetchTestimonials]);
+
+  // ── CMS state ──────────────────────────────────────────────────────────────
+  const [cmsProducts, setCmsProducts] = useState<CMSProduct[]>([]);
+  const [cmsMedia, setCmsMedia] = useState<CMSMedia[]>([]);
+  const [cmsPosts, setCmsPosts] = useState<CMSPost[]>([]);
+  const [cmsPages, setCmsPages] = useState<CMSPage[]>([]);
+  const [cmsSections, setCmsSections] = useState<CMSSection[]>([]);
+  const [cmsLoading, setCmsLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.allSettled([
+      getCMSProducts(),
+      getCMSMedia(),
+      getCMSPosts(),
+      getCMSPages(),
+      getCMSPage("your-ride-to-paradise-starts-here"),
+    ]).then(([products, media, posts, pages, page]) => {
+      if (products.status === "fulfilled") setCmsProducts(products.value);
+      if (media.status === "fulfilled") setCmsMedia(media.value);
+      if (posts.status === "fulfilled") setCmsPosts(posts.value);
+      if (pages.status === "fulfilled") setCmsPages(pages.value);
+      if (page.status === "fulfilled") setCmsSections(page.value.sections ?? []);
+      setCmsLoading(false);
+    });
+  }, []);
+
   const { toast } = useToast();
   const navLinks = [
     { href: "#driver", label: "Meet Josh" },
@@ -77,6 +104,127 @@ const Index = () => {
     { href: "#contact", label: "Contact" },
     { href: "#book", label: "Book Now" },
   ];
+
+  // Parse all text blocks from the CMS page body into an indexed array
+  const mainPage = cmsPages[0] ?? null;
+  const cmsBlocks: { tag: string; text: string }[] = (() => {
+    if (!mainPage?.body) return [];
+    const matches = mainPage.body.match(/<(p|h1|h2|h3)[^>]*>[\s\S]*?<\/(p|h1|h2|h3)>/gi) || [];
+    return matches.map(m => ({
+      tag: (m.match(/^<(\w+)/) || [])[1] || "p",
+      text: m.replace(/<[^>]+>/g, "").trim(),
+    })).filter(b => b.text.length > 0);
+  })();
+
+  // Helper: find text by approximate match (first block whose text starts with the search string)
+  const cms = (search: string, fallback: string): string => {
+    const lower = search.toLowerCase();
+    const found = cmsBlocks.find(b => b.text.toLowerCase().startsWith(lower));
+    return found ? found.text : fallback;
+  };
+
+  // Helper: get a section's data by type
+  const section = (type: string) => cmsSections.find(s => s.type === type)?.data ?? null;
+
+  // ── Section data helpers ───────────────────────────────────────────────────
+  const heroSection         = section("hero");
+  const aboutSection        = section("about");
+  const testimonialsSection = section("testimonials");
+  // find the services section whose heading is "Our Services"
+  const servicesSection     = cmsSections.find(s => s.type === "services" && (s.data.heading as string)?.toLowerCase().includes("our services"))?.data ?? null;
+  // find the surf spots cards section
+  const surfSpotsSection    = cmsSections.find(s => s.type === "cards")?.data ?? null;
+  // find the "why us" services section
+  const whyUsSection        = cmsSections.find(s => s.type === "services" && (s.data.heading as string)?.toLowerCase().includes("ride"))?.data ?? null;
+  const gallerySection      = section("gallery");
+  const contactSection      = section("contact");
+  const ctaSection          = section("cta");
+
+  // Hero
+  const heroTitle    = (heroSection?.heading as string) ?? mainPage?.title ?? "Your Ride to Paradise Starts Here";
+  const heroSubtitle = (heroSection?.subheading as string) ?? "Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.";
+  const heroLabel    = "El Salvador's Trusted Surf Taxi";
+
+  // About / Driver
+  const driverLabel   = "Meet Your Driver";
+  const driverHeading = (aboutSection?.heading as string) ?? "Hey, I'm Josh! 🤙";
+  const driverBioText = (aboutSection?.body as string) ?? null;
+
+  // Testimonials
+  const testimonialsLabel   = "Testimonials";
+  const testimonialsHeading = (testimonialsSection?.heading as string) ?? "What Our Clients Say";
+
+  // Services
+  const servicesLabel   = "What We Offer";
+  const servicesHeading = (servicesSection?.heading as string) ?? "Our Services";
+
+  // Surf Spots
+  const surfSpotsLabel       = "La Libertad Coast";
+  const surfSpotsHeading     = (surfSpotsSection?.heading as string) ?? "Popular Surf Spots";
+  const surfSpotsDescription = "El Salvador's Pacific coast is home to world-class waves. Josh will take you to the best breaks along the La Libertad coastline.";
+
+  // Why Us
+  const whyUsLabel   = "Why Choose Us";
+  const whyUsHeading = (whyUsSection?.heading as string) ?? "More Than Just a Ride";
+
+  // Gallery
+  const galleryLabel   = "El Salvador Awaits";
+  const galleryHeading = (gallerySection?.heading as string) ?? "Tourism Gallery";
+
+  // Contact
+  const contactLabel       = "Get in Touch";
+  const contactHeading     = (contactSection?.heading as string) ?? "Contact Me";
+  const contactDescription = "Have a question or want to plan your trip? Drop me a message!";
+  const contactOtherWays   = "Other Ways to Reach Me";
+
+  // CTA / Book
+  const bookLabel    = (ctaSection?.heading as string) ?? "Ready to Explore El Salvador?";
+  const bookSubtext  = (ctaSection?.subheading as string) ?? "Book your ride in seconds. Just send a WhatsApp message or give a quick call — Josh will take care of the rest.";
+  const bookSurfTour = "Book a Surf Tour";
+
+  // Buttons (static labels)
+  const btnBookWhatsApp = "Book via WhatsApp";
+  const btnWhatsApp     = "WhatsApp";
+  const btnCallNow      = "Call Now";
+  const btnBookNow      = "Book Now";
+  const btnLeaveReview  = "Leave a Review";
+  const btnSendMessage  = "Send Message";
+
+  // Why Us items from CMS or fallback
+  type WhyItem = { title: string; description: string; icon: string };
+  const whyItems: WhyItem[] = ((whyUsSection?.items as WhyItem[]) ?? [
+    { title: "Safe & Reliable", description: "Licensed, insured, and always on time. Your safety is the top priority.", icon: "🛡️" },
+    { title: "Local Expertise", description: "Born and raised in El Salvador — Josh knows every shortcut, every wave, every hidden restaurant.", icon: "📍" },
+    { title: "24/7 Availability", description: "Early flights? Late-night arrivals? No problem. Available around the clock.", icon: "🕐" },
+    { title: "Bilingual Service", description: "Fluent in English and Spanish — no communication barriers.", icon: "🗣️" },
+  ]);
+  const whyTitle1 = whyItems[0]?.title ?? "Safe & Reliable";
+  const whyDesc1  = whyItems[0]?.description ?? "";
+  const whyTitle2 = whyItems[1]?.title ?? "Local Expertise";
+  const whyDesc2  = whyItems[1]?.description ?? "";
+  const whyTitle3 = whyItems[2]?.title ?? "24/7 Availability";
+  const whyDesc3  = whyItems[2]?.description ?? "";
+  const whyTitle4 = whyItems[3]?.title ?? "Bilingual Service";
+  const whyDesc4  = whyItems[3]?.description ?? "";
+
+  // Contact details from CMS or fallback
+  const cmsContactEmail   = (contactSection?.email as string) ?? EMAIL_ADDRESS;
+  const cmsContactPhone   = (contactSection?.phone as string) ?? PHONE_NUMBER;
+  const contactAddress = (contactSection?.address as string) ?? "El Salvador, Central America";
+
+  // Form labels (static)
+  const formLabelName    = "Name";
+  const formLabelEmail   = "Email";
+  const formLabelMessage = "Message";
+
+  // Footer (static)
+  const footerBrand      = "Josh's Surf Taxi";
+  const footerDesc       = "Your trusted ride across El Salvador. Airport transfers, surf tours, and custom adventures — driven by a local who knows every hidden gem.";
+  const footerExplore    = "Explore";
+  const footerGetInTouch = "Get in Touch";
+  const footerLocation   = contactAddress;
+  const footerCopyright  = `© ${new Date().getFullYear()} Josh's Surf Taxi. All rights reserved.`;
+  const footerMadeWith   = "Made with 🤙 in El Salvador";
 
   return (
     <div className="min-h-screen bg-background text-foreground scroll-smooth">
@@ -143,14 +291,14 @@ const Index = () => {
                       className="bg-accent text-accent-foreground px-4 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-opacity"
                     >
                       <WhatsAppIcon className="w-4 h-4" />
-                      Book via WhatsApp
+                      {btnBookWhatsApp}
                     </a>
                     <a
-                      href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+                      href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
                       className="mt-2 bg-primary text-primary-foreground px-4 py-3 rounded-lg font-heading font-bold text-sm flex items-center gap-2 hover:bg-primary/80 transition-colors"
                     >
                       <Phone className="w-4 h-4" />
-                      {PHONE_NUMBER}
+                      {cmsContactPhone}
                     </a>
                   </div>
                 </nav>
@@ -165,27 +313,27 @@ const Index = () => {
         {/* Mobile: image drives height */}
         <div className="md:hidden relative w-full">
           <img
-            src={heroMobileImg}
+            src={(heroSection?.image as string) || heroMobileImg}
             alt="Josh's surf taxi on the beach with surfboards"
             className="w-full h-auto block"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/50" />
           <div className="absolute bottom-0 left-0 right-0 p-5 pb-6">
             <p className="text-primary font-heading font-bold text-xs tracking-widest uppercase mb-3 drop-shadow-sm">
-              El Salvador's Trusted Surf Taxi
+              {heroLabel}
             </p>
             <h1 className="font-heading font-extrabold text-[28px] leading-[1.2] text-primary mb-3 max-w-[320px] drop-shadow-md">
-              Your Ride to Paradise Starts Here
+              {heroTitle}
             </h1>
             <p className="text-white/90 text-sm leading-relaxed max-w-[300px] drop-shadow-sm">
-              Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.
+              {heroSubtitle}
             </p>
           </div>
         </div>
         {/* Desktop: original absolute layout */}
         <div className="absolute inset-0 hidden md:block">
           <img
-            src={heroImg}
+            src={(heroSection?.image as string) || heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
             className="w-full h-full object-cover object-right"
           />
@@ -194,13 +342,13 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-5 md:px-4 hidden md:block">
           <div className="max-w-xl">
             <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-3 drop-shadow-sm">
-              El Salvador's Trusted Surf Taxi
+              {heroLabel}
             </p>
             <h1 className="font-heading font-extrabold text-4xl lg:text-5xl text-primary leading-tight mb-4 drop-shadow-md">
-              Your Ride to Paradise Starts Here
+              {heroTitle}
             </h1>
             <p className="text-white/90 text-lg mb-6 leading-relaxed max-w-md drop-shadow-sm">
-              Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.
+              {heroSubtitle}
             </p>
             <div className="hidden md:flex flex-col sm:flex-row gap-3">
               <a
@@ -210,14 +358,14 @@ const Index = () => {
                 className="bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
               >
                 <WhatsAppIcon className="w-5 h-5" />
-                Book via WhatsApp
+                {btnBookWhatsApp}
               </a>
               <a
-                href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+                href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
                 className="bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors shadow-lg"
               >
                 <Phone className="w-5 h-5" />
-                Call Now
+                {btnCallNow}
               </a>
             </div>
           </div>
@@ -230,21 +378,29 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="order-2 md:order-1">
               <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-                Meet Your Driver
+                {driverLabel}
               </p>
               <h2 className="font-heading font-extrabold text-2xl md:text-4xl mb-4 md:mb-6">
-                Hey, I'm Josh! 🤙
+                {driverHeading}
               </h2>
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-3 md:mb-4">
-                I've been driving visitors around El Salvador for over 5 years.
-                Whether you're chasing waves at El Tunco, exploring Mayan ruins,
-                or just need a safe ride from the airport — I've got you covered.
-              </p>
-              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-5 md:mb-6">
-                My goal is simple: make your trip stress-free, safe, and
-                unforgettable. Every ride comes with local tips, good vibes, and
-                a clean, comfortable vehicle.
-              </p>
+              {driverBioText ? (
+                <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-5 md:mb-6">
+                  {driverBioText}
+                </p>
+              ) : (
+                <>
+                  <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-3 md:mb-4">
+                    I've been driving visitors around El Salvador for over 5 years.
+                    Whether you're chasing waves at El Tunco, exploring Mayan ruins,
+                    or just need a safe ride from the airport — I've got you covered.
+                  </p>
+                  <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-5 md:mb-6">
+                    My goal is simple: make your trip stress-free, safe, and
+                    unforgettable. Every ride comes with local tips, good vibes, and
+                    a clean, comfortable vehicle.
+                  </p>
+                </>
+              )}
               <a
                 href={whatsappLink("Hey Josh! I'd love to book a ride.")}
                 target="_blank"
@@ -252,7 +408,7 @@ const Index = () => {
                 className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
               >
                 <WhatsAppIcon className="w-4 h-4" />
-                Book Now
+                {btnBookNow}
               </a>
             </div>
             <div className="order-1 md:order-2">
@@ -270,53 +426,38 @@ const Index = () => {
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-10 md:mb-14">
             <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-              Testimonials
+              {testimonialsLabel}
             </p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">What Our Clients Say</h2>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">{testimonialsHeading}</h2>
           </div>
 
-          {/* Featured reviews */}
+          {/* Reviews from CMS */}
           <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Sarah M.",
-                location: "California, USA",
-                text: "Josh made our entire trip to El Salvador stress-free! He picked us up from the airport, took us surfing, and even recommended the best local restaurants. Highly recommend!",
-                stars: 5,
-                avatar: reviewSarahImg,
-              },
-              {
-                name: "Tyler B.",
-                location: "San Diego, USA",
-                text: "Josh took us to El Zonte and Punta Roca — two must-visit surf spots we never would have found on our own. He waited with the boards while we surfed and even joined us for a few sets. Absolute legend!",
-                stars: 5,
-                avatar: reviewCarlosImg,
-              },
-              {
-                name: "Emily & Jake",
-                location: "London, UK",
-                text: "We booked Josh for a full day trip and it was the highlight of our vacation. His local knowledge is incredible and his van is super comfortable. 10/10!",
-                stars: 5,
-                avatar: reviewEmilyJakeImg,
-              },
-            ].map((review) => (
+            {((section("testimonials")?.items as { name: string; role: string; quote: string; avatar: string }[]) ?? [
+              { name: "Sarah M.", role: "California, USA", quote: "Josh made our entire trip to El Salvador stress-free! He picked us up from the airport, took us surfing, and even recommended the best local restaurants. Highly recommend!", avatar: "" },
+              { name: "Tyler B.", role: "San Diego, USA", quote: "Josh took us to El Zonte and Punta Roca — two must-visit surf spots we never would have found on our own. He waited with the boards while we surfed and even joined us for a few sets. Absolute legend!", avatar: "" },
+              { name: "Emily & Jake", role: "London, UK", quote: "We booked Josh for a full day trip and it was the highlight of our vacation. His local knowledge is incredible and his van is super comfortable. 10/10!", avatar: "" },
+            ]).map((review) => (
               <div
                 key={review.name}
                 className="bg-primary/5 border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
               >
                 <div className="flex gap-1 mb-4">
-                  {Array.from({ length: review.stars }).map((_, i) => (
+                  {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-primary fill-primary" />
                   ))}
                 </div>
                 <p className="text-muted-foreground text-sm md:text-base mb-6 flex-1 italic">
-                  "{review.text}"
+                  "{review.quote}"
                 </p>
                 <div className="flex items-center gap-3">
-                  <img src={review.avatar} alt={review.name} className="w-10 h-10 rounded-full object-cover" />
+                  {review.avatar
+                    ? <img src={review.avatar} alt={review.name} className="w-10 h-10 rounded-full object-cover" />
+                    : <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">{review.name[0]}</div>
+                  }
                   <div>
                     <p className="font-heading font-bold text-sm md:text-base">{review.name}</p>
-                    <p className="text-muted-foreground text-xs md:text-sm">{review.location}</p>
+                    <p className="text-muted-foreground text-xs md:text-sm">{review.role}</p>
                   </div>
                 </div>
               </div>
@@ -357,7 +498,7 @@ const Index = () => {
             <ReviewModal onSubmitted={fetchTestimonials}>
               <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:bg-primary/80 transition-colors">
                 <MessageSquarePlus className="w-4 h-4" />
-                Leave a Review
+                {btnLeaveReview}
               </button>
             </ReviewModal>
           </div>
@@ -368,52 +509,28 @@ const Index = () => {
       <section id="services" className="py-14 md:py-20">
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-10 md:mb-14">
-            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">What We Offer</p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Our Services</h2>
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">{servicesLabel}</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">{servicesHeading}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
-            {[
-              {
-                icon: Car,
-                title: "Airport Transfers",
-                desc: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking included.",
-                img: serviceAirportImg,
-              },
-              {
-                icon: Compass,
-                title: "Surf Spot Tours",
-                desc: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.",
-                img: heroImg,
-              },
-              {
-                icon: Camera,
-                title: "Custom Day Trips",
-                desc: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.",
-                img: serviceDaytripImg,
-              },
-              {
-                icon: Mountain,
-                title: "Volcano & Nature Tours",
-                desc: "Hike Volcán Santa Ana, explore national parks, and discover El Salvador's stunning landscapes with a local guide by your side.",
-                img: serviceVolcanoImg,
-              },
-            ].map((service) => (
-              <div
-                key={service.title}
-                className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-              >
-                <img
-                  src={service.img}
-                  alt={service.title}
-                  className="w-full aspect-video object-cover"
-                  loading="lazy"
-                />
+            {((servicesSection?.items as { title: string; description: string; icon: string; image: string }[]) ?? [
+              { title: "Airport Transfers", description: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking included.", icon: "✈️", image: serviceAirportImg },
+              { title: "Surf Spot Tours", description: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.", icon: "🏄", image: heroImg },
+              { title: "Custom Day Trips", description: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.", icon: "🗺️", image: serviceDaytripImg },
+              { title: "Volcano & Nature Tours", description: "Hike Volcán Santa Ana, explore national parks, and discover El Salvador's stunning landscapes with a local guide by your side.", icon: "🌋", image: serviceVolcanoImg },
+            ]).map((service) => (
+              <div key={service.title} className="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                {service.image && (
+                  <img src={service.image} alt={service.title} className="w-full aspect-video object-cover" loading="lazy" />
+                )}
                 <div className="p-5 md:p-6 text-center">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4">
-                    <service.icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                  </div>
+                  {service.icon && (
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 text-xl">
+                      {service.icon}
+                    </div>
+                  )}
                   <h3 className="font-heading font-bold text-lg md:text-xl mb-2">{service.title}</h3>
-                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{service.desc}</p>
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed">{service.description}</p>
                 </div>
               </div>
             ))}
@@ -426,61 +543,35 @@ const Index = () => {
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-10 md:mb-14">
             <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-              La Libertad Coast
+              {surfSpotsLabel}
             </p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Popular Surf Spots</h2>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">{surfSpotsHeading}</h2>
             <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-2xl mx-auto">
-              El Salvador's Pacific coast is home to world-class waves. Josh will take you to the best breaks along the La Libertad coastline.
+              {surfSpotsDescription}
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-            {[
-              {
-                name: "El Tunco",
-                desc: "The most famous surf beach in El Salvador. Perfect for beginners and party lovers with consistent waves and vibrant nightlife.",
-                img: spotElTuncoImg,
-                level: "All Levels",
-              },
-              {
-                name: "El Sunzal",
-                desc: "A world-renowned right-hand point break with long, clean rides. A favorite for intermediate to advanced surfers.",
-                img: spotElSunzalImg,
-                level: "Intermediate",
-              },
-              {
-                name: "Punta Roca",
-                desc: "El Salvador's most iconic wave — a powerful right-hand point break over rocks. The spot that put the country on the surf map.",
-                img: spotPuntaRocaImg,
-                level: "Advanced",
-              },
-              {
-                name: "La Bocana",
-                desc: "A mellow river-mouth break ideal for longboarders and beginners. Uncrowded waves in a laid-back setting.",
-                img: spotLaBocanaImg,
-                level: "Beginner",
-              },
-            ].map((spot) => (
-              <div
-                key={spot.name}
-                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
-              >
+            {((surfSpotsSection?.items as { title: string; description: string; image: string; url: string }[]) ?? [
+              { title: "El Tunco", description: "The most famous surf beach in El Salvador. Perfect for beginners and party lovers with consistent waves and vibrant nightlife.", image: spotElTuncoImg, url: "" },
+              { title: "El Sunzal", description: "A world-renowned right-hand point break with long, clean rides. A favorite for intermediate to advanced surfers.", image: spotElSunzalImg, url: "" },
+              { title: "Punta Roca", description: "El Salvador's most iconic wave — a powerful right-hand point break over rocks. The spot that put the country on the surf map.", image: spotPuntaRocaImg, url: "" },
+              { title: "La Bocana", description: "A mellow river-mouth break ideal for longboarders and beginners. Uncrowded waves in a laid-back setting.", image: spotLaBocanaImg, url: "" },
+            ]).map((spot) => (
+              <div key={spot.title} className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                 <div className="relative overflow-hidden">
                   <img
-                    src={spot.img}
-                    alt={`${spot.name} surf spot, El Salvador`}
+                    src={spot.image}
+                    alt={`${spot.title} surf spot, El Salvador`}
                     className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <span className="absolute top-3 right-3 bg-secondary/90 text-secondary-foreground text-xs font-heading font-bold px-3 py-1 rounded-full backdrop-blur-sm">
-                    {spot.level}
-                  </span>
                 </div>
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-2">
                     <Waves className="w-4 h-4 text-primary" />
-                    <h3 className="font-heading font-bold text-lg">{spot.name}</h3>
+                    <h3 className="font-heading font-bold text-lg">{spot.title}</h3>
                   </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{spot.desc}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{spot.description}</p>
                 </div>
               </div>
             ))}
@@ -493,7 +584,7 @@ const Index = () => {
               className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
             >
               <WhatsAppIcon className="w-4 h-4" />
-              Book a Surf Tour
+              {bookSurfTour}
             </a>
           </div>
         </div>
@@ -512,17 +603,17 @@ const Index = () => {
             </div>
             <div>
               <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-                Why Choose Us
+                {whyUsLabel}
               </p>
               <h2 className="font-heading font-extrabold text-2xl md:text-4xl mb-6 md:mb-8">
-                More Than Just a Ride
+                {whyUsHeading}
               </h2>
               <div className="space-y-5 md:space-y-6">
                 {[
-                  { icon: Shield, title: "Safe & Reliable", desc: "Licensed, insured, and always on time. Your safety is the top priority." },
-                  { icon: Star, title: "Local Expertise", desc: "Born and raised in El Salvador — Josh knows every shortcut, every wave, every hidden restaurant." },
-                  { icon: Clock, title: "24/7 Availability", desc: "Early flights? Late-night arrivals? No problem. Available around the clock." },
-                  { icon: Users, title: "Bilingual Service", desc: "Fluent in English and Spanish — no communication barriers." },
+                  { icon: Shield, title: whyTitle1, desc: whyDesc1 },
+                  { icon: Star,   title: whyTitle2, desc: whyDesc2 },
+                  { icon: Clock,  title: whyTitle3, desc: whyDesc3 },
+                  { icon: Users,  title: whyTitle4, desc: whyDesc4 },
                 ].map((item) => (
                   <div key={item.title} className="flex gap-4">
                     <div className="w-10 h-10 md:w-11 md:h-11 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -545,32 +636,29 @@ const Index = () => {
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-10 md:mb-14">
             <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-              El Salvador Awaits
+              {galleryLabel}
             </p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Tourism Gallery</h2>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">{galleryHeading}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            {[
-              { src: galleryBeachImg, alt: "Beautiful beach in El Salvador", span: "col-span-2 row-span-2" },
-              { src: spotElTuncoImg, alt: "El Tunco beach at sunset with surfer and iconic rocks" },
-              { src: spotPuntaRocaImg, alt: "Punta Roca — WSL Surf City El Salvador Pro" },
-              { src: heroImg, alt: "Josh's surf taxi on the beach with surfboards" },
-              { src: spotElSunzalImg, alt: "Surfer riding a wave at El Sunzal" },
-              { src: serviceVolcanoImg, alt: "Volcano tour with friends at Volcán Santa Ana", span: "col-span-2 row-span-2" },
-              { src: galleryPoolImg, alt: "Infinity pool with ocean view" },
-              { src: gallerySunsetSurfImg, alt: "Sunset on El Salvador's Pacific coast" },
-              { src: carImg, alt: "Airport pickup with surfboards and luggage" },
-              { src: galleryPalmBeachImg, alt: "Tropical palm beach paradise" },
-              { src: viewpointImg, alt: "Josh at scenic viewpoint with El Salvador flag" },
-              { src: galleryFlightImg, alt: "Flying into El Salvador — your adventure begins" },
-            ].map((img, i) => (
-              <div
-                key={i}
-                className={`overflow-hidden rounded-xl ${img.span || ""}`}
-              >
+            {((gallerySection?.images as { url: string; caption: string }[]) ?? [
+              { url: galleryBeachImg, caption: "Beautiful beach in El Salvador" },
+              { url: spotElTuncoImg, caption: "El Tunco beach at sunset" },
+              { url: spotPuntaRocaImg, caption: "Punta Roca — WSL Surf City" },
+              { url: heroImg, caption: "Josh's surf taxi on the beach" },
+              { url: spotElSunzalImg, caption: "Surfer riding a wave at El Sunzal" },
+              { url: serviceVolcanoImg, caption: "Volcano tour — Volcán Santa Ana" },
+              { url: galleryPoolImg, caption: "Infinity pool with ocean view" },
+              { url: gallerySunsetSurfImg, caption: "Sunset on El Salvador's Pacific coast" },
+              { url: carImg, caption: "Airport pickup with surfboards" },
+              { url: galleryPalmBeachImg, caption: "Tropical palm beach paradise" },
+              { url: viewpointImg, caption: "Josh at scenic viewpoint" },
+              { url: galleryFlightImg, caption: "Flying into El Salvador" },
+            ]).map((img, i) => (
+              <div key={i} className={`overflow-hidden rounded-xl ${i === 0 ? "col-span-2 row-span-2" : i === 5 ? "col-span-2 row-span-2" : ""}`}>
                 <img
-                  src={img.src}
-                  alt={img.alt}
+                  src={img.url}
+                  alt={img.caption}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 aspect-[4/3]"
                   loading="lazy"
                 />
@@ -585,11 +673,11 @@ const Index = () => {
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-10 md:mb-14">
             <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-              Get in Touch
+              {contactLabel}
             </p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Contact Me</h2>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">{contactHeading}</h2>
             <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-xl mx-auto">
-              Have a question or want to plan your trip? Drop me a message!
+              {contactDescription}
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
@@ -598,7 +686,7 @@ const Index = () => {
                 e.preventDefault();
                 const subject = encodeURIComponent(`Message from ${contactName}`);
                 const body = encodeURIComponent(`Name: ${contactName}\nEmail: ${contactEmail}\n\n${contactMessage}`);
-                window.open(`mailto:${EMAIL_ADDRESS}?subject=${subject}&body=${body}`, "_self");
+                window.open(`mailto:${cmsContactEmail}?subject=${subject}&body=${body}`, "_self");
                 toast({ title: "Opening your email client!", description: "Your message is ready to send." });
                 setContactName("");
                 setContactEmail("");
@@ -607,7 +695,7 @@ const Index = () => {
               className="space-y-4"
             >
               <div>
-                <label htmlFor="contact-name" className="block text-sm font-heading font-bold mb-1.5">Name</label>
+                <label htmlFor="contact-name" className="block text-sm font-heading font-bold mb-1.5">{formLabelName}</label>
                 <Input
                   id="contact-name"
                   placeholder="Your name"
@@ -619,7 +707,7 @@ const Index = () => {
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" className="block text-sm font-heading font-bold mb-1.5">Email</label>
+                <label htmlFor="contact-email" className="block text-sm font-heading font-bold mb-1.5">{formLabelEmail}</label>
                 <Input
                   id="contact-email"
                   type="email"
@@ -632,7 +720,7 @@ const Index = () => {
                 />
               </div>
               <div>
-                <label htmlFor="contact-message" className="block text-sm font-heading font-bold mb-1.5">Message</label>
+                <label htmlFor="contact-message" className="block text-sm font-heading font-bold mb-1.5">{formLabelMessage}</label>
                 <Textarea
                   id="contact-message"
                   placeholder="Tell me about your trip plans..."
@@ -649,21 +737,21 @@ const Index = () => {
                 className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/80 transition-colors"
               >
                 <Send className="w-4 h-4" />
-                Send Message
+                {btnSendMessage}
               </button>
             </form>
             <div className="space-y-6">
               <div>
-                <h3 className="font-heading font-bold text-lg mb-3">Other Ways to Reach Me</h3>
+                <h3 className="font-heading font-bold text-lg mb-3">{contactOtherWays}</h3>
                 <div className="space-y-3">
                   <a
-                    href={`mailto:${EMAIL_ADDRESS}`}
+                    href={`mailto:${cmsContactEmail}`}
                     className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <div className="w-10 h-10 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="text-sm">{EMAIL_ADDRESS}</span>
+                    <span className="text-sm">{cmsContactEmail}</span>
                   </a>
                   <a
                     href={whatsappLink("Hi Josh! I have a question.")}
@@ -674,22 +762,22 @@ const Index = () => {
                     <div className="w-10 h-10 bg-accent/15 rounded-lg flex items-center justify-center flex-shrink-0">
                       <WhatsAppIcon className="w-5 h-5 text-accent" />
                     </div>
-                    <span className="text-sm">{PHONE_NUMBER}</span>
+                    <span className="text-sm">{cmsContactPhone}</span>
                   </a>
                   <a
-                    href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+                    href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
                     className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <div className="w-10 h-10 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="text-sm">{PHONE_NUMBER}</span>
+                    <span className="text-sm">{cmsContactPhone}</span>
                   </a>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <div className="w-10 h-10 bg-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-5 h-5 text-primary" />
                     </div>
-                    <span className="text-sm">El Salvador, Central America</span>
+                    <span className="text-sm">{footerLocation}</span>
                   </div>
                 </div>
               </div>
@@ -702,11 +790,10 @@ const Index = () => {
       <section id="book" className="py-14 md:py-20 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-5 md:px-4 text-center">
           <h2 className="font-heading font-extrabold text-2xl md:text-4xl mb-3 md:mb-4">
-            Ready to Explore El Salvador?
+            {bookLabel}
           </h2>
           <p className="text-secondary-foreground/70 text-base md:text-lg max-w-2xl mx-auto mb-8 md:mb-10">
-            Book your ride in seconds. Just send a WhatsApp message or give a
-            quick call — Josh will take care of the rest.
+            {bookSubtext}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
             <a
@@ -716,14 +803,14 @@ const Index = () => {
               className="w-full sm:w-auto bg-accent text-accent-foreground px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-3 hover:opacity-90 transition-opacity"
             >
               <WhatsAppIcon className="w-5 h-5 md:w-6 md:h-6" />
-              Book via WhatsApp
+              {btnBookWhatsApp}
             </a>
             <a
-              href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+              href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
               className="w-full sm:w-auto bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-3 hover:bg-primary/80 transition-colors"
             >
               <Phone className="w-5 h-5 md:w-6 md:h-6" />
-              {PHONE_NUMBER}
+              {cmsContactPhone}
             </a>
           </div>
         </div>
@@ -740,10 +827,10 @@ const Index = () => {
             <div className="md:col-span-5">
               <div className="flex items-center gap-3 mb-5">
                 <img src={logoImg} alt="Josh's Surf Taxi" className="h-12 w-12 rounded-full" />
-                <span className="font-heading font-extrabold text-xl text-primary">Josh's Surf Taxi</span>
+                <span className="font-heading font-extrabold text-xl text-primary">{footerBrand}</span>
               </div>
               <p className="text-secondary-foreground/70 text-sm leading-relaxed max-w-sm mb-6">
-                Your trusted ride across El Salvador. Airport transfers, surf tours, and custom adventures — driven by a local who knows every hidden gem.
+                {footerDesc}
               </p>
               {/* Social icons */}
               <div className="flex items-center gap-4">
@@ -764,7 +851,7 @@ const Index = () => {
 
             {/* Quick Links */}
             <div className="md:col-span-3">
-              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-5 text-primary">Explore</h4>
+              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-5 text-primary">{footerExplore}</h4>
               <nav className="flex flex-col gap-3 text-sm">
                 {navLinks.map((link) => (
                   <a key={link.href} href={link.href} className="text-secondary-foreground/70 hover:text-primary transition-colors hover:translate-x-1 transform duration-200">
@@ -776,31 +863,31 @@ const Index = () => {
 
             {/* Contact */}
             <div className="md:col-span-4">
-              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-5 text-primary">Get in Touch</h4>
+              <h4 className="font-heading font-bold text-sm uppercase tracking-wider mb-5 text-primary">{footerGetInTouch}</h4>
               <div className="space-y-4 text-sm">
                 <a
-                  href={`mailto:${EMAIL_ADDRESS}`}
+                  href={`mailto:${cmsContactEmail}`}
                   className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors group"
                 >
                   <span className="w-9 h-9 rounded-lg bg-secondary-foreground/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all shrink-0">
                     <Mail className="w-4 h-4" />
                   </span>
-                  {EMAIL_ADDRESS}
+                  {cmsContactEmail}
                 </a>
                 <a
-                  href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+                  href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
                   className="flex items-center gap-3 text-secondary-foreground/70 hover:text-primary transition-colors group"
                 >
                   <span className="w-9 h-9 rounded-lg bg-secondary-foreground/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all shrink-0">
                     <Phone className="w-4 h-4" />
                   </span>
-                  {PHONE_NUMBER}
+                  {cmsContactPhone}
                 </a>
                 <div className="flex items-center gap-3 text-secondary-foreground/70">
                   <span className="w-9 h-9 rounded-lg bg-secondary-foreground/10 flex items-center justify-center shrink-0">
                     <MapPin className="w-4 h-4" />
                   </span>
-                  El Salvador, Central America
+                  {footerLocation}
                 </div>
               </div>
             </div>
@@ -810,8 +897,8 @@ const Index = () => {
         {/* Bottom bar */}
         <div className="border-t border-secondary-foreground/10">
           <div className="container mx-auto px-5 md:px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-secondary-foreground/50">
-            <span>© {new Date().getFullYear()} Josh's Surf Taxi. All rights reserved.</span>
-            <span>Made with 🤙 in El Salvador</span>
+            <span>{footerCopyright}</span>
+            <span>{footerMadeWith}</span>
           </div>
         </div>
       </footer>
@@ -825,14 +912,14 @@ const Index = () => {
           className="flex-1 bg-accent text-accent-foreground py-2.5 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
         >
           <WhatsAppIcon className="w-4 h-4" />
-          WhatsApp
+          {btnWhatsApp}
         </a>
         <a
-          href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+          href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
           className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
         >
           <Phone className="w-4 h-4" />
-          Call Now
+          {btnCallNow}
         </a>
       </div>
     </div>
