@@ -78,8 +78,7 @@ const Index = () => {
   useEffect(() => {
     const video = reviewVideoRef.current;
     if (!video) return;
-    video.muted = true;
-    setIsMuted(true);
+    video.muted = isMuted;
     video.play().catch(() => {});
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -87,8 +86,6 @@ const Index = () => {
           video.play().catch(() => {});
         } else {
           video.pause();
-          video.muted = true;
-          setIsMuted(true);
         }
       },
       { threshold: 0.3 }
@@ -111,7 +108,7 @@ const Index = () => {
       video.removeEventListener("timeupdate", onCueChange);
       video.removeEventListener("ended", onEnded);
     };
-  }, [carouselIndex, goTo]);
+  }, [carouselIndex, goTo, isMuted]);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
