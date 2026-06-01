@@ -108,7 +108,7 @@ const Index = () => {
       video.removeEventListener("timeupdate", onCueChange);
       video.removeEventListener("ended", onEnded);
     };
-  }, [carouselIndex, goTo, isMuted]);
+  }, [carouselIndex, goTo]);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
