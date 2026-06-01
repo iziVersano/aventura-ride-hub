@@ -430,14 +430,11 @@ const Index = () => {
       </section>
 
       {/* ===== REAL RIDERS · REAL STORIES ===== */}
-      <section className="py-6 md:py-8">
+      <section className="pt-3 pb-6 md:pb-8">
         <div className="container mx-auto px-5 md:px-4">
-          <div className="text-center mb-4 md:mb-6">
-            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Real Riders · Real Stories</p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Hear It From Our Passengers</h2>
-            <p className="text-muted-foreground text-sm md:text-base mt-2 max-w-xl mx-auto">
-              Don't just take our word for it — watch what Josh's customers have to say about their experience.
-            </p>
+          <div className="text-center mb-3">
+            <p className="text-primary font-heading font-bold text-[10px] tracking-widest uppercase mb-1">Real Riders · Real Stories</p>
+            <h2 className="font-heading font-extrabold text-lg md:text-2xl">Hear It From Our Passengers</h2>
           </div>
 
           {/* Video + quotes layout */}
