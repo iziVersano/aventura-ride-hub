@@ -432,14 +432,25 @@ const Index = () => {
 
             {/* Main video player */}
             <div className="md:col-span-3 space-y-4">
-              <div className="relative rounded-2xl overflow-hidden bg-muted aspect-video shadow-lg">
-                <iframe
-                  src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID?rel=0&modestbranding=1"
-                  title="Customer testimonial video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full absolute inset-0"
-                />
+              <div className="relative rounded-2xl overflow-hidden bg-muted shadow-lg">
+                <video
+                  ref={reviewVideoRef}
+                  src={reviewVideoSrc}
+                  controls
+                  muted
+                  autoPlay
+                  playsInline
+                  className="w-full h-auto object-cover"
+                >
+                  <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
+                </video>
+                {currentCue && (
+                  <div className="absolute bottom-12 left-0 right-0 flex justify-center pointer-events-none px-3">
+                    <span className="bg-black/70 text-white text-base md:text-lg font-medium px-3 py-1 rounded text-center leading-snug">
+                      {currentCue}
+                    </span>
+                  </div>
+                )}
               </div>
               {/* Quote below video */}
               <div className="bg-card rounded-xl p-5 border border-border flex gap-4 items-start">
