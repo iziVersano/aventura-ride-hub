@@ -472,8 +472,8 @@ const Index = () => {
                   {isMuted ? "🔇" : "🔊"}
                 </button>
                 {isMuted && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="bg-black/50 text-white text-sm font-heading font-bold px-4 py-2 rounded-full flex items-center gap-2">
+                  <div className="absolute top-3 left-3 pointer-events-none">
+                    <div className="bg-black/60 text-white text-xs font-heading font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5">
                       🔇 Tap to unmute
                     </div>
                   </div>
