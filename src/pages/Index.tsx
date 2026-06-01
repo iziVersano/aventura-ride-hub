@@ -367,6 +367,29 @@ const Index = () => {
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-0 md:min-h-[90vh] flex items-end pb-0 md:pb-20 pt-[60px] md:pt-16">
+
+        {/* WSL Event Banner */}
+        <a
+          href={whatsappLink("Hi Josh! I'd like to book a ride to the Surf City El Salvador Pro at Punta Roca (Jun 5–15).")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute top-[68px] md:top-24 right-3 md:right-6 z-20 max-w-[160px] md:max-w-[200px] group"
+        >
+          <div className="bg-yellow-400 text-black rounded-2xl shadow-xl overflow-hidden border-2 border-yellow-300 group-hover:scale-105 transition-transform duration-200">
+            <div className="bg-black text-yellow-400 text-[9px] md:text-[10px] font-heading font-extrabold tracking-widest uppercase text-center py-1 px-2">
+              🏆 WSL CT Event 05
+            </div>
+            <div className="px-3 py-2 text-center">
+              <p className="font-heading font-extrabold text-[13px] md:text-base leading-tight">Surf City El Salvador Pro</p>
+              <p className="text-[10px] md:text-xs font-semibold mt-0.5 text-black/70">Punta Roca · Jun 5–15</p>
+              <div className="mt-2 bg-black text-yellow-400 rounded-lg px-2 py-1.5 flex items-center justify-center gap-1.5">
+                <WhatsAppIcon className="w-3 h-3 md:w-3.5 md:h-3.5 shrink-0" />
+                <span className="text-[10px] md:text-xs font-heading font-bold">Book Your Ride</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
         {/* Mobile: image drives height */}
         <div className="md:hidden relative w-full">
           <img
