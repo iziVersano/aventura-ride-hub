@@ -373,40 +373,60 @@ const Index = () => {
           href={whatsappLink("Aloha Josh! 🤙 I need a ride to the Surf City El Salvador Pro at Punta Roca (Jun 5–15).")}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-[68px] md:top-24 right-3 md:right-6 z-20 max-w-[155px] md:max-w-[185px] group"
+          className="absolute top-[68px] md:top-24 right-3 md:right-6 z-20 w-[165px] md:w-[200px] group"
         >
-          <div
-            className="relative rounded-2xl overflow-hidden shadow-2xl group-hover:scale-105 transition-transform duration-200"
-            style={{ background: "linear-gradient(135deg, #0a2a4a 0%, #0e4f7a 50%, #1a8caa 100%)" }}
-          >
-            {/* Ocean wave SVG decoration */}
-            <svg viewBox="0 0 200 30" className="w-full absolute bottom-0 left-0 opacity-20" preserveAspectRatio="none">
-              <path d="M0,15 C30,5 60,25 90,15 C120,5 150,25 180,15 C190,10 196,12 200,15 L200,30 L0,30 Z" fill="white"/>
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl group-hover:scale-105 transition-transform duration-200">
+
+            {/* Background: Punta Roca surf photo */}
+            <img
+              src={spotPuntaRocaImg}
+              alt="Punta Roca surf break"
+              className="absolute inset-0 w-full h-full object-cover object-center scale-110"
+            />
+            {/* Dark ocean overlay so text pops */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, rgba(5,20,40,0.82) 0%, rgba(10,50,80,0.75) 60%, rgba(5,20,40,0.88) 100%)" }} />
+
+            {/* Wave SVG at bottom */}
+            <svg viewBox="0 0 200 24" className="absolute bottom-0 left-0 w-full opacity-30" preserveAspectRatio="none">
+              <path d="M0,12 C40,2 80,22 120,12 C150,4 175,18 200,12 L200,24 L0,24 Z" fill="white"/>
             </svg>
 
-            {/* WSL badge row */}
-            <div className="flex items-center gap-1.5 px-3 pt-2.5">
-              <span className="text-[9px] md:text-[10px] font-heading font-extrabold tracking-widest uppercase text-cyan-300">WSL CT</span>
-              <span className="text-[9px] text-white/50">·</span>
-              <span className="text-[9px] md:text-[10px] font-heading font-bold text-white/60 uppercase tracking-wider">Event 05</span>
-            </div>
+            {/* Content */}
+            <div className="relative z-10 px-3 pt-3 pb-3 flex flex-col gap-1">
 
-            {/* Title */}
-            <div className="px-3 pt-1 pb-0.5">
-              <p className="font-heading font-extrabold text-white text-[13px] md:text-[15px] leading-tight">Surf City</p>
-              <p className="font-heading font-extrabold text-cyan-300 text-[13px] md:text-[15px] leading-tight">El Salvador Pro</p>
-            </div>
+              {/* WSL badge */}
+              <div className="flex items-center gap-1.5">
+                <span className="bg-cyan-400 text-[#051428] text-[8px] font-heading font-extrabold px-1.5 py-0.5 rounded tracking-widest uppercase">WSL CT</span>
+                <span className="text-white/50 text-[9px]">·</span>
+                <span className="text-white/60 text-[9px] font-heading font-bold uppercase tracking-wider">Event 05</span>
+              </div>
 
-            {/* Date + location */}
-            <div className="px-3 pt-1 flex items-center gap-1.5">
-              <Waves className="w-3 h-3 text-cyan-400 shrink-0" />
-              <span className="text-[10px] md:text-[11px] text-white/70 font-semibold">Punta Roca · Jun 5–15</span>
-            </div>
+              {/* Title */}
+              <div className="mt-0.5">
+                <p className="font-heading font-extrabold text-white text-[15px] md:text-[17px] leading-tight">Surf City</p>
+                <p className="font-heading font-extrabold text-cyan-300 text-[15px] md:text-[17px] leading-tight">El Salvador Pro</p>
+              </div>
 
-            {/* CTA */}
-            <div className="mx-3 my-2.5 bg-cyan-400 hover:bg-cyan-300 text-[#0a2a4a] rounded-xl px-2 py-2 flex items-center justify-center gap-1.5 transition-colors">
-              <WhatsAppIcon className="w-3.5 h-3.5 shrink-0" />
-              <span className="text-[10px] md:text-xs font-heading font-extrabold tracking-wide uppercase">Get Your Ride 🤙</span>
+              {/* Location + date */}
+              <div className="flex items-center gap-1 mt-0.5">
+                <Waves className="w-3 h-3 text-cyan-400 shrink-0" />
+                <span className="text-white/80 text-[10px] md:text-[11px] font-semibold">Punta Roca</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-[9px] text-white/50">📅</span>
+                <span className="text-white/70 text-[10px] font-semibold">Jun 5 – 15, 2026</span>
+              </div>
+
+              {/* Divider */}
+              <div className="border-t border-white/20 mt-1 pt-2">
+                <p className="text-white/60 text-[9px] md:text-[10px] leading-snug italic">Need a ride to the comp?</p>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-1.5 bg-cyan-400 text-[#051428] rounded-xl px-2 py-2 flex items-center justify-center gap-1.5">
+                <WhatsAppIcon className="w-3.5 h-3.5 shrink-0" />
+                <span className="text-[10px] md:text-[11px] font-heading font-extrabold uppercase tracking-wide">Book Your Ride 🤙</span>
+              </div>
             </div>
           </div>
         </a>
