@@ -61,24 +61,26 @@ const Index = () => {
   const reviewVideoRef = useRef<HTMLVideoElement>(null);
   const [currentCue, setCurrentCue] = useState<string>("");
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
 
   const goTo = useCallback((idx: number) => {
     setCarouselIndex((idx + CAROUSEL_VIDEOS.length) % CAROUSEL_VIDEOS.length);
     setCurrentCue("");
   }, []);
 
+  const toggleMute = useCallback(() => {
+    const video = reviewVideoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  }, []);
+
   useEffect(() => {
     const video = reviewVideoRef.current;
     if (!video) return;
     video.muted = true;
+    setIsMuted(true);
     video.play().catch(() => {});
-    const unmuteOnce = () => {
-      video.muted = false;
-      video.removeEventListener("click", unmuteOnce);
-      video.removeEventListener("touchstart", unmuteOnce);
-    };
-    video.addEventListener("click", unmuteOnce);
-    video.addEventListener("touchstart", unmuteOnce);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -86,6 +88,7 @@ const Index = () => {
         } else {
           video.pause();
           video.muted = true;
+          setIsMuted(true);
         }
       },
       { threshold: 0.3 }
@@ -460,6 +463,21 @@ const Index = () => {
                     <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
                   )}
                 </video>
+                {/* Mute / Unmute button */}
+                <button
+                  onClick={toggleMute}
+                  className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors text-lg"
+                  aria-label={isMuted ? "Unmute" : "Mute"}
+                >
+                  {isMuted ? "🔇" : "🔊"}
+                </button>
+                {isMuted && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="bg-black/50 text-white text-sm font-heading font-bold px-4 py-2 rounded-full flex items-center gap-2">
+                      🔇 Tap to unmute
+                    </div>
+                  </div>
+                )}
                 {currentCue && (
                   <div className="absolute bottom-12 left-0 right-0 flex justify-center pointer-events-none px-3">
                     <span className="bg-black/70 text-white text-base md:text-lg font-medium px-3 py-1 rounded text-center leading-snug">
