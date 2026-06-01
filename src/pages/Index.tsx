@@ -20,6 +20,9 @@ import gallerySunsetSurfImg from "@/assets/gallery-sunset-surf.jpg";
 import galleryPalmBeachImg from "@/assets/gallery-palm-beach.jpg";
 import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
 import reviewVideoSrc from "@/assets/videos/review.mp4";
+import taxi1VideoSrc from "@/assets/videos/taxi1.mp4";
+import taxi2VideoSrc from "@/assets/videos/taxi2.mp4";
+import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
@@ -51,15 +54,22 @@ interface Testimonial {
   created_at: string;
 }
 
+const CAROUSEL_VIDEOS = [reviewVideoSrc, taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
+
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const reviewVideoRef = useRef<HTMLVideoElement>(null);
   const [currentCue, setCurrentCue] = useState<string>("");
+  const [carouselIndex, setCarouselIndex] = useState(0);
+
+  const goTo = useCallback((idx: number) => {
+    setCarouselIndex((idx + CAROUSEL_VIDEOS.length) % CAROUSEL_VIDEOS.length);
+    setCurrentCue("");
+  }, []);
 
   useEffect(() => {
     const video = reviewVideoRef.current;
     if (!video) return;
-    // Start muted so autoplay works on mobile, then unmute on first user interaction
     video.muted = true;
     video.play().catch(() => {});
     const unmuteOnce = () => {
@@ -82,7 +92,6 @@ const Index = () => {
     );
     observer.observe(video);
 
-    // Custom subtitle rendering
     const onCueChange = () => {
       const track = Array.from(video.textTracks).find(t => t.kind === "subtitles");
       if (!track) return;
@@ -91,11 +100,15 @@ const Index = () => {
     };
     video.addEventListener("timeupdate", onCueChange);
 
+    const onEnded = () => goTo(carouselIndex + 1);
+    video.addEventListener("ended", onEnded);
+
     return () => {
       observer.disconnect();
       video.removeEventListener("timeupdate", onCueChange);
+      video.removeEventListener("ended", onEnded);
     };
-  }, []);
+  }, [carouselIndex, goTo]);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
@@ -430,19 +443,22 @@ const Index = () => {
           {/* Video + quotes layout */}
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
 
-            {/* Main video player */}
+            {/* Main video carousel */}
             <div className="md:col-span-3 space-y-4">
               <div className="relative rounded-2xl overflow-hidden bg-muted shadow-lg">
                 <video
+                  key={carouselIndex}
                   ref={reviewVideoRef}
-                  src={reviewVideoSrc}
+                  src={CAROUSEL_VIDEOS[carouselIndex]}
                   controls
                   muted
                   autoPlay
                   playsInline
                   className="w-full h-auto object-cover"
                 >
-                  <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
+                  {carouselIndex === 0 && (
+                    <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
+                  )}
                 </video>
                 {currentCue && (
                   <div className="absolute bottom-12 left-0 right-0 flex justify-center pointer-events-none px-3">
@@ -451,6 +467,32 @@ const Index = () => {
                     </span>
                   </div>
                 )}
+                {/* Prev / Next arrows */}
+                <button
+                  onClick={() => goTo(carouselIndex - 1)}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+                  aria-label="Previous video"
+                >
+                  ‹
+                </button>
+                <button
+                  onClick={() => goTo(carouselIndex + 1)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full w-9 h-9 flex items-center justify-center transition-colors"
+                  aria-label="Next video"
+                >
+                  ›
+                </button>
+              </div>
+              {/* Dot indicators */}
+              <div className="flex justify-center gap-2">
+                {CAROUSEL_VIDEOS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i)}
+                    className={`w-2.5 h-2.5 rounded-full transition-colors ${i === carouselIndex ? "bg-primary" : "bg-primary/30"}`}
+                    aria-label={`Go to video ${i + 1}`}
+                  />
+                ))}
               </div>
               {/* Quote below video */}
               <div className="bg-card rounded-xl p-5 border border-border flex gap-4 items-start">
