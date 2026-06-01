@@ -430,16 +430,22 @@ const Index = () => {
       </section>
 
       {/* ===== REAL RIDERS · REAL STORIES ===== */}
-      <section className="pt-2 pb-6 md:pb-8">
+      <section className="py-6 md:py-8">
         <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-4 md:mb-6">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Real Riders · Real Stories</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Hear It From Our Passengers</h2>
+            <p className="text-muted-foreground text-sm md:text-base mt-2 max-w-xl mx-auto">
+              Don't just take our word for it — watch what Josh's customers have to say about their experience.
+            </p>
+          </div>
 
           {/* Video + quotes layout */}
           <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
 
             {/* Main video carousel */}
             <div className="md:col-span-3 space-y-4">
-              {/* Portrait on mobile (9:16), landscape on desktop (16:9) */}
-              <div className="relative overflow-hidden bg-black shadow-lg rounded-2xl aspect-[9/16] md:aspect-video">
+              <div className="relative rounded-2xl overflow-hidden bg-muted shadow-lg">
                 <video
                   key={carouselIndex}
                   ref={reviewVideoRef}
@@ -448,19 +454,12 @@ const Index = () => {
                   muted
                   autoPlay
                   playsInline
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="w-full h-auto object-cover"
                 >
                   {carouselIndex === 0 && (
                     <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
                   )}
                 </video>
-
-                {/* Title overlay — top centre */}
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/60 to-transparent px-4 pt-3 pb-6 pointer-events-none">
-                  <p className="text-primary font-heading font-bold text-[10px] tracking-widest uppercase">Real Riders · Real Stories</p>
-                  <p className="text-white font-heading font-extrabold text-base leading-tight">Hear It From Our Passengers</p>
-                </div>
-
                 {/* Mute / Unmute button */}
                 <button
                   onClick={toggleMute}
