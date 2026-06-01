@@ -199,8 +199,8 @@ const Index = () => {
 
   // Hero
   const heroTitle    = (heroSection?.heading as string) ?? mainPage?.title ?? "Your Ride to Paradise Starts Here";
-  const heroSubtitle = (heroSection?.subheading as string) ?? "Airport transfers, surf tours, and custom adventures — by a local who knows every hidden gem.";
-  const heroLabel    = "El Salvador's Trusted Surf Taxi";
+  const heroSubtitle = (heroSection?.subheading as string) ?? "El Salvador's #1 surf taxi. Josh knows every break, every tide, every hidden gem — get to the right wave at the right time.";
+  const heroLabel    = "El Salvador's Surf Taxi";
 
   // About / Driver
   const driverLabel   = "Meet Your Driver";
@@ -216,9 +216,9 @@ const Index = () => {
   const servicesHeading = (servicesSection?.heading as string) ?? "Our Services";
 
   // Surf Spots
-  const surfSpotsLabel       = "La Libertad Coast";
-  const surfSpotsHeading     = (surfSpotsSection?.heading as string) ?? "Popular Surf Spots";
-  const surfSpotsDescription = "El Salvador's Pacific coast is home to world-class waves. Josh will take you to the best breaks along the La Libertad coastline.";
+  const surfSpotsLabel       = "The Breaks Josh Knows Best";
+  const surfSpotsHeading     = (surfSpotsSection?.heading as string) ?? "El Salvador's Best Surf Spots";
+  const surfSpotsDescription = "Most drivers just drop you at the beach. Josh knows which break is firing, which tide to hit, and which spot matches your level — so you spend more time in the water, less time guessing.";
 
   // Why Us
   const whyUsLabel   = "Why Choose Us";
@@ -250,10 +250,10 @@ const Index = () => {
   // Why Us items from CMS or fallback
   type WhyItem = { title: string; description: string; icon: string };
   const whyItems: WhyItem[] = ((whyUsSection?.items as WhyItem[]) ?? [
-    { title: "Safe & Reliable", description: "Licensed, insured, and always on time. Your safety is the top priority.", icon: "🛡️" },
-    { title: "Local Expertise", description: "Born and raised in El Salvador — Josh knows every shortcut, every wave, every hidden restaurant.", icon: "📍" },
-    { title: "24/7 Availability", description: "Early flights? Late-night arrivals? No problem. Available around the clock.", icon: "🕐" },
-    { title: "Bilingual Service", description: "Fluent in English and Spanish — no communication barriers.", icon: "🗣️" },
+    { title: "Surfer's Inside Knowledge", description: "Josh surfs these breaks himself. He knows which spot fires on which swell, which tide to hit Punta Roca, and where the crowd won't be.", icon: "🏄" },
+    { title: "Safe & Reliable", description: "Licensed, insured, and always on time. Board racks on the vehicle — no squeezing boards into a sedan.", icon: "🛡️" },
+    { title: "24/7 Availability", description: "Dawn patrol or sunset session? Early flights? Josh is available around the clock.", icon: "🕐" },
+    { title: "Bilingual & Local", description: "Born and raised in El Salvador. Fluent in English and Spanish — he'll talk waves, tides, and local spots all the way there.", icon: "🗣️" },
   ]);
   const whyTitle1 = whyItems[0]?.title ?? "Safe & Reliable";
   const whyDesc1  = whyItems[0]?.description ?? "";
@@ -626,8 +626,8 @@ const Index = () => {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
             {((servicesSection?.items as { title: string; description: string; icon: string; image: string }[]) ?? [
-              { title: "Airport Transfers", description: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking included.", icon: "✈️", image: serviceAirportImg },
-              { title: "Surf Spot Tours", description: "Hit El Tunco, El Zonte, Punta Roca and more. Josh knows the best breaks, tides, and hidden spots only locals find.", icon: "🏄", image: heroImg },
+              { title: "Airport Transfers", description: "Comfortable, on-time pickups and drop-offs at San Salvador International Airport (SAL). AC vehicle, flight tracking, board racks included.", icon: "✈️", image: serviceAirportImg },
+              { title: "Surf Spot Tours", description: "Josh surfs these breaks himself — he'll match you to the right spot for your level, hit the right tide, and get you in the water fast. No guessing, no wasted sessions.", icon: "🏄", image: heroImg },
               { title: "Custom Day Trips", description: "Explore Ruta de las Flores, Joya de Cerén, Lake Coatepeque and beyond. Fully personalised itineraries.", icon: "🗺️", image: serviceDaytripImg },
               { title: "Volcano & Nature Tours", description: "Hike Volcán Santa Ana, explore national parks, and discover El Salvador's stunning landscapes with a local guide by your side.", icon: "🌋", image: serviceVolcanoImg },
             ]).map((service) => (
@@ -664,11 +664,11 @@ const Index = () => {
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
-            {((surfSpotsSection?.items as { title: string; description: string; image: string; url: string }[]) ?? [
-              { title: "El Tunco", description: "The most famous surf beach in El Salvador. Perfect for beginners and party lovers with consistent waves and vibrant nightlife.", image: spotElTuncoImg, url: "" },
-              { title: "El Sunzal", description: "A world-renowned right-hand point break with long, clean rides. A favorite for intermediate to advanced surfers.", image: spotElSunzalImg, url: "" },
-              { title: "Punta Roca", description: "El Salvador's most iconic wave — a powerful right-hand point break over rocks. The spot that put the country on the surf map.", image: spotPuntaRocaImg, url: "" },
-              { title: "La Bocana", description: "A mellow river-mouth break ideal for longboarders and beginners. Uncrowded waves in a laid-back setting.", image: spotLaBocanaImg, url: "" },
+            {([
+              { title: "El Tunco", level: "Beginner", levelColor: "bg-green-500", description: "The most famous surf beach in El Salvador. Consistent beach break with forgiving waves — perfect for first-timers and progression surfers.", image: spotElTuncoImg },
+              { title: "El Sunzal", level: "Intermediate", levelColor: "bg-yellow-500", description: "World-renowned right-hand point break with long, clean rides. Josh times it for the best tide window so you get the full ride.", image: spotElSunzalImg },
+              { title: "Punta Roca", level: "Advanced", levelColor: "bg-red-500", description: "El Salvador's most iconic wave — powerful right-hand point break over rocks. Josh knows exactly when it fires and how to position you.", image: spotPuntaRocaImg },
+              { title: "La Bocana", level: "All Levels", levelColor: "bg-blue-500", description: "Mellow river-mouth break ideal for longboarders and beginners. Uncrowded, relaxed vibe — a hidden gem most tourists never find.", image: spotLaBocanaImg },
             ]).map((spot) => (
               <div key={spot.title} className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                 <div className="relative overflow-hidden">
@@ -678,6 +678,9 @@ const Index = () => {
                     className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
+                  <span className={`absolute top-3 left-3 ${spot.levelColor} text-white text-[11px] font-heading font-bold px-2.5 py-1 rounded-full`}>
+                    {spot.level}
+                  </span>
                 </div>
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-2">
