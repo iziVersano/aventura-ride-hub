@@ -1,5 +1,5 @@
-import heroImg from "@/assets/hero.png";
-import heroMobileImg from "@/assets/hero-mobile.png";
+import heroImg from "@/assets/newblue.jpeg";
+import heroMobileImg from "@/assets/newblue.jpeg";
 import vanImg from "@/assets/van.jfif";
 import carImg from "@/assets/airport-surfers.png";
 import surfTaxiImg from "@/assets/surf-taxi.jfif";
