@@ -1,5 +1,5 @@
-import heroImg from "@/assets/surf-car-beach.png";
-import heroMobileImg from "@/assets/surf-car-beach.png";
+import heroImg from "@/assets/hero.png";
+import heroMobileImg from "@/assets/hero-mobile.png";
 import vanImg from "@/assets/van.jfif";
 import carImg from "@/assets/airport-surfers.png";
 import surfTaxiImg from "@/assets/surf-taxi.jfif";
@@ -19,6 +19,7 @@ import spotLaBocanaImg from "@/assets/spot-la-bocana.jpg";
 import gallerySunsetSurfImg from "@/assets/gallery-sunset-surf.jpg";
 import galleryPalmBeachImg from "@/assets/gallery-palm-beach.jpg";
 import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
+import reviewVideoSrc from "@/assets/videos/review.mp4";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
@@ -52,6 +53,49 @@ interface Testimonial {
 
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const reviewVideoRef = useRef<HTMLVideoElement>(null);
+  const [currentCue, setCurrentCue] = useState<string>("");
+
+  useEffect(() => {
+    const video = reviewVideoRef.current;
+    if (!video) return;
+    // Start muted so autoplay works on mobile, then unmute on first user interaction
+    video.muted = true;
+    video.play().catch(() => {});
+    const unmuteOnce = () => {
+      video.muted = false;
+      video.removeEventListener("click", unmuteOnce);
+      video.removeEventListener("touchstart", unmuteOnce);
+    };
+    video.addEventListener("click", unmuteOnce);
+    video.addEventListener("touchstart", unmuteOnce);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+          video.muted = true;
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(video);
+
+    // Custom subtitle rendering
+    const onCueChange = () => {
+      const track = Array.from(video.textTracks).find(t => t.kind === "subtitles");
+      if (!track) return;
+      const cues = track.activeCues;
+      setCurrentCue(cues && cues.length > 0 ? (cues[0] as VTTCue).text : "");
+    };
+    video.addEventListener("timeupdate", onCueChange);
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener("timeupdate", onCueChange);
+    };
+  }, []);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
@@ -372,6 +416,92 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ===== REAL RIDERS · REAL STORIES ===== */}
+      <section className="py-14 md:py-20">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Real Riders · Real Stories</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Hear It From Our Passengers</h2>
+            <p className="text-muted-foreground text-sm md:text-base mt-2 max-w-xl mx-auto">
+              Don't just take our word for it — watch what Josh's customers have to say about their experience.
+            </p>
+          </div>
+
+          {/* Video + quotes layout */}
+          <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
+
+            {/* Main video player */}
+            <div className="md:col-span-3 space-y-4">
+              <div className="relative rounded-2xl overflow-hidden bg-muted aspect-video shadow-lg">
+                <iframe
+                  src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID?rel=0&modestbranding=1"
+                  title="Customer testimonial video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full absolute inset-0"
+                />
+              </div>
+              {/* Quote below video */}
+              <div className="bg-card rounded-xl p-5 border border-border flex gap-4 items-start">
+                <span className="text-primary text-3xl font-serif leading-none mt-[-4px] shrink-0">"</span>
+                <div>
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed italic">
+                    Josh got us from the airport to the surf break without any stress. Friendly, punctual, and he knew exactly which spots had the best waves that day.
+                  </p>
+                  <p className="mt-3 text-sm font-heading font-bold">Sarah & Mike <span className="font-normal text-muted-foreground">· California, USA</span></p>
+                </div>
+              </div>
+            </div>
+
+            {/* Side quotes */}
+            <div className="md:col-span-2 flex flex-col gap-4">
+              {[
+                {
+                  name: "Tom Henriksen",
+                  origin: "Oslo, Norway",
+                  quote: "Travelling solo and Josh made me feel completely at home. Reliable, friendly and knows every hidden spot on the coast.",
+                  avatar: "TH",
+                },
+                {
+                  name: "The Morales Family",
+                  origin: "Mexico City, Mexico",
+                  quote: "Best part of our El Salvador trip! Kids loved it. Josh knew which beaches were safe and which had the best waves for the kids.",
+                  avatar: "MF",
+                },
+                {
+                  name: "Carlos R.",
+                  origin: "Madrid, Spain",
+                  quote: "Five stars. Zero stress. Just showed up and Josh handled everything — route, timing, even local lunch recommendations.",
+                  avatar: "CR",
+                },
+              ].map((t) => (
+                <div key={t.name} className="bg-card rounded-xl p-4 border border-border flex gap-3 items-start hover:shadow-md transition-shadow">
+                  <div className="w-9 h-9 rounded-full bg-primary/15 flex items-center justify-center text-primary text-xs font-bold shrink-0">
+                    {t.avatar}
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground text-sm leading-relaxed italic">"{t.quote}"</p>
+                    <p className="mt-2 text-xs font-heading font-bold">{t.name} <span className="font-normal text-muted-foreground">· {t.origin}</span></p>
+                  </div>
+                </div>
+              ))}
+
+              {/* Star rating */}
+              <div className="flex items-center gap-2 justify-center mt-1 text-muted-foreground text-xs">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="14" height="14" viewBox="0 0 16 16" fill="currentColor" className="text-primary">
+                      <path d="M8 1l1.76 3.57L14 5.27l-3 2.92.71 4.14L8 10.19l-3.71 2.14.71-4.14L2 5.27l4.24-.7L8 1z" />
+                    </svg>
+                  ))}
+                </div>
+                <span>5.0 rating · 200+ rides</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ===== MEET YOUR DRIVER ===== */}
       <section id="driver" className="py-14 md:py-20 bg-muted">
         <div className="container mx-auto px-5 md:px-4">
@@ -422,89 +552,6 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-14 md:py-20">
-        <div className="container mx-auto px-5 md:px-4">
-          <div className="text-center mb-10 md:mb-14">
-            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">
-              {testimonialsLabel}
-            </p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">{testimonialsHeading}</h2>
-          </div>
-
-          {/* Reviews from CMS */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {((section("testimonials")?.items as { name: string; role: string; quote: string; avatar: string }[]) ?? [
-              { name: "Sarah M.", role: "California, USA", quote: "Josh made our entire trip to El Salvador stress-free! He picked us up from the airport, took us surfing, and even recommended the best local restaurants. Highly recommend!", avatar: "" },
-              { name: "Tyler B.", role: "San Diego, USA", quote: "Josh took us to El Zonte and Punta Roca — two must-visit surf spots we never would have found on our own. He waited with the boards while we surfed and even joined us for a few sets. Absolute legend!", avatar: "" },
-              { name: "Emily & Jake", role: "London, UK", quote: "We booked Josh for a full day trip and it was the highlight of our vacation. His local knowledge is incredible and his van is super comfortable. 10/10!", avatar: "" },
-            ]).map((review) => (
-              <div
-                key={review.name}
-                className="bg-primary/5 border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
-              >
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-primary fill-primary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground text-sm md:text-base mb-6 flex-1 italic">
-                  "{review.quote}"
-                </p>
-                <div className="flex items-center gap-3">
-                  {review.avatar
-                    ? <img src={review.avatar} alt={review.name} className="w-10 h-10 rounded-full object-cover" />
-                    : <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">{review.name[0]}</div>
-                  }
-                  <div>
-                    <p className="font-heading font-bold text-sm md:text-base">{review.name}</p>
-                    <p className="text-muted-foreground text-xs md:text-sm">{review.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Dynamic testimonials from database */}
-          {dbTestimonials.length > 0 && (
-            <div className="grid md:grid-cols-3 gap-6 mt-6">
-              {dbTestimonials.map((t) => (
-                <div
-                  key={t.id}
-                  className="bg-primary/5 border border-border rounded-2xl p-6 md:p-8 shadow-sm flex flex-col"
-                >
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-primary fill-primary" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground text-sm md:text-base mb-6 flex-1 italic">
-                    "{t.message}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-primary font-heading font-bold text-lg">
-                      {t.name.charAt(0).toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="font-heading font-bold text-sm md:text-base">{t.name}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Leave a Review button */}
-          <div className="text-center mt-10">
-            <ReviewModal onSubmitted={fetchTestimonials}>
-              <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:bg-primary/80 transition-colors">
-                <MessageSquarePlus className="w-4 h-4" />
-                {btnLeaveReview}
-              </button>
-            </ReviewModal>
-          </div>
-        </div>
-      </section>
-
       {/* ===== SERVICES ===== */}
       <section id="services" className="py-14 md:py-20">
         <div className="container mx-auto px-5 md:px-4">
@@ -534,91 +581,6 @@ const Index = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* ── Customer Video Testimonials ── */}
-          <div className="mt-16 md:mt-20">
-            <div className="text-center mb-8 md:mb-10">
-              <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Real Riders · Real Stories</p>
-              <h3 className="font-heading font-extrabold text-xl md:text-3xl">Hear It From Our Passengers</h3>
-              <p className="text-muted-foreground text-sm md:text-base mt-2 max-w-xl mx-auto">
-                Don't just take our word for it — watch what Josh's customers have to say about their experience.
-              </p>
-            </div>
-
-            {/* Video + quotes layout */}
-            <div className="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
-
-              {/* Main video player */}
-              <div className="md:col-span-3 space-y-4">
-                <div className="relative rounded-2xl overflow-hidden bg-muted aspect-video shadow-lg">
-                  {/* ↓ Replace YOUTUBE_VIDEO_ID with your actual YouTube video ID */}
-                  <iframe
-                    src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID?rel=0&modestbranding=1"
-                    title="Customer testimonial video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full absolute inset-0"
-                  />
-                </div>
-                {/* Quote below video */}
-                <div className="bg-card rounded-xl p-5 border border-border flex gap-4 items-start">
-                  <span className="text-primary text-3xl font-serif leading-none mt-[-4px] shrink-0">"</span>
-                  <div>
-                    <p className="text-muted-foreground text-sm md:text-base leading-relaxed italic">
-                      Josh got us from the airport to the surf break without any stress. Friendly, punctual, and he knew exactly which spots had the best waves that day.
-                    </p>
-                    <p className="mt-3 text-sm font-heading font-bold">Sarah & Mike <span className="font-normal text-muted-foreground">· California, USA</span></p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Side quotes */}
-              <div className="md:col-span-2 flex flex-col gap-4">
-                {[
-                  {
-                    name: "Tom Henriksen",
-                    origin: "Oslo, Norway",
-                    quote: "Travelling solo and Josh made me feel completely at home. Reliable, friendly and knows every hidden spot on the coast.",
-                    avatar: "TH",
-                  },
-                  {
-                    name: "The Morales Family",
-                    origin: "Mexico City, Mexico",
-                    quote: "Best part of our El Salvador trip! Kids loved it. Josh knew which beaches were safe and which had the best waves for the kids.",
-                    avatar: "MF",
-                  },
-                  {
-                    name: "Carlos R.",
-                    origin: "Madrid, Spain",
-                    quote: "Five stars. Zero stress. Just showed up and Josh handled everything — route, timing, even local lunch recommendations.",
-                    avatar: "CR",
-                  },
-                ].map((t) => (
-                  <div key={t.name} className="bg-card rounded-xl p-4 border border-border flex gap-3 items-start hover:shadow-md transition-shadow">
-                    <div className="w-9 h-9 rounded-full bg-primary/15 flex items-center justify-center text-primary text-xs font-bold shrink-0">
-                      {t.avatar}
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-sm leading-relaxed italic">"{t.quote}"</p>
-                      <p className="mt-2 text-xs font-heading font-bold">{t.name} <span className="font-normal text-muted-foreground">· {t.origin}</span></p>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Star rating */}
-                <div className="flex items-center gap-2 justify-center mt-1 text-muted-foreground text-xs">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <svg key={i} width="14" height="14" viewBox="0 0 16 16" fill="currentColor" className="text-primary">
-                        <path d="M8 1l1.76 3.57L14 5.27l-3 2.92.71 4.14L8 10.19l-3.71 2.14.71-4.14L2 5.27l4.24-.7L8 1z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <span>5.0 rating · 200+ rides</span>
-                </div>
-              </div>
-            </div>
           </div>
 
         </div>
