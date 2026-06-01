@@ -370,7 +370,7 @@ const Index = () => {
         {/* Mobile: image drives height */}
         <div className="md:hidden relative w-full">
           <img
-            src={(heroSection?.image as string) || heroMobileImg}
+            src={heroMobileImg}
             alt="Josh's surf taxi on the beach with surfboards"
             className="w-full h-auto block"
           />
@@ -390,7 +390,7 @@ const Index = () => {
         {/* Desktop: original absolute layout */}
         <div className="absolute inset-0 hidden md:block">
           <img
-            src={(heroSection?.image as string) || heroImg}
+            src={heroImg}
             alt="Josh standing at scenic viewpoint with El Salvador flag"
             className="w-full h-full object-cover object-right"
           />
