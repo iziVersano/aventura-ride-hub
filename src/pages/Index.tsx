@@ -430,9 +430,9 @@ const Index = () => {
       </section>
 
       {/* ===== REAL RIDERS · REAL STORIES ===== */}
-      <section className="py-14 md:py-20">
+      <section className="py-6 md:py-8">
         <div className="container mx-auto px-5 md:px-4">
-          <div className="text-center mb-8 md:mb-10">
+          <div className="text-center mb-4 md:mb-6">
             <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Real Riders · Real Stories</p>
             <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Hear It From Our Passengers</h2>
             <p className="text-muted-foreground text-sm md:text-base mt-2 max-w-xl mx-auto">
