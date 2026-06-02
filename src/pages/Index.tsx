@@ -440,7 +440,7 @@ const Index = () => {
                   onClick={() => setWslBannerVisible(false)}
                   className="mt-1 w-full py-2.5 rounded-2xl border-2 border-white/25 hover:border-white/60 text-white/60 hover:text-white text-sm font-heading font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                 >
-                  <span className="text-lg leading-none">✕</span> Not interested
+                  <span className="text-lg leading-none">✕</span> Back to website
                 </button>
               </div>
             </div>
