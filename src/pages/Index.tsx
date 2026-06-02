@@ -369,79 +369,81 @@ const Index = () => {
       {/* ===== HERO ===== */}
       <section className="relative min-h-0 md:min-h-[90vh] flex items-end pb-0 md:pb-20 pt-[60px] md:pt-16">
 
-        {/* WSL Event Banner */}
+        {/* WSL Modal Popup */}
         {wslBannerVisible && (
-          <div className="absolute top-[68px] md:top-24 right-3 md:right-6 z-20 w-[190px] md:w-[224px] group">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setWslBannerVisible(false)} />
 
-            {/* X dismiss button */}
-            <button
-              onClick={() => setWslBannerVisible(false)}
-              className="absolute -top-2 -left-2 z-30 w-6 h-6 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center shadow-md text-xs font-bold transition-colors"
-              aria-label="Close banner"
-            >
-              ✕
-            </button>
+            {/* Modal card */}
+            <div className="relative w-full max-w-sm md:max-w-md rounded-3xl overflow-hidden shadow-2xl">
 
-            <a
-              href={whatsappLink("Aloha Josh! 🤙 I need a ride to the Surf City El Salvador Pro at Punta Roca (Jun 5–15).")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block"
-            >
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl group-hover:scale-105 transition-transform duration-200">
+              {/* Punta Roca background */}
+              <img
+                src={spotPuntaRocaImg}
+                alt="Punta Roca surf break"
+                className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+              />
+              {/* Ocean overlay */}
+              <div className="absolute inset-0" style={{ background: "linear-gradient(170deg, rgba(3,14,28,0.88) 0%, rgba(6,40,70,0.78) 55%, rgba(3,14,28,0.93) 100%)" }} />
+              {/* Wave decoration */}
+              <svg viewBox="0 0 400 40" className="absolute bottom-0 left-0 w-full opacity-25" preserveAspectRatio="none">
+                <path d="M0,20 C60,5 120,35 200,20 C280,5 340,35 400,20 L400,40 L0,40 Z" fill="white"/>
+              </svg>
 
-                {/* Background: Punta Roca surf photo */}
-                <img
-                  src={spotPuntaRocaImg}
-                  alt="Punta Roca surf break"
-                  className="absolute inset-0 w-full h-full object-cover object-center scale-110"
-                />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, rgba(5,20,40,0.82) 0%, rgba(10,50,80,0.75) 60%, rgba(5,20,40,0.88) 100%)" }} />
+              {/* Content */}
+              <div className="relative z-10 px-7 pt-8 pb-7 flex flex-col gap-3">
 
-                {/* Wave SVG at bottom */}
-                <svg viewBox="0 0 200 24" className="absolute bottom-0 left-0 w-full opacity-30" preserveAspectRatio="none">
-                  <path d="M0,12 C40,2 80,22 120,12 C150,4 175,18 200,12 L200,24 L0,24 Z" fill="white"/>
-                </svg>
+                {/* WSL badge row */}
+                <div className="flex items-center gap-2">
+                  <span className="bg-cyan-400 text-[#051428] text-[10px] font-heading font-extrabold px-2.5 py-1 rounded-lg tracking-widest uppercase">WSL CT</span>
+                  <span className="text-white/40">·</span>
+                  <span className="text-white/60 text-xs font-heading font-bold uppercase tracking-wider">Event 05</span>
+                </div>
 
-                {/* Content */}
-                <div className="relative z-10 px-4 pt-4 pb-4 flex flex-col gap-1.5">
+                {/* Title */}
+                <div>
+                  <p className="font-heading font-extrabold text-white text-3xl md:text-4xl leading-tight">Surf City</p>
+                  <p className="font-heading font-extrabold text-cyan-300 text-3xl md:text-4xl leading-tight">El Salvador Pro</p>
+                </div>
 
-                  {/* WSL badge */}
-                  <div className="flex items-center gap-1.5">
-                    <span className="bg-cyan-400 text-[#051428] text-[9px] font-heading font-extrabold px-2 py-0.5 rounded tracking-widest uppercase">WSL CT</span>
-                    <span className="text-white/50 text-[9px]">·</span>
-                    <span className="text-white/60 text-[9px] font-heading font-bold uppercase tracking-wider">Event 05</span>
+                {/* Details */}
+                <div className="flex flex-col gap-1.5 mt-1">
+                  <div className="flex items-center gap-2">
+                    <Waves className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <span className="text-white/90 text-sm font-semibold">Punta Roca, La Libertad</span>
                   </div>
-
-                  {/* Title */}
-                  <div className="mt-0.5">
-                    <p className="font-heading font-extrabold text-white text-[17px] md:text-[19px] leading-tight">Surf City</p>
-                    <p className="font-heading font-extrabold text-cyan-300 text-[17px] md:text-[19px] leading-tight">El Salvador Pro</p>
-                  </div>
-
-                  {/* Location + date */}
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <Waves className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                    <span className="text-white/80 text-[11px] md:text-xs font-semibold">Punta Roca</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] text-white/50">📅</span>
-                    <span className="text-white/70 text-[11px] md:text-xs font-semibold">Jun 5 – 15, 2026</span>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="border-t border-white/20 mt-1.5 pt-2.5">
-                    <p className="text-white/60 text-[10px] md:text-[11px] leading-snug italic">Need a ride to the comp?</p>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="mt-2 bg-cyan-400 text-[#051428] rounded-xl px-2 py-2.5 flex items-center justify-center gap-2">
-                    <WhatsAppIcon className="w-4 h-4 shrink-0" />
-                    <span className="text-[11px] md:text-xs font-heading font-extrabold uppercase tracking-wide">Book Your Ride 🤙</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">📅</span>
+                    <span className="text-white/80 text-sm font-semibold">June 5 – 15, 2026</span>
                   </div>
                 </div>
+
+                {/* Tagline */}
+                <div className="border-t border-white/20 mt-1 pt-3">
+                  <p className="text-white/70 text-sm leading-relaxed">Coming to watch the world's best surfers at Punta Roca? Josh will get you there — and back.</p>
+                </div>
+
+                {/* CTA button */}
+                <a
+                  href={whatsappLink("Aloha Josh! 🤙 I need a ride to the Surf City El Salvador Pro at Punta Roca (Jun 5–15).")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 bg-cyan-400 hover:bg-cyan-300 text-[#051428] rounded-2xl px-4 py-3.5 flex items-center justify-center gap-2.5 transition-colors shadow-lg"
+                >
+                  <WhatsAppIcon className="w-5 h-5 shrink-0" />
+                  <span className="text-sm md:text-base font-heading font-extrabold uppercase tracking-wide">Book Your Ride 🤙</span>
+                </a>
+
+                {/* Dismiss — big, attractive, part of the card */}
+                <button
+                  onClick={() => setWslBannerVisible(false)}
+                  className="mt-1 w-full py-2.5 rounded-2xl border-2 border-white/25 hover:border-white/60 text-white/60 hover:text-white text-sm font-heading font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                >
+                  <span className="text-lg leading-none">✕</span> Not interested
+                </button>
               </div>
-            </a>
+            </div>
           </div>
         )}
 
