@@ -438,9 +438,9 @@ const Index = () => {
                 {/* Dismiss — big, attractive, part of the card */}
                 <button
                   onClick={() => setWslBannerVisible(false)}
-                  className="mt-1 w-full py-2.5 rounded-2xl border-2 border-white/25 hover:border-white/60 text-white/60 hover:text-white text-sm font-heading font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                  className="mt-1 w-full py-3 rounded-2xl bg-white/15 hover:bg-white/25 border-2 border-white text-white text-sm font-heading font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
                 >
-                  <span className="text-lg leading-none">✕</span> Back to website
+                  <span className="text-xl font-black leading-none">✕</span> Back to website
                 </button>
               </div>
             </div>
