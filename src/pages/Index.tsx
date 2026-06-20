@@ -26,7 +26,7 @@ import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
-import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus, Mountain, Waves } from "lucide-react";
+import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus, Mountain, Waves, Home, BedDouble } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
@@ -42,6 +42,8 @@ import ReviewModal from "@/components/ReviewModal";
 const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
 const EMAIL_ADDRESS = "ucoach15@gmail.com";
+const AIRBNB_URL = "https://www.airbnb.com/experiences"; // Update with Josh's Airbnb Experiences profile URL once account is created
+const BOOKING_COM_URL = "https://www.booking.com/"; // Update with Josh's Booking.com Attractions profile URL once account is created
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -1009,6 +1011,33 @@ const Index = () => {
               {cmsContactPhone}
             </a>
           </div>
+
+          {/* ── Also available on ── */}
+          <div className="mt-10 md:mt-12">
+            <p className="text-secondary-foreground/50 text-xs font-heading font-bold uppercase tracking-widest mb-5">Also available on</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+              <a
+                href={AIRBNB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg transition-opacity hover:opacity-90"
+                style={{ backgroundColor: "#FF5A5F", color: "#fff" }}
+              >
+                <Home className="w-5 h-5 md:w-6 md:h-6 shrink-0" />
+                Book on Airbnb
+              </a>
+              <a
+                href={BOOKING_COM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg transition-opacity hover:opacity-90"
+                style={{ backgroundColor: "#003580", color: "#fff" }}
+              >
+                <BedDouble className="w-5 h-5 md:w-6 md:h-6 shrink-0" />
+                Book on Booking.com
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1029,7 +1058,7 @@ const Index = () => {
                 {footerDesc}
               </p>
               {/* Social icons */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 flex-wrap">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
                   <Facebook className="w-4 h-4" />
                 </a>
@@ -1041,6 +1070,12 @@ const Index = () => {
                 </a>
                 <a href={whatsappLink("Hi Josh!")} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all">
                   <WhatsAppIcon className="w-4 h-4" />
+                </a>
+                <a href={AIRBNB_URL} target="_blank" rel="noopener noreferrer" title="Book on Airbnb" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:opacity-90 transition-all" style={{ backgroundColor: "rgba(255,90,95,0.15)" }}>
+                  <Home className="w-4 h-4" style={{ color: "#FF5A5F" }} />
+                </a>
+                <a href={BOOKING_COM_URL} target="_blank" rel="noopener noreferrer" title="Book on Booking.com" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:opacity-90 transition-all" style={{ backgroundColor: "rgba(0,53,128,0.2)" }}>
+                  <BedDouble className="w-4 h-4" style={{ color: "#5b9bd5" }} />
                 </a>
               </div>
             </div>
