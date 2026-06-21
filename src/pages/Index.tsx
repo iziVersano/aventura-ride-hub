@@ -20,6 +20,8 @@ import gallerySunsetSurfImg from "@/assets/gallery-sunset-surf.jpg";
 import galleryPalmBeachImg from "@/assets/gallery-palm-beach.jpg";
 import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
 import reviewVideoSrc from "@/assets/videos/review.mp4";
+import reviewsVideoSrc from "@/assets/videos/reviews.mp4";
+import reviewOptVideoSrc from "@/assets/videos/review-opt.mp4";
 import taxi1VideoSrc from "@/assets/videos/taxi1.mp4";
 import taxi2VideoSrc from "@/assets/videos/taxi2.mp4";
 import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
@@ -54,7 +56,7 @@ interface Testimonial {
   created_at: string;
 }
 
-const CAROUSEL_VIDEOS = [reviewVideoSrc, taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
+const CAROUSEL_VIDEOS = [reviewVideoSrc, reviewsVideoSrc, reviewOptVideoSrc, taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
 
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
