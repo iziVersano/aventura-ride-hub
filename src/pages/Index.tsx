@@ -43,6 +43,12 @@ const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
 const EMAIL_ADDRESS = "ucoach15@gmail.com";
 
+const SOCIAL_LINKS = {
+  facebook: "https://www.facebook.com/joshs.surftaxi",
+  instagram: "https://www.instagram.com/joshs.surftaxi",
+  tiktok: "https://www.tiktok.com/@joshs.surftaxi",
+};
+
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
@@ -292,13 +298,13 @@ const Index = () => {
           <img src={logoImg} alt="Josh's Surf Taxi logo" className="h-11 md:h-16 w-auto rounded-full" />
           {/* Social icons - mobile & desktop */}
           <div className="flex items-center gap-5">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-[#1877F2] hover:opacity-80 transition-opacity">
+            <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="text-[#1877F2] hover:opacity-80 transition-opacity">
               <Facebook className="w-7 h-7" />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[#E4405F] hover:opacity-80 transition-opacity">
+            <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="text-[#E4405F] hover:opacity-80 transition-opacity">
               <Instagram className="w-7 h-7" />
             </a>
-            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-80 transition-opacity">
+            <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-80 transition-opacity">
               <TikTokIcon className="w-7 h-7" />
             </a>
           </div>
@@ -1030,13 +1036,13 @@ const Index = () => {
               </p>
               {/* Social icons */}
               <div className="flex items-center gap-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
+                <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
                   <Facebook className="w-4 h-4" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
+                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
                   <Instagram className="w-4 h-4" />
                 </a>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
+                <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all">
                   <TikTokIcon className="w-4 h-4" />
                 </a>
                 <a href={whatsappLink("Hi Josh!")} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary-foreground/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all">
