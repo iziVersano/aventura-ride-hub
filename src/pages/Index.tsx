@@ -19,7 +19,6 @@ import spotLaBocanaImg from "@/assets/spot-la-bocana.jpg";
 import gallerySunsetSurfImg from "@/assets/gallery-sunset-surf.jpg";
 import galleryPalmBeachImg from "@/assets/gallery-palm-beach.jpg";
 import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
-import reviewVideoSrc from "@/assets/videos/review.mp4";
 import taxi1VideoSrc from "@/assets/videos/taxi1.mp4";
 import taxi2VideoSrc from "@/assets/videos/taxi2.mp4";
 import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
@@ -31,7 +30,7 @@ import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { getCMSProducts, getCMSMedia, getCMSPosts, getCMSPages, getCMSPage, type CMSProduct, type CMSMedia, type CMSPost, type CMSPage, type CMSSection } from "@/lib/cms";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -54,20 +53,26 @@ interface Testimonial {
   created_at: string;
 }
 
-const CAROUSEL_VIDEOS = [reviewVideoSrc, taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
+const LOCAL_CAROUSEL_VIDEOS = [taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
 
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const reviewVideoRef = useRef<HTMLVideoElement>(null);
-  const [currentCue, setCurrentCue] = useState<string>("");
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [wslBannerVisible, setWslBannerVisible] = useState(true);
 
+  // CMS videos prepended to local fallback videos
+  const [cmsVideoUrls, setCmsVideoUrls] = useState<string[]>([]);
+
+  const carouselVideos = useMemo(
+    () => cmsVideoUrls.length > 0 ? [...cmsVideoUrls, ...LOCAL_CAROUSEL_VIDEOS] : LOCAL_CAROUSEL_VIDEOS,
+    [cmsVideoUrls]
+  );
+
   const goTo = useCallback((idx: number) => {
-    setCarouselIndex((idx + CAROUSEL_VIDEOS.length) % CAROUSEL_VIDEOS.length);
-    setCurrentCue("");
-  }, []);
+    setCarouselIndex((idx + carouselVideos.length) % carouselVideos.length);
+  }, [carouselVideos.length]);
 
   const toggleMute = useCallback(() => {
     const video = reviewVideoRef.current;
@@ -93,23 +98,14 @@ const Index = () => {
     );
     observer.observe(video);
 
-    const onCueChange = () => {
-      const track = Array.from(video.textTracks).find(t => t.kind === "subtitles");
-      if (!track) return;
-      const cues = track.activeCues;
-      setCurrentCue(cues && cues.length > 0 ? (cues[0] as VTTCue).text : "");
-    };
-    video.addEventListener("timeupdate", onCueChange);
-
     const onEnded = () => goTo(carouselIndex + 1);
     video.addEventListener("ended", onEnded);
 
     return () => {
       observer.disconnect();
-      video.removeEventListener("timeupdate", onCueChange);
       video.removeEventListener("ended", onEnded);
     };
-  }, [carouselIndex, goTo]);
+  }, [carouselIndex, goTo, carouselVideos]);
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
@@ -144,7 +140,13 @@ const Index = () => {
       getCMSPage("your-ride-to-paradise-starts-here"),
     ]).then(([products, media, posts, pages, page]) => {
       if (products.status === "fulfilled") setCmsProducts(products.value);
-      if (media.status === "fulfilled") setCmsMedia(media.value);
+      if (media.status === "fulfilled") {
+        setCmsMedia(media.value);
+        const videos = media.value
+          .filter(m => /\.(mp4|mov|webm)$/i.test(m.filename))
+          .map(m => m.url);
+        if (videos.length > 0) setCmsVideoUrls(videos);
+      }
       if (posts.status === "fulfilled") setCmsPosts(posts.value);
       if (pages.status === "fulfilled") setCmsPages(pages.value);
       if (page.status === "fulfilled") setCmsSections(page.value.sections ?? []);
@@ -158,6 +160,7 @@ const Index = () => {
     { href: "#services", label: "Services" },
     { href: "#surf-spots", label: "Surf Spots" },
     { href: "#why-us", label: "Why Us" },
+    { href: "#testimonials", label: "Reviews" },
     { href: "#gallery", label: "Gallery" },
     { href: "#contact", label: "Contact" },
     { href: "#book", label: "Book Now" },
@@ -509,12 +512,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ===== REAL RIDERS · REAL STORIES ===== */}
-      <section className="pt-3 pb-6 md:pb-8">
+      {/* ===== WHAT OUR CLIENTS SAY ===== */}
+      <section id="testimonials" className="pt-3 pb-6 md:pb-8">
         <div className="container mx-auto px-5 md:px-4">
           <div className="text-center mb-3">
-            <p className="text-primary font-heading font-bold text-[10px] tracking-widest uppercase mb-1">Real Riders · Real Stories</p>
-            <h2 className="font-heading font-extrabold text-lg md:text-2xl">Hear It From Our Passengers</h2>
+            <p className="text-primary font-heading font-bold text-[10px] tracking-widest uppercase mb-1">{testimonialsLabel}</p>
+            <h2 className="font-heading font-extrabold text-lg md:text-2xl">{testimonialsHeading}</h2>
           </div>
 
           {/* Video + quotes layout */}
@@ -526,17 +529,14 @@ const Index = () => {
                 <video
                   key={carouselIndex}
                   ref={reviewVideoRef}
-                  src={CAROUSEL_VIDEOS[carouselIndex]}
+                  src={carouselVideos[carouselIndex]}
                   controls
                   muted
                   autoPlay
                   playsInline
                   className="w-full h-auto object-cover"
-                >
-                  {carouselIndex === 0 && (
-                    <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
-                  )}
-                </video>
+                />
+
                 {/* Mute / Unmute button */}
                 <button
                   onClick={toggleMute}
@@ -550,13 +550,6 @@ const Index = () => {
                     <div className="bg-black/60 text-white text-xs font-heading font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5">
                       🔇 Tap to unmute
                     </div>
-                  </div>
-                )}
-                {currentCue && (
-                  <div className="absolute bottom-12 left-0 right-0 flex justify-center pointer-events-none px-3">
-                    <span className="bg-black/70 text-white text-base md:text-lg font-medium px-3 py-1 rounded text-center leading-snug">
-                      {currentCue}
-                    </span>
                   </div>
                 )}
                 {/* Prev / Next arrows */}
@@ -577,7 +570,7 @@ const Index = () => {
               </div>
               {/* Dot indicators */}
               <div className="flex justify-center gap-2">
-                {CAROUSEL_VIDEOS.map((_, i) => (
+                {carouselVideos.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => goTo(i)}
