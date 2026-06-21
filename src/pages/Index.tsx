@@ -635,6 +635,34 @@ const Index = () => {
                 </div>
                 <span>5.0 rating · 200+ rides</span>
               </div>
+
+              {/* Live DB reviews */}
+              {dbTestimonials.slice(0, 3).map((t) => (
+                <div key={t.id} className="bg-card rounded-xl p-4 border border-border flex gap-3 items-start hover:shadow-md transition-shadow">
+                  <div className="w-9 h-9 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs font-bold shrink-0">
+                    {t.name.slice(0, 2).toUpperCase()}
+                  </div>
+                  <div>
+                    <div className="flex gap-0.5 mb-1">
+                      {[...Array(t.rating)].map((_, i) => (
+                        <svg key={i} width="12" height="12" viewBox="0 0 16 16" fill="currentColor" className="text-primary">
+                          <path d="M8 1l1.76 3.57L14 5.27l-3 2.92.71 4.14L8 10.19l-3.71 2.14.71-4.14L2 5.27l4.24-.7L8 1z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed italic">"{t.message}"</p>
+                    <p className="mt-2 text-xs font-heading font-bold">{t.name}</p>
+                  </div>
+                </div>
+              ))}
+
+              {/* Leave a review CTA */}
+              <ReviewModal onSubmitted={fetchTestimonials}>
+                <button className="w-full bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 px-4 py-2.5 rounded-xl font-heading font-bold text-sm flex items-center justify-center gap-2 transition-colors">
+                  <MessageSquarePlus className="w-4 h-4" />
+                  {btnLeaveReview}
+                </button>
+              </ReviewModal>
             </div>
           </div>
         </div>
