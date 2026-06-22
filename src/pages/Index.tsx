@@ -29,6 +29,7 @@ import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
 import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, Mail, Send, MessageSquarePlus, Mountain, Waves } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
+import PayPalIcon from "@/components/PayPalIcon";
 import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -42,6 +43,7 @@ import ReviewModal from "@/components/ReviewModal";
 const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
 const EMAIL_ADDRESS = "ucoach15@gmail.com";
+const PAYPAL_ME_URL = "https://www.paypal.me/joshsurftaxi";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -247,6 +249,7 @@ const Index = () => {
   const btnBookNow      = "Book Now";
   const btnLeaveReview  = "Leave a Review";
   const btnSendMessage  = "Send Message";
+  const btnPayPal       = "Pay with PayPal";
 
   // Why Us items from CMS or fallback
   type WhyItem = { title: string; description: string; icon: string };
@@ -975,6 +978,17 @@ const Index = () => {
                     </div>
                     <span className="text-sm">{footerLocation}</span>
                   </div>
+                  <a
+                    href={PAYPAL_ME_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <div className="w-10 h-10 bg-[#003087]/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <PayPalIcon className="w-5 h-5 text-[#003087]" />
+                    </div>
+                    <span className="text-sm">Pay with PayPal</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1007,6 +1021,15 @@ const Index = () => {
             >
               <Phone className="w-5 h-5 md:w-6 md:h-6" />
               {cmsContactPhone}
+            </a>
+            <a
+              href={PAYPAL_ME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto bg-[#003087] text-white px-8 py-4 rounded-xl font-heading font-bold text-base md:text-lg flex items-center justify-center gap-3 hover:bg-[#001f6b] transition-colors"
+            >
+              <PayPalIcon className="w-5 h-5 md:w-6 md:h-6" />
+              {btnPayPal}
             </a>
           </div>
         </div>
