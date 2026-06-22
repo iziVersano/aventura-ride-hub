@@ -64,7 +64,6 @@ const Index = () => {
   const [currentCue, setCurrentCue] = useState<string>("");
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
-  const [wslBannerVisible, setWslBannerVisible] = useState(true);
 
   const goTo = useCallback((idx: number) => {
     setCarouselIndex((idx + CAROUSEL_VIDEOS.length) % CAROUSEL_VIDEOS.length);
@@ -371,84 +370,6 @@ const Index = () => {
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-0 md:min-h-[90vh] flex items-end pb-0 md:pb-20 pt-[60px] md:pt-16">
-
-        {/* WSL Modal Popup */}
-        {wslBannerVisible && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setWslBannerVisible(false)} />
-
-            {/* Modal card */}
-            <div className="relative w-full max-w-sm md:max-w-md rounded-3xl overflow-hidden shadow-2xl">
-
-              {/* Punta Roca background */}
-              <img
-                src={spotPuntaRocaImg}
-                alt="Punta Roca surf break"
-                className="absolute inset-0 w-full h-full object-cover object-center scale-105"
-              />
-              {/* Ocean overlay */}
-              <div className="absolute inset-0" style={{ background: "linear-gradient(170deg, rgba(3,14,28,0.88) 0%, rgba(6,40,70,0.78) 55%, rgba(3,14,28,0.93) 100%)" }} />
-              {/* Wave decoration */}
-              <svg viewBox="0 0 400 40" className="absolute bottom-0 left-0 w-full opacity-25" preserveAspectRatio="none">
-                <path d="M0,20 C60,5 120,35 200,20 C280,5 340,35 400,20 L400,40 L0,40 Z" fill="white"/>
-              </svg>
-
-              {/* Content */}
-              <div className="relative z-10 px-7 pt-8 pb-7 flex flex-col gap-3">
-
-                {/* WSL badge row */}
-                <div className="flex items-center gap-2">
-                  <span className="bg-cyan-400 text-[#051428] text-[10px] font-heading font-extrabold px-2.5 py-1 rounded-lg tracking-widest uppercase">WSL CT</span>
-                  <span className="text-white/40">·</span>
-                  <span className="text-white/60 text-xs font-heading font-bold uppercase tracking-wider">Event 05</span>
-                </div>
-
-                {/* Title */}
-                <div>
-                  <p className="font-heading font-extrabold text-white text-3xl md:text-4xl leading-tight">Surf City</p>
-                  <p className="font-heading font-extrabold text-cyan-300 text-3xl md:text-4xl leading-tight">El Salvador Pro</p>
-                </div>
-
-                {/* Details */}
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <div className="flex items-center gap-2">
-                    <Waves className="w-4 h-4 text-cyan-400 shrink-0" />
-                    <span className="text-white/90 text-sm font-semibold">Punta Roca, La Libertad</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">📅</span>
-                    <span className="text-white/80 text-sm font-semibold">June 5 – 15, 2026</span>
-                  </div>
-                </div>
-
-                {/* Tagline */}
-                <div className="border-t border-white/20 mt-1 pt-3">
-                  <p className="text-white/70 text-sm leading-relaxed">Coming to watch the world's best surfers at Punta Roca? Josh will get you there — and back.</p>
-                </div>
-
-                {/* CTA button */}
-                <a
-                  href={whatsappLink("Aloha Josh! 🤙 I need a ride to the Surf City El Salvador Pro at Punta Roca (Jun 5–15).")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 bg-cyan-400 hover:bg-cyan-300 text-[#051428] rounded-2xl px-4 py-3.5 flex items-center justify-center gap-2.5 transition-colors shadow-lg"
-                >
-                  <WhatsAppIcon className="w-5 h-5 shrink-0" />
-                  <span className="text-sm md:text-base font-heading font-extrabold uppercase tracking-wide">Book Your Ride 🤙</span>
-                </a>
-
-                {/* Dismiss — big, attractive, part of the card */}
-                <button
-                  onClick={() => setWslBannerVisible(false)}
-                  className="mt-1 w-full py-3 rounded-2xl bg-white/15 hover:bg-white/25 border-2 border-white text-white text-sm font-heading font-extrabold uppercase tracking-widest transition-all flex items-center justify-center gap-2"
-                >
-                  <span className="text-xl font-black leading-none">✕</span> Back to website
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Mobile: image drives height */}
         <div className="md:hidden relative w-full">
