@@ -44,6 +44,7 @@ const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
 const EMAIL_ADDRESS = "ucoach15@gmail.com";
 const PAYPAL_ME_URL = "https://www.paypal.me/joshsurftaxi";
+const AIRBNB_URL = "https://www.airbnb.com";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -160,6 +161,7 @@ const Index = () => {
     { href: "#surf-spots", label: "Surf Spots" },
     { href: "#why-us", label: "Why Us" },
     { href: "#gallery", label: "Gallery" },
+    { href: "#stay", label: "Stay" },
     { href: "#contact", label: "Contact" },
     { href: "#book", label: "Book Now" },
   ];
@@ -785,6 +787,54 @@ const Index = () => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ===== AIRBNB APARTMENT BANNER ===== */}
+      <section id="stay" className="py-14 md:py-20">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Where to Stay</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl">Josh's Airbnb Apartment</h2>
+            <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-xl mx-auto">
+              Complete your El Salvador experience — stay in Josh's apartment, steps from the best surf breaks on the coast.
+            </p>
+          </div>
+          <a
+            href={AIRBNB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+          >
+            <img
+              src={galleryPoolImg}
+              alt="Josh's Airbnb apartment in El Salvador"
+              className="w-full h-64 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
+            <div className="absolute inset-0 flex flex-col justify-center px-7 md:px-14">
+              <div className="flex items-center gap-2.5 mb-4">
+                <span className="bg-[#FF5A5F] text-white text-xs font-heading font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                  Airbnb
+                </span>
+                <span className="text-white/75 text-xs font-heading font-bold uppercase tracking-wider">
+                  Hosted by Josh
+                </span>
+              </div>
+              <h3 className="font-heading font-extrabold text-2xl md:text-4xl text-white mb-3 max-w-md leading-tight">
+                Stay Right at the Beach
+              </h3>
+              <p className="text-white/85 text-sm md:text-base max-w-sm leading-relaxed mb-6">
+                Wake up to Pacific ocean views, walk to world-class surf breaks, and let Josh handle your transfers. The perfect El Salvador base camp.
+              </p>
+              <div className="inline-flex items-center gap-2 bg-[#FF5A5F] hover:bg-[#e8484d] text-white font-heading font-bold text-sm md:text-base px-7 py-3 rounded-xl transition-colors w-fit shadow-lg">
+                View on Airbnb
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 17L17 7M7 7h10v10" />
+                </svg>
+              </div>
+            </div>
+          </a>
         </div>
       </section>
 
