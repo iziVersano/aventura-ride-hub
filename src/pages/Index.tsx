@@ -401,7 +401,7 @@ const Index = () => {
             <p className="text-white/90 text-lg mb-6 leading-relaxed max-w-md drop-shadow-sm">
               {heroSubtitle}
             </p>
-            <div className="hidden md:flex flex-col sm:flex-row gap-3">
+            <div className="hidden md:flex flex-col sm:flex-row gap-3 flex-wrap">
               <a
                 href={whatsappLink("Hi Josh! I'd like to book a ride from the airport.")}
                 target="_blank"
@@ -418,10 +418,47 @@ const Index = () => {
                 <Phone className="w-5 h-5" />
                 {btnCallNow}
               </a>
+              <a
+                href={PAYPAL_ME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#003087] text-white px-8 py-4 rounded-xl font-heading font-bold text-lg flex items-center justify-center gap-2 hover:bg-[#001f6b] transition-colors shadow-lg"
+              >
+                <PayPalIcon className="w-5 h-5" />
+                {btnPayPal}
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+      {/* ===== LANDING QUICK-ACCESS STRIP ===== */}
+      <div className="bg-secondary border-b border-primary/20">
+        <div className="container mx-auto px-5 md:px-4 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+          {/* Airbnb chip */}
+          <a
+            href={AIRBNB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center gap-2.5 bg-[#FF5A5F]/10 hover:bg-[#FF5A5F]/20 border border-[#FF5A5F]/30 text-[#FF5A5F] px-4 py-2.5 rounded-xl font-heading font-bold text-sm transition-colors"
+          >
+            <span className="text-base shrink-0">🏠</span>
+            <span className="leading-tight">Josh's Airbnb Apartment — Book your stay</span>
+            <span className="ml-auto text-xs opacity-70">→</span>
+          </a>
+          {/* PayPal chip */}
+          <a
+            href={PAYPAL_ME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center gap-2.5 bg-[#003087]/10 hover:bg-[#003087]/20 border border-[#003087]/30 text-[#003087] dark:text-blue-300 dark:border-blue-400/30 dark:bg-blue-900/20 px-4 py-2.5 rounded-xl font-heading font-bold text-sm transition-colors"
+          >
+            <PayPalIcon className="w-4 h-4 shrink-0" />
+            <span className="leading-tight">Pay your taxi ride with PayPal</span>
+            <span className="ml-auto text-xs opacity-70">→</span>
+          </a>
+        </div>
+      </div>
 
       {/* ===== REAL RIDERS · REAL STORIES ===== */}
       <section className="pt-3 pb-6 md:pb-8">
@@ -1071,22 +1108,31 @@ const Index = () => {
       </footer>
 
       {/* ===== STICKY MOBILE CTA ===== */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-secondary/95 backdrop-blur-md border-t border-primary/30 px-4 py-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] flex gap-3">
+      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-secondary/95 backdrop-blur-md border-t border-primary/30 px-3 py-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] flex gap-2">
         <a
           href={whatsappLink("Hi Josh! I'd like to book a ride.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 bg-accent text-accent-foreground py-2.5 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
+          className="flex-1 bg-accent text-accent-foreground py-2.5 rounded-lg font-heading font-bold text-xs flex items-center justify-center gap-1.5"
         >
-          <WhatsAppIcon className="w-4 h-4" />
+          <WhatsAppIcon className="w-4 h-4 shrink-0" />
           {btnWhatsApp}
         </a>
         <a
           href={`tel:${cmsContactPhone.replace(/\s/g, "")}`}
-          className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-lg font-heading font-bold text-sm flex items-center justify-center gap-2"
+          className="flex-1 bg-primary text-primary-foreground py-2.5 rounded-lg font-heading font-bold text-xs flex items-center justify-center gap-1.5"
         >
-          <Phone className="w-4 h-4" />
+          <Phone className="w-4 h-4 shrink-0" />
           {btnCallNow}
+        </a>
+        <a
+          href={PAYPAL_ME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 bg-[#003087] text-white py-2.5 rounded-lg font-heading font-bold text-xs flex items-center justify-center gap-1.5"
+        >
+          <PayPalIcon className="w-4 h-4 shrink-0" />
+          PayPal
         </a>
       </div>
     </div>
