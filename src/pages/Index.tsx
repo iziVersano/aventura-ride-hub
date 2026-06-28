@@ -29,6 +29,7 @@ import { Phone, MapPin, Shield, Star, Clock, Car, Compass, Camera, Users, Menu, 
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import TikTokIcon from "@/components/TikTokIcon";
 import PayPalIcon from "@/components/PayPalIcon";
+import AirbnbIcon from "@/components/AirbnbIcon";
 import { Facebook, Instagram } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -451,8 +452,9 @@ const Index = () => {
             {/* Listing info */}
             <div className="flex-1 px-3 py-2 min-w-0">
               <div className="flex items-center gap-1.5 mb-0.5">
-                <span className="bg-[#FF5A5F] text-white text-[10px] font-heading font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wide leading-none">Airbnb</span>
-                <span className="text-[11px] text-muted-foreground font-heading">Hosted by Josh</span>
+                <AirbnbIcon className="w-4 h-4 shrink-0 text-[#FF5A5F]" />
+                <span className="text-[#FF5A5F] text-[11px] font-heading font-extrabold uppercase tracking-wide leading-none">Airbnb</span>
+                <span className="text-[11px] text-muted-foreground font-heading">· Hosted by Josh</span>
               </div>
               <p className="font-heading font-extrabold text-sm leading-tight truncate text-foreground">Beachfront Apt · El Salvador</p>
               <div className="flex items-center gap-1 mt-0.5">
@@ -466,16 +468,31 @@ const Index = () => {
               <span>Now →</span>
             </div>
           </a>
-          {/* PayPal chip */}
+          {/* PayPal card banner */}
           <a
             href={PAYPAL_ME_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center gap-2.5 bg-[#003087]/10 hover:bg-[#003087]/20 border border-[#003087]/30 text-[#003087] dark:text-blue-300 dark:border-blue-400/30 dark:bg-blue-900/20 px-4 py-2.5 rounded-xl font-heading font-bold text-sm transition-colors"
+            className="flex-1 flex items-stretch gap-0 bg-white dark:bg-zinc-800 border-2 border-[#003087] rounded-xl overflow-hidden shadow-[0_0_0_3px_rgba(0,48,135,0.12)] hover:shadow-[0_6px_24px_rgba(0,48,135,0.28)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group"
           >
-            <PayPalIcon className="w-4 h-4 shrink-0" />
-            <span className="leading-tight">Pay your taxi ride with PayPal</span>
-            <span className="ml-auto text-xs opacity-70">→</span>
+            {/* PayPal brand panel */}
+            <div className="bg-[#003087] group-hover:bg-[#002060] px-4 flex items-center justify-center shrink-0 transition-colors">
+              <PayPalIcon className="w-6 h-6 text-white" />
+            </div>
+            {/* Info */}
+            <div className="flex-1 px-3 py-2 min-w-0">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <span className="text-[#003087] dark:text-blue-400 text-[11px] font-heading font-extrabold uppercase tracking-wide leading-none">PayPal</span>
+                <span className="text-[11px] text-muted-foreground font-heading">· Secure payment</span>
+              </div>
+              <p className="font-heading font-extrabold text-sm leading-tight text-foreground truncate">Pay your taxi ride</p>
+              <p className="text-[11px] text-muted-foreground font-heading mt-0.5">Fast · Safe · Easy</p>
+            </div>
+            {/* CTA */}
+            <div className="shrink-0 bg-[#FFB700] group-hover:bg-[#e5a500] text-[#003087] font-heading font-extrabold text-xs px-4 flex flex-col items-center justify-center gap-0.5 self-stretch transition-colors leading-tight">
+              <span>Pay</span>
+              <span>Now →</span>
+            </div>
           </a>
         </div>
       </div>
