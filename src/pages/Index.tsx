@@ -19,7 +19,6 @@ import spotLaBocanaImg from "@/assets/spot-la-bocana.jpg";
 import gallerySunsetSurfImg from "@/assets/gallery-sunset-surf.jpg";
 import galleryPalmBeachImg from "@/assets/gallery-palm-beach.jpg";
 import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
-import reviewVideoSrc from "@/assets/videos/review.mp4";
 import taxi1VideoSrc from "@/assets/videos/taxi1.mp4";
 import taxi2VideoSrc from "@/assets/videos/taxi2.mp4";
 import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
@@ -57,18 +56,16 @@ interface Testimonial {
   created_at: string;
 }
 
-const CAROUSEL_VIDEOS = [reviewVideoSrc, taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
+const CAROUSEL_VIDEOS = [taxi1VideoSrc, taxi2VideoSrc, taxi3VideoSrc];
 
 const Index = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const reviewVideoRef = useRef<HTMLVideoElement>(null);
-  const [currentCue, setCurrentCue] = useState<string>("");
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
 
   const goTo = useCallback((idx: number) => {
     setCarouselIndex((idx + CAROUSEL_VIDEOS.length) % CAROUSEL_VIDEOS.length);
-    setCurrentCue("");
   }, []);
 
   const toggleMute = useCallback(() => {
@@ -95,20 +92,11 @@ const Index = () => {
     );
     observer.observe(video);
 
-    const onCueChange = () => {
-      const track = Array.from(video.textTracks).find(t => t.kind === "subtitles");
-      if (!track) return;
-      const cues = track.activeCues;
-      setCurrentCue(cues && cues.length > 0 ? (cues[0] as VTTCue).text : "");
-    };
-    video.addEventListener("timeupdate", onCueChange);
-
     const onEnded = () => goTo(carouselIndex + 1);
     video.addEventListener("ended", onEnded);
 
     return () => {
       observer.disconnect();
-      video.removeEventListener("timeupdate", onCueChange);
       video.removeEventListener("ended", onEnded);
     };
   }, [carouselIndex, goTo]);
@@ -458,11 +446,7 @@ const Index = () => {
                   autoPlay
                   playsInline
                   className="w-full h-auto object-cover"
-                >
-                  {carouselIndex === 0 && (
-                    <track kind="subtitles" src="/review.vtt" srcLang="en" label="English" default />
-                  )}
-                </video>
+                />
                 {/* Mute / Unmute button */}
                 <button
                   onClick={toggleMute}
@@ -476,13 +460,6 @@ const Index = () => {
                     <div className="bg-black/60 text-white text-xs font-heading font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5">
                       🔇 Tap to unmute
                     </div>
-                  </div>
-                )}
-                {currentCue && (
-                  <div className="absolute bottom-12 left-0 right-0 flex justify-center pointer-events-none px-3">
-                    <span className="bg-black/70 text-white text-base md:text-lg font-medium px-3 py-1 rounded text-center leading-snug">
-                      {currentCue}
-                    </span>
                   </div>
                 )}
                 {/* Prev / Next arrows */}
