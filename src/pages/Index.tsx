@@ -435,16 +435,36 @@ const Index = () => {
       {/* ===== LANDING QUICK-ACCESS STRIP ===== */}
       <div className="bg-secondary border-b border-primary/20">
         <div className="container mx-auto px-5 md:px-4 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-          {/* Airbnb banner */}
+          {/* Airbnb listing-card banner */}
           <a
             href={AIRBNB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center gap-3 bg-[#FF5A5F] hover:bg-[#e8484d] border-2 border-[#FF5A5F] hover:border-[#e8484d] text-white px-5 py-3 rounded-xl font-heading font-extrabold text-sm md:text-base transition-all duration-200 shadow-lg hover:shadow-[#FF5A5F]/40 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+            className="flex-1 flex items-stretch gap-0 bg-white dark:bg-zinc-800 border-2 border-[#FF5A5F] rounded-xl overflow-hidden shadow-[0_0_0_3px_rgba(255,90,95,0.18)] hover:shadow-[0_6px_24px_rgba(255,90,95,0.38)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 group"
           >
-            <span className="text-lg shrink-0">🏠</span>
-            <span className="leading-tight">Josh's Airbnb — <span className="underline underline-offset-2">Book your stay</span></span>
-            <span className="ml-auto bg-white/25 text-white text-xs font-heading font-bold px-2.5 py-1 rounded-lg shrink-0 uppercase tracking-wide">Book Now →</span>
+            {/* Property thumbnail */}
+            <img
+              src={galleryPoolImg}
+              alt="Josh's Airbnb apartment"
+              className="w-16 md:w-20 object-cover shrink-0 group-hover:scale-105 transition-transform duration-500"
+            />
+            {/* Listing info */}
+            <div className="flex-1 px-3 py-2 min-w-0">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <span className="bg-[#FF5A5F] text-white text-[10px] font-heading font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wide leading-none">Airbnb</span>
+                <span className="text-[11px] text-muted-foreground font-heading">Hosted by Josh</span>
+              </div>
+              <p className="font-heading font-extrabold text-sm leading-tight truncate text-foreground">Beachfront Apt · El Salvador</p>
+              <div className="flex items-center gap-1 mt-0.5">
+                <span className="text-[#FF5A5F] text-xs tracking-tighter">★★★★★</span>
+                <span className="text-[11px] text-muted-foreground font-heading">5.0 · Book your stay</span>
+              </div>
+            </div>
+            {/* CTA button */}
+            <div className="shrink-0 bg-[#FF5A5F] group-hover:bg-[#e8484d] text-white font-heading font-extrabold text-xs px-4 flex flex-col items-center justify-center gap-0.5 self-stretch transition-colors leading-tight">
+              <span>Book</span>
+              <span>Now →</span>
+            </div>
           </a>
           {/* PayPal chip */}
           <a
