@@ -435,16 +435,16 @@ const Index = () => {
       {/* ===== LANDING QUICK-ACCESS STRIP ===== */}
       <div className="bg-secondary border-b border-primary/20">
         <div className="container mx-auto px-5 md:px-4 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-          {/* Airbnb chip */}
+          {/* Airbnb banner */}
           <a
             href={AIRBNB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center gap-2.5 bg-[#FF5A5F]/10 hover:bg-[#FF5A5F]/20 border border-[#FF5A5F]/30 text-[#FF5A5F] px-4 py-2.5 rounded-xl font-heading font-bold text-sm transition-colors"
+            className="flex-1 flex items-center gap-3 bg-[#FF5A5F] hover:bg-[#e8484d] border-2 border-[#FF5A5F] hover:border-[#e8484d] text-white px-5 py-3 rounded-xl font-heading font-extrabold text-sm md:text-base transition-all duration-200 shadow-lg hover:shadow-[#FF5A5F]/40 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
           >
-            <span className="text-base shrink-0">🏠</span>
-            <span className="leading-tight">Josh's Airbnb Apartment — Book your stay</span>
-            <span className="ml-auto text-xs opacity-70">→</span>
+            <span className="text-lg shrink-0">🏠</span>
+            <span className="leading-tight">Josh's Airbnb — <span className="underline underline-offset-2">Book your stay</span></span>
+            <span className="ml-auto bg-white/25 text-white text-xs font-heading font-bold px-2.5 py-1 rounded-lg shrink-0 uppercase tracking-wide">Book Now →</span>
           </a>
           {/* PayPal chip */}
           <a
