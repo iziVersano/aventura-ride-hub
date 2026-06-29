@@ -44,7 +44,7 @@ const WHATSAPP_NUMBER = "50375362408";
 const PHONE_NUMBER = "+503 7536-2408";
 const EMAIL_ADDRESS = "ucoach15@gmail.com";
 const PAYPAL_ME_URL = "https://www.paypal.me/joshsurftaxi";
-const AIRBNB_URL = "https://www.airbnb.com";
+const AIRBNB_URL = "https://www.airbnb.com/users/show/1023009977";
 
 const whatsappLink = (message: string) =>
   `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
