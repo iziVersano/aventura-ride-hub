@@ -665,11 +665,16 @@ const Index = () => {
                 {btnBookNow}
               </a>
             </div>
-            <div className="order-1 md:order-2">
+            <div className="order-1 md:order-2 relative mb-10 md:mb-0">
+              <img
+                src={viewpointImg}
+                alt="Josh at scenic viewpoint with El Salvador flag"
+                className="rounded-2xl shadow-lg w-full object-cover aspect-video"
+              />
               <img
                 src={joshSelfieImg}
                 alt="Josh at Playa El Tuco beach, El Salvador"
-                className="rounded-2xl shadow-lg w-full max-w-sm md:max-w-md mx-auto object-cover aspect-[3/4]"
+                className="absolute -bottom-8 -left-2 md:-bottom-10 md:-left-6 w-28 md:w-40 aspect-[3/4] object-cover rounded-xl border-4 border-background shadow-xl -rotate-3 hover:rotate-0 transition-transform duration-300"
               />
             </div>
           </div>
