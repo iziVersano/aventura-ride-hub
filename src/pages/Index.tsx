@@ -375,7 +375,7 @@ const Index = () => {
           <img
             src={taxiTourBadgeImg}
             alt="Taxi Tour — 24/7 rides across El Salvador"
-            className="absolute top-3 right-3 w-24 rounded-full shadow-xl rotate-6"
+            className="absolute top-3 right-3 w-36 rounded-full shadow-xl rotate-6"
           />
           <div className="absolute bottom-0 left-0 right-0 p-5 pb-6">
             <p className="text-primary font-heading font-bold text-xs tracking-widest uppercase mb-3 drop-shadow-sm">
