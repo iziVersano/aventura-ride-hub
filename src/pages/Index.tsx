@@ -22,6 +22,8 @@ import galleryFlightImg from "@/assets/gallery-tropical-road.jpg";
 import taxi1VideoSrc from "@/assets/videos/taxi1.mp4";
 import taxi2VideoSrc from "@/assets/videos/taxi2.mp4";
 import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
+import joshSelfieImg from "@/assets/josh-selfie.jpg";
+import taxiTourBadgeImg from "@/assets/taxi-tour-badge.jpg";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
 import reviewEmilyJakeImg from "@/assets/review-emily-jake.png";
@@ -665,9 +667,9 @@ const Index = () => {
             </div>
             <div className="order-1 md:order-2">
               <img
-                src={viewpointImg}
-                alt="Josh at scenic viewpoint with El Salvador flag"
-                className="rounded-2xl shadow-lg w-full object-cover aspect-video"
+                src={joshSelfieImg}
+                alt="Josh at Playa El Tuco beach, El Salvador"
+                className="rounded-2xl shadow-lg w-full max-w-sm md:max-w-md mx-auto object-cover aspect-[3/4]"
               />
             </div>
           </div>
@@ -703,6 +705,34 @@ const Index = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Destinations badge */}
+          <div className="mt-12 md:mt-16 grid md:grid-cols-2 gap-8 md:gap-10 items-center max-w-4xl mx-auto">
+            <img
+              src={taxiTourBadgeImg}
+              alt="Taxi Tour destinations: Airport, La Unión, Juayúa 7 Waterfalls, Tamanique Waterfalls, Santa Ana Volcano, Punta Mango, Las Flores, El Tunco y El Zonte — 24/7"
+              className="rounded-full shadow-xl w-60 md:w-80 mx-auto hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div className="text-center md:text-left">
+              <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">Wherever You're Headed</p>
+              <h3 className="font-heading font-extrabold text-2xl md:text-3xl mb-3">One Taxi. Every Destination. 24/7.</h3>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
+                Airport runs, La Unión, Juayúa's 7 Waterfalls, Tamanique Waterfalls, Santa Ana
+                Volcano, Punta Mango, Las Flores, El Tunco &amp; El Zonte — day or night, Josh
+                drives them all.
+              </p>
+              <a
+                href={whatsappLink("Hi Josh! I'd like a ride — here's where I'm headed:")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-heading font-bold text-sm inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+                Plan My Ride
+              </a>
+            </div>
           </div>
 
         </div>
