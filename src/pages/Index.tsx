@@ -372,6 +372,11 @@ const Index = () => {
             className="w-full h-auto block"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/50" />
+          <img
+            src={taxiTourBadgeImg}
+            alt="Taxi Tour — 24/7 rides across El Salvador"
+            className="absolute top-3 right-3 w-24 rounded-full shadow-xl rotate-6"
+          />
           <div className="absolute bottom-0 left-0 right-0 p-5 pb-6">
             <p className="text-primary font-heading font-bold text-xs tracking-widest uppercase mb-3 drop-shadow-sm">
               {heroLabel}
@@ -393,6 +398,11 @@ const Index = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/15 to-transparent" />
         </div>
+        <img
+          src={taxiTourBadgeImg}
+          alt="Taxi Tour — 24/7 rides across El Salvador"
+          className="hidden md:block absolute top-28 right-8 lg:right-16 z-10 w-44 lg:w-56 rounded-full shadow-2xl rotate-6 hover:rotate-0 hover:scale-105 transition-transform duration-300"
+        />
         <div className="relative z-10 container mx-auto px-5 md:px-4 hidden md:block">
           <div className="max-w-xl">
             <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-3 drop-shadow-sm">
