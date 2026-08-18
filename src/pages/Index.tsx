@@ -362,48 +362,27 @@ const Index = () => {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-0 md:min-h-[90vh] flex items-end pb-0 md:pb-20 pt-[60px] md:pt-16">
+      <section className="relative min-h-0 md:min-h-[90vh] flex items-center pt-[60px] md:pt-20 bg-gradient-to-b from-sky-400 via-sky-600 to-blue-950">
 
-        {/* Mobile: image drives height */}
-        <div className="md:hidden relative w-full">
-          <img
-            src={heroMobileImg}
-            alt="Josh's surf taxi on the beach with surfboards"
-            className="w-full h-auto block"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/15 to-black/50" />
+        {/* Mobile: badge-centered layout */}
+        <div className="md:hidden w-full px-5 py-8 text-center">
           <img
             src={taxiTourBadgeImg}
-            alt="Taxi Tour — 24/7 rides across El Salvador"
-            className="absolute top-3 right-3 w-36 rounded-full shadow-xl rotate-6"
+            alt="Taxi Tour — Airport, La Unión, Juayúa 7 Waterfalls, Tamanique Waterfalls, Santa Ana Volcano, Punta Mango, Las Flores, El Tunco y El Zonte — 24/7"
+            className="w-72 max-w-full mx-auto rounded-full shadow-2xl mb-6"
           />
-          <div className="absolute bottom-0 left-0 right-0 p-5 pb-6">
-            <p className="text-primary font-heading font-bold text-xs tracking-widest uppercase mb-3 drop-shadow-sm">
-              {heroLabel}
-            </p>
-            <h1 className="font-heading font-extrabold text-[28px] leading-[1.2] text-primary mb-3 max-w-[320px] drop-shadow-md">
-              {heroTitle}
-            </h1>
-            <p className="text-white/90 text-sm leading-relaxed max-w-[300px] drop-shadow-sm">
-              {heroSubtitle}
-            </p>
-          </div>
+          <p className="text-primary font-heading font-bold text-xs tracking-widest uppercase mb-3 drop-shadow-sm">
+            {heroLabel}
+          </p>
+          <h1 className="font-heading font-extrabold text-[28px] leading-[1.2] text-primary mb-3 mx-auto max-w-[320px] drop-shadow-md">
+            {heroTitle}
+          </h1>
+          <p className="text-white/90 text-sm leading-relaxed mx-auto max-w-[300px] drop-shadow-sm">
+            {heroSubtitle}
+          </p>
         </div>
-        {/* Desktop: original absolute layout */}
-        <div className="absolute inset-0 hidden md:block">
-          <img
-            src={heroImg}
-            alt="Josh standing at scenic viewpoint with El Salvador flag"
-            className="w-full h-full object-cover object-right"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/15 to-transparent" />
-        </div>
-        <img
-          src={taxiTourBadgeImg}
-          alt="Taxi Tour — 24/7 rides across El Salvador"
-          className="hidden md:block absolute top-28 right-8 lg:right-16 z-10 w-44 lg:w-56 rounded-full shadow-2xl rotate-6 hover:rotate-0 hover:scale-105 transition-transform duration-300"
-        />
-        <div className="relative z-10 container mx-auto px-5 md:px-4 hidden md:block">
+        {/* Desktop: text left, badge right */}
+        <div className="relative z-10 container mx-auto px-5 md:px-4 hidden md:grid md:grid-cols-2 md:gap-10 lg:gap-16 md:items-center">
           <div className="max-w-xl">
             <p className="text-primary font-heading font-bold text-sm tracking-widest uppercase mb-3 drop-shadow-sm">
               {heroLabel}
@@ -442,6 +421,11 @@ const Index = () => {
               </a>
             </div>
           </div>
+          <img
+            src={taxiTourBadgeImg}
+            alt="Taxi Tour — Airport, La Unión, Juayúa 7 Waterfalls, Tamanique Waterfalls, Santa Ana Volcano, Punta Mango, Las Flores, El Tunco y El Zonte — 24/7"
+            className="w-full max-w-md lg:max-w-lg mx-auto rounded-full shadow-2xl rotate-3 hover:rotate-0 hover:scale-[1.02] transition-transform duration-300"
+          />
         </div>
       </section>
 
