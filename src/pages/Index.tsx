@@ -23,6 +23,7 @@ import taxi1VideoSrc from "@/assets/videos/taxi1.mp4";
 import taxi2VideoSrc from "@/assets/videos/taxi2.mp4";
 import taxi3VideoSrc from "@/assets/videos/taxi3.mp4";
 import joshSelfieImg from "@/assets/josh-selfie.jpg";
+import massageAlohaBannerImg from "@/assets/massage-aloha-banner.jpg";
 import taxiTourBadgeImg from "@/assets/taxi-tour-badge.jpg";
 import reviewSarahImg from "@/assets/review-sarah.png";
 import reviewCarlosImg from "@/assets/review-carlos.png";
@@ -914,6 +915,32 @@ const Index = () => {
                 </svg>
               </div>
             </div>
+          </a>
+        </div>
+      </section>
+
+      {/* ===== MASSAGE ALOHA BANNER ===== */}
+      <section id="massage" className="py-14 md:py-20 bg-secondary">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-8 md:mb-10">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">More from Josh</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl text-secondary-foreground">Massage Aloha</h2>
+            <p className="text-secondary-foreground/70 text-base md:text-lg mt-3 max-w-xl mx-auto">
+              Unwind after the waves — professional massage at your place, on the beach, or by the waterfalls. Book via WhatsApp.
+            </p>
+          </div>
+          <a
+            href={whatsappLink("Hi Josh! I'd like to book a Massage Aloha session.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl ring-1 ring-yellow-500/40 hover:ring-yellow-400 transition-all duration-300"
+          >
+            <img
+              src={massageAlohaBannerImg}
+              alt="Massage Aloha — 30 minutes $39, 60 minutes $59, 90 minutes $75. Home, beach and waterfall service. WhatsApp 503 7536-2408"
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
           </a>
         </div>
       </section>
