@@ -363,7 +363,15 @@ const Index = () => {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-0 md:min-h-[90vh] flex items-center pt-[60px] md:pt-20 bg-gradient-to-b from-sky-400 via-sky-600 to-blue-950">
+      <section
+        className="relative min-h-0 md:min-h-[90vh] flex items-center pt-[60px] md:pt-20"
+        style={{
+          background: [
+            "radial-gradient(ellipse 55% 16% at 72% 38%, rgba(255,236,179,0.55), transparent)",
+            "linear-gradient(180deg, #4db8f0 0%, #a5dcf5 28%, #dcf2fb 38%, #1290ce 39%, #0a6aa8 65%, #083d66 100%)",
+          ].join(", "),
+        }}
+      >
 
         {/* Mobile: badge-centered layout */}
         <div className="md:hidden w-full px-5 py-8 text-center">
