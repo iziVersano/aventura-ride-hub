@@ -364,7 +364,7 @@ const Index = () => {
 
       {/* ===== HERO ===== */}
       <section
-        className="relative min-h-0 md:min-h-[90vh] flex items-center pt-[60px] md:pt-20"
+        className="relative min-h-0 md:min-h-[90vh] flex items-center pt-[60px] md:pt-20 overflow-hidden"
         style={{
           background: [
             "radial-gradient(ellipse 55% 16% at 72% 38%, rgba(255,236,179,0.55), transparent)",
@@ -372,9 +372,38 @@ const Index = () => {
           ].join(", "),
         }}
       >
+        {/* Scenery layers: breaking wave + jungle */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          {/* Breaking wave along the bottom */}
+          <svg viewBox="0 0 1440 240" preserveAspectRatio="none" className="absolute bottom-0 inset-x-0 w-full h-20 md:h-40">
+            <path d="M0,90 C180,40 340,130 560,105 C820,75 1040,135 1260,105 C1340,94 1400,88 1440,92 L1440,240 L0,240 Z" fill="#0d6ba3" />
+            <path d="M40,120 C30,40 120,0 200,25 C260,44 290,90 285,120 C280,80 240,55 200,58 C160,61 135,90 140,120 Z" fill="#ffffff" opacity="0.95" />
+            <path d="M0,130 C60,102 140,98 200,120 C260,142 320,108 400,118 C480,128 520,102 600,114 C680,126 720,100 800,112 C880,124 930,98 1010,110 C1090,122 1140,98 1220,110 C1300,122 1370,102 1440,114 L1440,170 C1200,190 900,194 600,188 C360,183 150,178 0,168 Z" fill="#ffffff" opacity="0.95" />
+            <path d="M0,168 C150,178 360,183 600,188 C900,194 1200,190 1440,170 L1440,240 L0,240 Z" fill="#0a568a" />
+            <path d="M120,200 C220,192 340,196 420,202 C340,210 200,210 120,200 Z" fill="#ffffff" opacity="0.35" />
+            <path d="M760,208 C860,200 980,204 1060,210 C980,218 840,218 760,208 Z" fill="#ffffff" opacity="0.3" />
+          </svg>
+          {/* Jungle left */}
+          <svg viewBox="0 0 360 810" preserveAspectRatio="none" className="absolute left-0 top-0 h-full w-16 md:w-48">
+            <path d="M0,0 L0,520 C60,500 90,460 70,410 C120,430 160,400 150,350 C190,360 220,320 200,270 C240,275 260,235 240,190 C280,190 300,150 280,105 C310,100 330,60 315,20 C330,10 340,0 345,0 Z" fill="#0b3527" />
+            <path d="M0,60 Q150,55 235,140 Q130,150 0,110 Z" fill="#14532d" />
+            <path d="M0,170 Q170,160 265,255 Q145,262 0,215 Z" fill="#166534" />
+            <path d="M0,290 Q160,282 250,370 Q140,378 0,330 Z" fill="#14532d" />
+            <path d="M0,410 Q150,405 230,490 Q130,495 0,450 Z" fill="#0f4d33" />
+            <path d="M0,20 Q110,30 170,95 Q90,95 0,60 Z" fill="#1a6b3f" opacity="0.9" />
+            <path d="M0,230 Q120,228 185,300 Q100,303 0,265 Z" fill="#1a6b3f" opacity="0.85" />
+          </svg>
+          {/* Jungle right (desktop only) */}
+          <svg viewBox="0 0 220 330" preserveAspectRatio="none" className="hidden md:block absolute right-0 top-0 w-40 h-[45%]">
+            <path d="M220,0 L220,320 C170,300 150,260 170,215 C125,230 90,200 102,155 C65,160 40,125 58,85 C25,82 8,45 25,10 C15,5 10,0 5,0 Z" fill="#0b3527" />
+            <path d="M220,50 Q90,48 15,125 Q110,132 220,95 Z" fill="#166534" />
+            <path d="M220,155 Q80,150 0,230 Q100,238 220,195 Z" fill="#14532d" />
+            <path d="M220,15 Q130,22 75,80 Q145,82 220,50 Z" fill="#1a6b3f" opacity="0.9" />
+          </svg>
+        </div>
 
         {/* Mobile: badge-centered layout */}
-        <div className="md:hidden w-full px-5 py-8 text-center">
+        <div className="md:hidden relative z-10 w-full px-5 pt-8 pb-24 text-center">
           <img
             src={taxiTourBadgeImg}
             alt="Taxi Tour — Airport, La Unión, Juayúa 7 Waterfalls, Tamanique Waterfalls, Santa Ana Volcano, Punta Mango, Las Flores, El Tunco y El Zonte — 24/7"
