@@ -494,6 +494,31 @@ const Index = () => {
         </div>
       </div>
 
+      {/* ===== MASSAGE ALOHA BANNER ===== */}
+      <section id="massage" className="py-10 md:py-14 bg-secondary">
+        <div className="container mx-auto px-5 md:px-4">
+          <div className="text-center mb-6 md:mb-8">
+            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">More from Josh</p>
+            <h2 className="font-heading font-extrabold text-2xl md:text-4xl text-secondary-foreground">Massage Aloha</h2>
+            <p className="text-secondary-foreground/70 text-base md:text-lg mt-3 max-w-xl mx-auto">
+              Unwind after the waves — professional massage at your place, on the beach, or by the waterfalls. Book via WhatsApp.
+            </p>
+          </div>
+          <a
+            href={whatsappLink("Hi Josh! I'd like to book a Massage Aloha session.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl ring-1 ring-yellow-500/40 hover:ring-yellow-400 transition-all duration-300"
+          >
+            <img
+              src={massageAlohaBannerImg}
+              alt="Massage Aloha — 30 minutes $39, 60 minutes $59, 90 minutes $75. Home, beach and waterfall service. WhatsApp 503 7536-2408"
+              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"
+            />
+          </a>
+        </div>
+      </section>
+
       {/* ===== REAL RIDERS · REAL STORIES ===== */}
       <section className="pt-3 pb-6 md:pb-8">
         <div className="container mx-auto px-5 md:px-4">
@@ -915,32 +940,6 @@ const Index = () => {
                 </svg>
               </div>
             </div>
-          </a>
-        </div>
-      </section>
-
-      {/* ===== MASSAGE ALOHA BANNER ===== */}
-      <section id="massage" className="py-14 md:py-20 bg-secondary">
-        <div className="container mx-auto px-5 md:px-4">
-          <div className="text-center mb-8 md:mb-10">
-            <p className="text-primary font-heading font-bold text-xs md:text-sm tracking-widest uppercase mb-2">More from Josh</p>
-            <h2 className="font-heading font-extrabold text-2xl md:text-4xl text-secondary-foreground">Massage Aloha</h2>
-            <p className="text-secondary-foreground/70 text-base md:text-lg mt-3 max-w-xl mx-auto">
-              Unwind after the waves — professional massage at your place, on the beach, or by the waterfalls. Book via WhatsApp.
-            </p>
-          </div>
-          <a
-            href={whatsappLink("Hi Josh! I'd like to book a Massage Aloha session.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl ring-1 ring-yellow-500/40 hover:ring-yellow-400 transition-all duration-300"
-          >
-            <img
-              src={massageAlohaBannerImg}
-              alt="Massage Aloha — 30 minutes $39, 60 minutes $59, 90 minutes $75. Home, beach and waterfall service. WhatsApp 503 7536-2408"
-              className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"
-              loading="lazy"
-            />
           </a>
         </div>
       </section>
